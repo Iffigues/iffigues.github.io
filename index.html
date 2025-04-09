@@ -3,24 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Compte à rebours bapteme</title>
-  <link rel="icon" type="image/png" href="fav.png">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      font-size: 2rem;
-      padding-top: 50px;
-    }
-  </style>
+  <link rel="icon" type="image/png" href="img/fav.png">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js"></script>
 </head>
 <body>
 
   <h1>Temps restant avant le BAPTEME :</h1>
   <div id="countdown"></div>
-  <img src="fav.png"> 
+  <img src="img/fav.png"> 
 
   <script>
-    const targetDate = new Date("2025-04-19T20:00:00");
+    const DateTime = luxon.DateTime;
+    const targetDate = DateTime.fromISO("2025-04-19T20:00:00", { zone: "Europe/Paris" });
 
     function updateCountdown() {
       const now = new Date();

@@ -1,27 +1,6 @@
-.header {
-    display: flex; /* Active Flexbox */
-    justify-content: space-between; /* Répartit l'espace entre les éléments */
-    align-items: center; /* Aligne les éléments verticalement au centre */
-    padding: 10px 20px;
-    background-color: #f0f0f0;
-  }
-  
-  .logo {
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-  
-  .nav a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: #333;
-  }
-  
-  .actions button {
-    margin: 0 5px;
-    padding: 8px 12px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-  }
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  font-size: 2rem;
+  padding-top: 50px;
+}
