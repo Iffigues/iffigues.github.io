@@ -2,7 +2,7 @@ body {
   font-family: Arial, sans-serif;
   text-align: center;
   font-size: 2rem;
-  background-image: url('img/river.png');
+  background-image: url('/img/river.png');
   background-size: contain;      /* ajuste sans couper, mais peut laisser des espaces */
 background-repeat: no-repeat;  /* empêche la répétition */
 background-position: center;   /* centre l’image */
