@@ -1,6 +1,11 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: home
+title: Bienvenue sur mon site
 ---
+
+# Hello 👋
+
+Bienvenue sur mon site Jekyll propulsé avec ❤️ depuis WSL !
+
+- 🎯 Projet : iffigues.github.io
+- 📦 Généré avec Jekyll
