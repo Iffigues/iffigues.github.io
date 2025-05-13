@@ -1,11 +1,8 @@
 ---
-layout: home
-title: Bienvenue sur mon site
+layout: default
+title: Accueil
 ---
 
-# Hello 👋
+# Bienvenue
 
-Bienvenue sur mon site Jekyll propulsé avec ❤️ depuis WSL !
-
-- 🎯 Projet : iffigues.github.io
-- 📦 Généré avec Jekyll
+Voici la page d’accueil de mon site personnalisé.
