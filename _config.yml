@@ -8,6 +8,7 @@ url: "https://iffigues.github.io"
 
 plugins:
   - jekyll-feed # facultatif
+  - jekyll-lunr-js-search
 
 exclude:
   - Gemfile
