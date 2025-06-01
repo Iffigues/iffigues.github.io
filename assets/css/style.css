@@ -40,3 +40,47 @@ main {
 .pdf-container {
   margin-top: 20px;
 }
+
+
+  .header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Pour s’adapter sur petits écrans */
+    gap: 1rem;
+    padding: 10px;
+
+  }
+
+  .header-bar img {
+    height: 50px;
+    border-radius: 5px;
+  }
+
+  .header-title a {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: black;
+  }
+
+  .main-nav, #accordion-menu {
+    display: flex;
+    gap: 1rem;
+  }
+
+  #accordion-toggle {
+    font-size: 1.2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  #accordion-menu {
+    display: none;
+    flex-direction: column;
+    margin-top: 0.5rem;
+  }
+
+  #accordion-menu.show {
+    display: flex;
+  }
