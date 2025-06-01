@@ -65,7 +65,7 @@ title: JO
     a: '{{ "/assets/data/jo/pdf/certOLY.pdf" | relative_url }}',
     b: '{{ "/assets/data/jo/pdf/certPARA.pdf" | relative_url }}',
     c: '{{ "/assets/data/jo/pdf/faitEn.pdf" | relative_url }}',
-    d: '{{ "/assets/data/jo/pdf/faitFr.pdf" | relative_url }}',
+    d: '{{ "/assets/data/jo/pdf/faitFR.pdf" | relative_url }}',
     e: '{{ "/assets/data/jo/pdf/mec.pdf" | relative_url }}'
   };
 
