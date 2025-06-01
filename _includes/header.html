@@ -5,5 +5,30 @@
     <a href="{{ '/Blog' | relative_url }}">Blog</a>
     <a href="{{ '/about' | relative_url }}">À propos</a>
   </nav>
+
+
+  
+  <!-- Bouton pour ouvrir l'accordéon -->
+  <button id="accordion-toggle" aria-expanded="false">☰ Menu</button>
+
+  <!-- Menu accordéon -->
+  <nav id="accordion-menu" style="display: none;">
+    <a href="{{ '/42' | relative_url }}">Parcour à l'école 42</a>
+    <a href="{{ '/JO' | relative_url }}">J'ai fait les jeux</a>
+    <a href="{{ '/Spirituel' | relative_url }}">Mon parcour de cathécumenes</a>
+  </nav>
+
+
+
+<script>
+  const toggleBtn = document.getElementById('accordion-toggle');
+  const menu = document.getElementById('accordion-menu');
+
+  toggleBtn.addEventListener('click', function () {
+    const isOpen = menu.style.display === 'block';
+    menu.style.display = isOpen ? 'none' : 'block';
+    toggleBtn.setAttribute('aria-expanded', !isOpen);
+  });
+</script>
 </header>
 
