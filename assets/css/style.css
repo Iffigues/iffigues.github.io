@@ -23,3 +23,20 @@ main {
   padding: 2rem;
 }
 
+#accordion-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+#accordion-menu a {
+  display: block;
+  padding: 5px 0;
+  text-decoration: none;
+}
+ 
+.pdf-container {
+  margin-top: 20px;
+}
