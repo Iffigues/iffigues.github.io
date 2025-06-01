@@ -143,7 +143,4 @@ title: JO
       renderPage(keyToShow);
     }
   }
-
-  // Affiche le premier PDF par défaut
-  document.addEventListener('DOMContentLoaded', () => showPDF('a'));
 </script>
