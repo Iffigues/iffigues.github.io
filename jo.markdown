@@ -1,6 +1,6 @@
 ---
 layout: default
-title: School 42
+title: JO
 ---
 
 # J'ai fait les Jeux
