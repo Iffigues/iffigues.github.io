@@ -120,3 +120,12 @@ title: School 42
   }
 </script>
 
+
+<script>
+  if (window.location.href.includes("42")) {
+    document.body.style.backgroundImage = "url('assets/data/42/img/bkgrnd.jpg')";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundRepeat = "no-repeat";
+  }
+</script>

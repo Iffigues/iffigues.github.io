@@ -144,3 +144,13 @@ title: JO
     }
   }
 </script>
+
+
+<script>
+  if (window.location.href.includes("jo")) {
+    document.body.style.backgroundImage = "url('assets/data/jo/img/bg.jpg')";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundRepeat = "no-repeat";
+  }
+</script>
