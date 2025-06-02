@@ -91,6 +91,28 @@ title: Accueil
     </div>
   </div>
 
+    <div class="section">
+    <h2>🧰 Expérience</h2>
+    <div class="skills">
+      <div class="card">
+        <h3>École 42</h3>
+        <p>Apprentissage intensif en autonomie sur les fondamentaux de la programmation (C, algorithmes, architecture UNIX...)</p>
+        <p><strong>Durée :</strong> Depuis 2023</p>
+      </div>
+      <div class="card">
+        <h3>Projet personnel : Visionneur PDF</h3>
+        <p>Développement d’un lecteur PDF dynamique avec navigation JS, intégré à un site Jekyll.</p>
+        <p><strong>Année :</strong> 2024</p>
+      </div>
+      <div class="card">
+        <h3>Participation : Jeux Olympiques (site)</h3>
+        <p>Création d’une page dédiée aux JO avec contenu interactif, textes et images.</p>
+        <p><strong>Année :</strong> 2024</p>
+      </div>
+    </div>
+  </div>
+
+
   <div class="section contact">
     <h2>📬 Contact</h2>
     <p>Tu peux me contacter via : <a href="mailto:monemail@example.com">monemail@example.com</a></p>
