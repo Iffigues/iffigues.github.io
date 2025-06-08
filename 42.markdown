@@ -4,10 +4,45 @@ title: School 42
 ---
 
 # école 42
-
 <div>
-  <button onclick="showPDF('a')">certLvL22</button>
-  <button onclick="showPDF('b')">certRNCP</button>
+  <button id="btn-parcours">Mon parcours</button>
+  <button id="btn-documents">Mes Documents</button>
+</div>
+
+
+<div id="comment">
+  <img src="{{ '/assets/data/42/img/bordenoy.jpg' | relative_url }}" alt="Voiture JO">
+  <div class="text">
+ <section id="parcours-42" class="parcours">
+  <h2>🎓 Mon Parcours à l’École 42</h2>
+
+  <p>
+    Mon aventure à 42 a commencé en <strong>septembre 2018</strong>, avec la fameuse <strong>piscine</strong> : un mois intensif de programmation, de travail en groupe, de nuits blanches, et de dépassement de soi. Cette expérience m’a permis de découvrir l’exigence, l'autonomie et l'esprit collaboratif propres à l’école.
+  </p>
+
+  <p>
+    À l’issue de cette piscine, j’ai été <strong>admis</strong> à 42 et j’ai officiellement intégré le cursus en <strong>décembre 2018</strong>. J’y ai suivi un parcours sans professeurs, où l’apprentissage se fait par projets, peer-to-peer learning, et auto-évaluation.
+  </p>
+
+  <p>
+    Durant ces années, j’ai développé des compétences solides en développement logiciel, en algorithmique, en gestion de projets et en architecture système. J’ai également participé à des rushs, des hackathons, et travaillé sur des projets en groupe comme en solo.
+  </p>
+
+  <p>
+    Après plusieurs années d'efforts, de progrès et de remises en question, j’ai obtenu mon <strong>diplôme de fin de cursus</strong> à 42 <strong>fin 2023</strong>.
+  </p>
+
+  <p>
+    Ce parcours m’a transformé tant sur le plan technique que personnel, en m’apprenant à apprendre, à persévérer, et à construire des solutions concrètes dans un environnement exigeant et stimulant.
+  </p>
+</section>
+
+</div>
+</div>
+<div id="pdf" style="display:none;">
+<div>
+  <button onclick="showPDF('a')">Certification LvL22</button>
+  <button onclick="showPDF('b')">Certificatio RNCP</button>
   <button onclick="showPDF('c')">cursus</button>
 </div>
 
@@ -37,8 +72,7 @@ title: School 42
     <button onclick="nextPage('c')">Suivant ▶️</button>
   </div>
 </div>
-
-
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
   const pdfFiles = {
@@ -127,5 +161,28 @@ title: School 42
     document.body.style.backgroundSize = "cover";
     document.body.style.backgroundPosition = "center";
     document.body.style.backgroundRepeat = "no-repeat";
+    
+   const navLinks = document.querySelectorAll("nav a");
+    navLinks.forEach(link => {
+      link.style.color = "white";
+    });
+    const accord = document.querySelectorAll("#accordion-toggle");
+    accord.forEach(link => {
+      link.style.color = "white";
+    });
   }
+
+</script>
+
+
+<script>
+  document.getElementById('btn-parcours').addEventListener('click', () => {
+    document.getElementById('comment').style.display = 'block';
+    document.getElementById('pdf').style.display = 'none';
+  });
+
+  document.getElementById('btn-documents').addEventListener('click', () => {
+    document.getElementById('pdf').style.display = 'block';
+    document.getElementById('comment').style.display = 'none';
+  });
 </script>

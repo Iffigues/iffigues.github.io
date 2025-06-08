@@ -112,10 +112,4 @@ title: Accueil
     </div>
   </div>
 
-
-  <div class="section contact">
-    <h2>📬 Contact</h2>
-    <p>Tu peux me contacter via : <a href="mailto:monemail@example.com">monemail@example.com</a></p>
-  </div>
-
 </div>
