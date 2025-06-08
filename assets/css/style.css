@@ -4,6 +4,14 @@ body {
   padding: 0;
 }
 
+footer {
+  display: flex;
+  justify-content: center; /* centré horizontalement */
+  align-items: center;     /* centré verticalement */
+  padding: 1rem;
+
+}
+
 header, footer {
   color: black;
   padding: 1rem;
@@ -32,6 +40,9 @@ main {
   display: block;
   padding: 5px 0;
   text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.3);
+    /* background: content-box; */
+    background-clip: content-box;
 }
  
 .pdf-container {
@@ -68,16 +79,66 @@ main {
   #accordion-toggle {
     font-size: 1.2rem;
     background: none;
+    
     border: none;
     cursor: pointer;
   }
 
   #accordion-menu {
     display: none;
-    flex-direction: column;
+    
     margin-top: 0.5rem;
   }
 
+ 
+  #low {
+    display: flex;
+  
+    flex-direction: column;
+    margin-top: 0.5rem;
+  }
+  
+
   #accordion-menu.show {
     display: flex;
+  }
+
+
+.section.contact form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  gap: 10px;
+}
+
+.section.contact input,
+.section.contact textarea {
+  padding: 8px;
+  font-size: 1rem;
+}
+
+.section.contact button {
+  padding: 10px;
+  background: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#comment {
+  display: flex;
+ 
+  align-items: center;
+  gap: 20px; /* espace entre image et texte */
+}
+
+#comment img {
+  width: 25%;
+  max-width: 200px;
+  height: auto;
+  }
+
+  #comment .text {
+    flex: 1;
+     background-color: aliceblue;
   }
