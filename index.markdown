@@ -3,7 +3,6 @@ layout: default
 title: Accueil
 ---
 
-
 <style>
   .portfolio {
     max-width: 900px;
@@ -91,7 +90,7 @@ title: Accueil
     </div>
   </div>
 
-    <div class="section">
+  <div class="section">
     <h2>🧰 Expérience</h2>
     <div class="skills">
       <div class="card">
@@ -108,6 +107,20 @@ title: Accueil
         <h3>Participation : Jeux Olympiques (site)</h3>
         <p>Création d’une page dédiée aux JO avec contenu interactif, textes et images.</p>
         <p><strong>Année :</strong> 2024</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🚗 Permis</h2>
+    <div class="skills">
+      <div class="card">
+        <h3>Permis B</h3>
+        <p>Permis de conduire voiture, obtenu en 2022.</p>
+      </div>
+      <div class="card">
+        <h3>Permis A2</h3>
+        <p>Permis moto, en cours d’obtention.</p>
       </div>
     </div>
   </div>
