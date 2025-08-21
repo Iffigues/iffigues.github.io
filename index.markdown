@@ -112,17 +112,16 @@ title: Accueil
   </div>
 
   <div class="section">
-    <h2>🚗 Permis</h2>
+    <h2> Permis</h2>
     <div class="skills">
       <div class="card">
-        <h3>Permis B</h3>
-        <p>Permis de conduire voiture, obtenu en 2022.</p>
+        <h3>Permis B 🚗</h3>
+        <p>Permis de conduire voiture.</p>
       </div>
       <div class="card">
-        <h3>Permis A2</h3>
-        <p>Permis moto, en cours d’obtention.</p>
+        <h3>Permis Bateau 🚤</h3>
+        <p>Permis Cotier.</p>
       </div>
     </div>
   </div>
-
 </div>
