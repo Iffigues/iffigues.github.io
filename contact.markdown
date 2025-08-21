@@ -13,17 +13,13 @@ title: Contact
 </style>
 
 <div class="portfolio">
-
-
  <div class="section contact">
   <h2>📬 Contact</h2>
   <form id="contact-form">
     <label for="pseudo">Pseudo :</label>
     <input type="text" id="pseudo" name="pseudo" required>
-
     <label for="message">Message :</label>
     <textarea id="message" name="message" rows="5" required></textarea>
-
     <button type="submit">Envoyer</button>
   </form>
   <p id="form-status"></p>
