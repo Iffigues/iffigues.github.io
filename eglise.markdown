@@ -1,6 +1,6 @@
 ---
 layout: default
-title: À propos
+title: eglise
 ---
 
 # À propos de moi
