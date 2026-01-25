@@ -1,6 +1,15 @@
+html, body {
+height: 100%;
+margin: 0;
+}
+.full-height {
+height: 100%;
+background: lightcoral;
+}
+
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
+
   padding: 0;
 }
 
