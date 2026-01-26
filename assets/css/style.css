@@ -151,3 +151,104 @@ main {
     flex: 1;
      background-color: aliceblue;
   }
+
+
+
+   .portfolio {
+    max-width: 900px;
+    margin: auto;
+    padding: 2rem;
+    font-family: sans-serif;
+  }
+
+  .intro {
+    text-align: center;
+  }
+
+  .intro img {
+    width: 150px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+  }
+
+  .section {
+    margin-top: 3rem;
+  }
+
+  .projects, .skills {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 1rem;
+    background: #fafafa;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+
+  .card img {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  .contact a {
+    color: #0077cc;
+    text-decoration: none;
+  }
+
+.main-nav {
+  display: flex;
+  justify-content: center; /* centre horizontalement */
+  gap: 20px;               /* espace entre les liens */
+}
+
+.main-nav {
+display: flex;
+justify-content: center;
+gap: 20px;
+}
+
+.header-bar {
+  display: flex;
+  align-items: center;      /* Aligne verticalement le bouton et les liens */
+  justify-content: center; /* Centre le contenu principal */
+  position: relative;       /* Nécessaire pour le placement du bouton */
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+/* 1. Le menu principal reste au centre du flux */
+.main-nav {
+  display: flex;
+  gap: 20px;
+}
+
+/* 2. On pousse le menu mobile tout à droite */
+#low {
+  position: absolute;
+  right: 20px;             /* Distance par rapport au bord droit */
+}
+
+/* 3. Style pour que l'accordéon s'aligne aussi à droite quand il s'ouvre */
+#accordion-menu {
+  display: none;
+  position: absolute;
+  top: 100%;               /* Juste en dessous du bouton */
+  right: 0;                /* Aligné sur le bord droit du bouton */
+  padding: 10px;
+  z-index: 100;
+  text-align: right;
+  min-width: 200px;
+  text-align: center;
+}
+
+#accordion-menu a {
+  display: block;
+  padding: 5px 0;
+  text-decoration: none;
+}
+
