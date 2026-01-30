@@ -166,9 +166,15 @@ main {
   }
 
   .intro img {
-    width: 150px;
-    border-radius: 10%;
-    margin-bottom: 1rem;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid #333;
+    box-shadow: 8px 8px 0px #0077b5;
+    transition: all 0.2s ease-in-out;
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0px #00a0dc;
   }
 
   .section {
