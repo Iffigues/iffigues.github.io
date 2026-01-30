@@ -1,6 +1,6 @@
 ---
 layout: none
-permalink: /eglise/
+permalink: /l
 ---
 
 <!DOCTYPE html>
