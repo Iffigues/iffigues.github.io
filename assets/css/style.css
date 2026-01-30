@@ -257,7 +257,7 @@ gap: 20px;
 }
 
 .skills .card img {
-  width: 100%;       /* L'image prend toute la largeur de la carte */
+  width: 90%;       /* L'image prend toute la largeur de la carte */
   height: 150px;     /* Définit une hauteur fixe identique pour toutes */
   object-fit: contain; /* Garde les proportions sans écraser le logo */
   padding: 10px;     /* Optionnel : évite que le logo touche les bords */
