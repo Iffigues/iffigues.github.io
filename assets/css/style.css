@@ -266,17 +266,3 @@ gap: 20px;
 }
 
 
-pdf-container {
-  width: 100%;
-  max-width: 900px; /* Ou la largeur max souhaitée */
-  margin: 0 auto;
-  overflow: hidden; /* Empêche le contenu de dépasser */
-  text-align: center;
-}
-
-canvas {
-  max-width: 100%;  /* Le canvas ne dépassera jamais son parent */
-  height: auto !important; /* Préserve le ratio d'aspect */
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-}
