@@ -75,8 +75,16 @@ développement en interne d'une plateforme de speech to text</p>
     <h2>📓 Parcour Académique</h2>
     <div class="skills">
       <div class="card">
+      <img src="{{ '/assets/data/42/img/42_logo.svg' | relative_url }}" alt="Photo de profil">
         <h3>École 42</h3>
         <p>Apprentissage intensif en autonomie sur les fondamentaux de la programmation (C, algorithmes, architecture UNIX...)</p>
+        <p><strong>Durée :</strong> Depuis 2023</p>
+      </div>
+
+      <div class="card">
+       <img src="{{ '/assets/data/prepetna/prep.webp' | relative_url }}" alt="Photo de prepetna">
+        <h3>Prep'Etna</h3>
+        <p>Deux an d'imertion dans différent language, surtout le c, php et javascript </p>
         <p><strong>Durée :</strong> Depuis 2023</p>
       </div>
 
