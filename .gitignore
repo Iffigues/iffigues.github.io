@@ -1,5 +1,29 @@
-_site
-.sass-cache
-.jekyll-cache
+# --- Fichiers générés par Jekyll ---
+# Le dossier _site est le résultat du build, il ne doit pas être versionné
+# car GitHub Pages le reconstruit automatiquement.
+_site/
+.sass-cache/
+.jekyll-cache/
 .jekyll-metadata
-vendor
+
+# --- Dépendances ---
+# Dossier des gemmes si tu les installes localement
+vendor/
+node_modules/
+.bundle/
+Gemfile.lock
+
+# --- Fichiers Système / OS ---
+.DS_Store
+Thumbs.db
+
+# --- Éditeurs de texte ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Divers ---
+# Si tu fais des tests de logs ou des dumps de base de données (ex: PG)
+*.log
+*.sql
