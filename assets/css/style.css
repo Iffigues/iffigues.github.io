@@ -167,7 +167,7 @@ main {
 
   .intro img {
     width: 150px;
-    border-radius: 50%;
+    border-radius: 10%;
     margin-bottom: 1rem;
   }
 
