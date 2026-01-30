@@ -42,6 +42,11 @@ title: Accueil
   <div class="section">
     <h2>🧰 Expérience</h2>
     <div class="skills">
+    <div class="card">
+        <h3>Chargé du développement et de la maintenance des applications dev - AFP</h3>
+        <p>maintenance du système vidéo de  l'afp</p>
+        <p>Python, linux,  windows, powershell, java</p>
+      </div>
       <div class="card">
         <h3>Full-stack Developer - Banque de France</h3>
         <p>développement en interne d'une plateforme de speech to text
