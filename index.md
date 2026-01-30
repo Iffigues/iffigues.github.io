@@ -75,7 +75,7 @@ développement en interne d'une plateforme de speech to text</p>
     <h2>📓 Parcour Académique</h2>
     <div class="skills">
       <div class="card">
-      <img src="{{ '/assets/data/42/img/42_logo.svg' | relative_url }}" alt="Photo de profil">
+      <img src="{{ '/assets/data/42/img/42_logo.svg' | relative_url }}" alt="Photo de profil" id="42logo">
         <h3>École 42</h3>
         <p>Apprentissage intensif en autonomie sur les fondamentaux de la programmation (C, algorithmes, architecture UNIX...)</p>
         <p><strong>Durée :</strong> Depuis 2023</p>
