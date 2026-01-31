@@ -1,0 +1,134 @@
+html, body {
+height: 100%;
+margin: 0;
+}
+.full-height {
+height: 100%;
+background: lightcoral;
+}
+
+body {
+  font-family: Arial, sans-serif;
+
+  padding: 0;
+}
+
+footer {
+  display: flex;
+  justify-content: center; /* centré horizontalement */
+  align-items: center;     /* centré verticalement */
+  padding: 1rem;
+
+}
+
+header, footer {
+  color: black;
+  padding: 1rem;
+  text-align: center;
+}
+
+#accordion-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+#accordion-menu a {
+  display: block;
+  padding: 5px 0;
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.3);
+    /* background: content-box; */
+    background-clip: content-box;
+}
+
+
+ .header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Pour s’adapter sur petits écrans */
+    gap: 1rem;
+    padding: 10px;
+
+  }
+
+  .header-bar img {
+    height: 50px;
+    border-radius: 5px;
+  }
+
+  .header-title a {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: black;
+  }
+
+  .main-nav, #accordion-menu {
+    display: flex;
+    gap: 1rem;
+  }
+
+  #accordion-toggle {
+    font-size: 1.2rem;
+    background: none;
+    
+    border: none;
+    cursor: pointer;
+  }
+
+  #accordion-menu {
+    display: none;
+    
+    margin-top: 0.5rem;
+  }
+
+
+#accordion-menu.show {
+  display: flex;
+}
+
+
+/* 3. Style pour que l'accordéon s'aligne aussi à droite quand il s'ouvre */
+#accordion-menu {
+  display: none;
+  position: absolute;
+  top: 100%;               /* Juste en dessous du bouton */
+  right: 0;                /* Aligné sur le bord droit du bouton */
+  padding: 10px;
+  z-index: 100;
+  text-align: right;
+  min-width: 200px;
+  text-align: center;
+}
+
+#accordion-menu a {
+  display: block;
+  padding: 5px 0;
+  text-decoration: none;
+}
+
+
+.main-nav {
+  display: flex;
+  justify-content: center; /* centre horizontalement */
+  gap: 20px;               /* espace entre les liens */
+}
+
+.main-nav {
+display: flex;
+justify-content: center;
+gap: 20px;
+}
+
+.header-bar {
+  display: flex;
+  align-items: center;      /* Aligne verticalement le bouton et les liens */
+  justify-content: center; /* Centre le contenu principal */
+  position: relative;       /* Nécessaire pour le placement du bouton */
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}

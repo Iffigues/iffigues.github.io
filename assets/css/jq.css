@@ -1,0 +1,10 @@
+/* Surcharge les couleurs du Header/Menu pour le mode sombre */
+body.dark-theme { background: #000; color: #fff; }
+
+.dark-theme header { background: transparent; }
+.dark-theme .main-nav a, 
+.dark-theme #accordion-toggle, 
+.dark-theme #accordion-menu a { color: #fff !important; }
+
+.dark-theme #accordion-menu { background: rgba(0, 0, 0, 0.9); }
+.dark-theme #logo42 { background-color: black; }

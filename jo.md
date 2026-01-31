@@ -2,7 +2,8 @@
 layout: default
 title: JO
 ---
-
+<link rel="stylesheet" href="{{ '/assets/css/theme-dark.css' | relative_url }}">
+<script>document.body.classList.add('dark-theme');</script>
 <div class="page-jo-wrapper">
     <header class="section-header">
         <h1>Paris 2024 : <span class="highlight">Volontaire</span></h1>
