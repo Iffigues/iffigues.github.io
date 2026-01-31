@@ -1,5 +1,16 @@
-<footer>
-  <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}</p>
-  <p>&copy;<a href="{{ '/contact' | relative_url }}">Contact</a></p>
+<<footer>
+  <div class="footer-content">
+    <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}</p>
+    
+    <nav class="footer-links">
+      <a href="https://www.linkedin.com/in/boris-denoyelle" target="_blank" rel="noopener">
+        <span>LinkedIn</span>
+      </a>
+      <a href="https://github.com/iffigues" target="_blank" rel="noopener">
+        <span>GitHub</span>
+      </a>
+      <a href="{{ '/contact' | relative_url }}">Contact</a>
+    </nav>
+  </div>
 </footer>
 

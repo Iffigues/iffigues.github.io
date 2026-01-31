@@ -8,3 +8,37 @@ body.dark-theme { background: #000; color: #fff; }
 
 .dark-theme #accordion-menu { background: rgba(0, 0, 0, 0.9); }
 .dark-theme #logo42 { background-color: black; }
+
+
+.btn-download:hover {
+  background-color: #005a8a;
+}
+
+.pdf-container canvas {
+  max-width: 100%;
+  height: auto !important; /* Pour éviter les déformations */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.pdf-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.btn-download {
+  background-color: #0077b5; /* Bleu pro */
+  color: white !important;
+  padding: 5px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: background 0.3s;
+}

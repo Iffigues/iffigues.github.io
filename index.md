@@ -31,11 +31,11 @@ title: Accueil
     <h2>💻 Compétences</h2>
     <div class="skills">
       <div class="card">HTML / CSS</div>
-      <div class="card">JavaScript / PDF.js</div>
-      <div class="card">Jekyll / Liquid</div>
       <div class="card">Git / GitHub</div>
       <div class="card">Linux / Terminal</div>
       <div class="card">C / Shell / École 42</div>
+      <div class="card">Golang</div>
+      <div class="card">php</div>
     </div>
   </div>
 

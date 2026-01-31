@@ -1,0 +1,75 @@
+footer {
+  padding: 2rem 1rem;
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+  margin-top: 3rem;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #555;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Couleurs au survol */
+.footer-links a:hover {
+  color: #0077b5; /* Bleu LinkedIn par défaut au survol */
+}
+
+/* On peut même être précis si tu veux */
+.footer-links a[href*="github"]:hover {
+  color: #24292e;
+}footer {
+  padding: 2rem 1rem;
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+  margin-top: 3rem;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #555;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Couleurs au survol */
+.footer-links a:hover {
+  color: #0077b5; /* Bleu LinkedIn par défaut au survol */
+}
+
+/* On peut même être précis si tu veux */
+.footer-links a[href*="github"]:hover {
+  color: #24292e;
+}
