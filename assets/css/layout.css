@@ -73,3 +73,68 @@ footer {
 .footer-links a[href*="github"]:hover {
   color: #24292e;
 }
+
+
+/* --- NAVIGATION PRINCIPALE --- */
+.main-nav {
+  display: flex;
+  gap: 30px; /* Plus d'espace pour respirer */
+  align-items: center;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 1.1rem;
+  position: relative; /* Nécessaire pour l'animation de la barre */
+  padding: 5px 0;
+  transition: color 0.3s ease;
+}
+
+/* Effet de la barre qui se dessine sous le lien */
+.main-nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #0077b5; /* Couleur d'accent (ex: bleu LinkedIn) */
+  transition: width 0.3s ease;
+}
+
+.main-nav a:hover {
+  color: #0077b5;
+}
+
+.main-nav a:hover::after {
+  width: 100%; /* La barre s'étire sur toute la largeur au survol */
+}
+
+/* --- AJUSTEMENT POUR LE MOBILE --- */
+@media (max-width: 600px) {
+  .main-nav {
+    gap: 15px;
+  }
+  .main-nav a {
+    font-size: 0.9rem;
+  }
+}
+#accordion-toggle {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 8px 15px;
+  border-radius: 20px; /* Bord arrondi style "pilule" */
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+#accordion-toggle:hover {
+  background: #333;
+  color: #fff;
+  border-color: #333;
+}
+
+
+
