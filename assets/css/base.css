@@ -132,3 +132,32 @@ gap: 20px;
   padding: 10px 20px;
   box-sizing: border-box;
 }
+
+
+/* --- CONFIGURATION DU BODY --- */
+html, body {
+  height: 100%; /* Important : permet de calculer la hauteur réelle */
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column; /* Aligne Header, Main et Footer verticalement */
+  min-height: 100vh;      /* Force le body à faire au moins la taille de l'écran */
+  font-family: Arial, sans-serif;
+}
+
+/* --- LE SECRET EST ICI --- */
+main {
+  flex: 1; /* Dit au contenu principal de prendre tout l'espace disponible */
+  padding: 2rem;
+}
+
+/* --- FOOTER --- */
+footer {
+  flex-shrink: 0; /* Empêche le footer de s'écraser */
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  text-align: center;
+  border-top: 1px solid #eee;
+}
