@@ -134,23 +134,7 @@ main {
   cursor: pointer;
 }
 
-#comment {
-  display: flex;
- 
-  align-items: center;
-  gap: 20px; /* espace entre image et texte */
-}
 
-#comment img {
-  width: 25%;
-  max-width: 200px;
-  height: auto;
-  }
-
-  #comment .text {
-    flex: 1;
-     background-color: aliceblue;
-  }
 
 
 
