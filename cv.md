@@ -8,6 +8,7 @@ title: CV
 <div>
   <button onclick="prevPage('a')">◀️ Précédent</button>
   <span id="page-num-a"></span> / <span id="page-count-a"></span>
+  <a id="download-c" href="{{ '/assets/data/personnelle/pdf/Profile.pdf' | relative_url }}" download class="btn-download">💾 Télécharger</a>
   <button onclick="nextPage('a')">Suivant ▶️</button>
 </div>
 </div>

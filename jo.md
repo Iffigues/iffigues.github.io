@@ -47,6 +47,7 @@ title: JO
 <div>
   <button onclick="prevPage('a')">◀️ Précédent</button>
   <span id="page-num-a"></span> / <span id="page-count-a"></span>
+  <a id="download-c" href="{{ '/assets/data/jo/pdf/certOLY.pdf' | relative_url }}" download class="btn-download">💾 Télécharger</a>
   <button onclick="nextPage('a')">Suivant ▶️</button>
 </div>
 </div>
@@ -56,6 +57,7 @@ title: JO
 <div>
   <button onclick="prevPage('b')">◀️ Précédent</button>
   <span id="page-num-b"></span> / <span id="page-count-b"></span>
+  <a id="download-c" href="{{ '/assets/data/jo/pdf/certPARA.pdf' | relative_url }}" download class="btn-download">💾 Télécharger</a>
   <button onclick="nextPage('b')">Suivant ▶️</button>
 </div>
 </div>
@@ -65,6 +67,7 @@ title: JO
 <div>
   <button onclick="prevPage('c')">◀️ Précédent</button>
   <span id="page-num-c"></span> / <span id="page-count-c"></span>
+  <a id="download-c" href="{{ '/assets/data/jo/pdf/faitEn.pdf' | relative_url }}" download class="btn-download">💾 Télécharger</a> 
   <button onclick="nextPage('c')">Suivant ▶️</button>
 </div>
 </div>
@@ -74,6 +77,7 @@ title: JO
 <div>
   <button onclick="prevPage('d')">◀️ Précédent</button>
   <span id="page-num-d"></span> / <span id="page-count-d"></span>
+  <a id="download-c" href="{{ '/assets/data/jo/pdf/faitFR.pdf' | relative_url }}" download class="btn-download">💾 Télécharger</a>
   <button onclick="nextPage('d')">Suivant ▶️</button>
 </div>
 </div>
@@ -83,6 +87,7 @@ title: JO
 <div>
   <button onclick="prevPage('e')">◀️ Précédent</button>
   <span id="page-num-e"></span> / <span id="page-count-e"></span>
+  <a id="download-c" href="{{ '/assets/data/jo/pdf/mec.pdf' | relative_url }}" download class="btn-download">💾 Télécharger</a>
   <button onclick="nextPage('e')">Suivant ▶️</button>
 </div>
 </div>
