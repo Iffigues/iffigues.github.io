@@ -8,7 +8,7 @@ url: "https://iffigues.github.io"
 
 plugins:
   - jekyll-feed # facultatif
-
+excerpt_separator: ""
 exclude:
   - Gemfile
   - Gemfile.lock
