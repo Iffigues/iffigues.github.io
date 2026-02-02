@@ -138,3 +138,75 @@ footer {
 
 
 
+
+
+
+
+
+
+
+
+#low {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  max-width: 300px; /* À ajuster selon tes besoins */
+  margin: 20px;
+}
+
+/* Le Bouton */
+#accordion-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #1a1a1a;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  width: 100%;
+  text-align: left;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+#accordion-toggle:hover {
+  background-color: #333;
+}
+
+/* Le Menu (Caché par défaut) */
+#accordion-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #f9f9f9;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Quand le menu est ouvert */
+#accordion-toggle[aria-expanded="true"] + #accordion-menu {
+  max-height: 500px; /* Une valeur assez grande */
+}
+
+/* Les Liens */
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+#accordion-menu a {
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #444;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+
+#accordion-menu a:hover {
+  background-color: #eee;
+  color: #000;
+  border-left: 3px solid #000; /* Petit trait de rappel */
+  padding-left: 25px; /* Effet de décalage au survol */
+}

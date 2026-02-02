@@ -9,18 +9,21 @@
     </nav>
 
     <!-- Menu mobile -->
-    <div id="low">
-      <button id="accordion-toggle" aria-expanded="false">☰ Menu</button>
-      <nav id="accordion-menu">
-        <a href="{{ '/42' | relative_url }}">Parcours à l'école 42</a>
-        <a href="{{ '/jo' | relative_url }}">J'ai fait les jeux</a>
-        <a href="{{ '/eglise' | relative_url }}">Mon parcours de catéchumène</a>
-        <a href="{{ '/cv' | relative_url }}">CV</a>
-        <a href="{{ '/daily' | relative_url }}">Daily</a>
-      </nav>
+<div id="low">
+  <button id="accordion-toggle" aria-expanded="false">
+    <span class="icon">☰</span>
+    <span class="text">Menu</span>
+  </button>
+  <nav id="accordion-menu">
+    <div class="menu-content">
+      <a href="{{ '/42' | relative_url }}">Parcours à l'école 42</a>
+      <a href="{{ '/jo' | relative_url }}">J'ai fait les jeux</a>
+      <a href="{{ '/eglise' | relative_url }}">Mon parcours de catéchumène</a>
+      <a href="{{ '/cv' | relative_url }}">Mon CV</a>
+      <a href="{{ '/daily' | relative_url }}">Daily</a>
     </div>
-
-  </div>
+  </nav>
+</div>
 
   <script>
     const toggleBtn = document.getElementById('accordion-toggle');
