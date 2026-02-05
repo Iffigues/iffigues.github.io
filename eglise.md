@@ -127,7 +127,6 @@ title: eglise
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  width: 90vw;
   max-width: 1200px;
 }
 
