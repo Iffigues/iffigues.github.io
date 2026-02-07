@@ -52,6 +52,16 @@ title: eglise
         allowfullscreen>
       </iframe>
     </div>
+    <h3>📽️ La bougie du baptême </h3>
+    <div class="video-container">
+      <iframe
+        src="https://www.youtube.com/embed/hiWxM_m9RAI?si=Mosq370D1WKuAvQn"
+        title="Vidéo de la messe"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
   </div>
 
 </section>
