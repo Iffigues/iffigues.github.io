@@ -137,6 +137,56 @@ footer {
 }
 
 
+/* On s'assure que le parent est la référence pour le placement */
+#low {
+  display: inline-block; /* Garde le bouton à sa place naturelle */
+}
+
+/* Style du bouton (on garde ton style actuel) */
+#accordion-toggle {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Le menu : position absolute pour ne pas décaler le reste du site */
+#accordion-menu {
+  display: none; 
+  position: absolute;
+  top: 110%;      /* Apparaît juste en dessous */
+  right: 0;        /* Aligné à droite du bouton */
+  background: #fff;
+  min-width: 230px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  z-index: 1000;
+  border: 1px solid #eee;
+  padding: 5px 0;
+}
+
+/* Classe de bascule */
+#accordion-menu.show {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style des liens */
+#accordion-menu a {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #f9f9f9;
+}
+
+#accordion-menu a:hover {
+  background: #f4f4f4;
+  color: #0077b5;
+}
+
 
 
 
