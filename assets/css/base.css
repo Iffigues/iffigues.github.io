@@ -35,14 +35,7 @@ header, footer {
   margin: 10px 0;
 }
 
-#accordion-menu a {
-  display: block;
-  padding: 5px 0;
-  text-decoration: none;
-  background-color: rgba(0, 0, 0, 0.3);
-    /* background: content-box; */
-    background-clip: content-box;
-}
+
 
 
  .header-bar {
