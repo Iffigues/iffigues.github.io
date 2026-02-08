@@ -40,6 +40,9 @@ title: eglise
   </div>
 
   <!-- Vidéo -->
+  <!-- https://geo.dailymotion.com/player.html?video=x9zewlw -->
+  <!-- https://www.youtube.com/embed/dTdJ73QXIow -->
+   <!-- https://www.youtube.com/embed/hiWxM_m9RAI?si=Mosq370D1WKuAvQn -->
   <div class="story-video">
     <h3>📽️ La célébration : Messe de baptême</h3>
 
