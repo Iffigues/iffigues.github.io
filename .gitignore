@@ -5,7 +5,9 @@ _site/
 .sass-cache/
 .jekyll-cache/
 .jekyll-metadata
-
+goserver/mess.exe
+goserver/go.mod
+goserver/mess
 # --- Dépendances ---
 # Dossier des gemmes si tu les installes localement
 vendor/
