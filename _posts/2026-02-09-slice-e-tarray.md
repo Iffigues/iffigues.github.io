@@ -5,7 +5,7 @@ date: 2026-02-09 17:08:37 +0000
 categories: jekyll update
 ---
 
-<p>En Go, la différence entre un <strong>array</strong> et un <strong>slice</strong> est fondamentale. Pour un développeur senior, comprendre ce qui se passe sous le capot est essentiel pour éviter les fuites de mémoire et les effets de bord inattendus.</p>
+<p>En Go, la différence entre un <strong>array</strong> et un <strong>slice</strong> est fondamentale. comprendre ce qui se passe sous le capot est essentiel pour éviter les fuites de mémoire et les effets de bord inattendus.</p>
 
 <hr>
 
