@@ -116,7 +116,7 @@ title: Contact
     const base64Content = btoa(unescape(encodeURIComponent(JSON.stringify(fileData, null, 2))));
 
     try {
-      const response = await fetch(`https://api.github.com/repos/${REPO_DESTINATION}/contents/messages/${filename}`, {
+      const response = await fetch(`https://api.github.com/repos/${REPO_DESTINATION}/contents/${filename}`, {
         method: 'PUT',
         headers: {
           'Authorization': `token ${GITHUB_TOKEN}`,
