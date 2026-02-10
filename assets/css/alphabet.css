@@ -35,3 +35,40 @@ table tbody tr:hover {
     overflow-x: auto;
   }
 }
+
+
+h3 {
+  margin-top: 3rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #0077b5;
+  color: #24292e;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+table strong {
+  color: #0077b5; /* Met les noms phonétiques en bleu */
+}
+
+/* Coloration spécifique pour les signaux d'urgence */
+table td:contains("MAYDAY") {
+  color: #d73a49; /* Rouge */
+  font-weight: bold;
+}
+
+table td:contains("PAN-PAN") {
+  color: #f66a0a; /* Orange */
+  font-weight: bold;
+}
+
+table td:contains("SÉCURITÉ") {
+  color: #0077b5; /* Bleu */
+  font-weight: bold;
+}
+
+/* Style pour les cellules contenant du Morse */
+table td:nth-child(2) {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #24292e;
+}
