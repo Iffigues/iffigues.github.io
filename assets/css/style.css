@@ -15,6 +15,9 @@ body {
     font-family: 'Poppins', sans-serif;
     text-align: center;
 }
+#river {
+    background-image: url('/assets/eglise/img/river.png');
+}
 
 h1 {
     font-family: 'Playfair Display', serif;
