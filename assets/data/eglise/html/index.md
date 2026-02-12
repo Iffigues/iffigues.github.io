@@ -13,28 +13,62 @@ permalink: /l
   <img src="{{ '/assets/data/eglise/img/fav.png' | relative_url }}"> 
   </div>
   <script>
-    const DateTime = luxon.DateTime;
-    const targetDate = DateTime.fromISO("2075-04-19T20:00:00", { zone: "Europe/Paris" });
+const DateTime = luxon.DateTime;
 
-    function updateCountdown() {
-      const now = new Date();
-      const diff = targetDate - now;
+// Fonction pour calculer la date de Pâques (Algorithme de Meeus/Jones/Butcher)
+function getEasterSunday(year) {
+    const a = year % 19;
+    const b = Math.floor(year / 100);
+    const c = year % 100;
+    const d = Math.floor(b / 4);
+    const e = b % 4;
+    const f = Math.floor((b + 8) / 25);
+    const g = Math.floor((b - f + 1) / 3);
+    const h = (19 * a + b - d - g + 15) % 30;
+    const i = Math.floor(c / 4);
+    const k = c % 4;
+    const l = (32 + 2 * e + 2 * i - h - k) % 7;
+    const m = Math.floor((a + 11 * h + 22 * l) / 451);
+    const month = Math.floor((h + l - 7 * m + 114) / 31);
+    const day = ((h + l - 7 * m + 114) % 31) + 1;
+    
+    // Le baptême a lieu le samedi soir (Vigile Pascale), donc Pâques - 1 jour
+    return DateTime.fromObject({ year, month, day, hour: 20 }, { zone: "Europe/Paris" }).minus({ days: 1 });
+}
 
-      if (diff <= 0) {
-        document.getElementById("countdown").innerHTML = "🎉 Bon Renouveau!";
-        clearInterval(timer);
+function getNextBaptismDate() {
+    const now = DateTime.now().setZone("Europe/Paris");
+    let target = getEasterSunday(now.year);
+
+    // Si la date du baptême de cette année est déjà passée, on prend celle de l'année prochaine
+    if (now > target) {
+        target = getEasterSunday(now.year + 1);
+    }
+    return target;
+}
+
+let targetDate = getNextBaptismDate();
+
+function updateCountdown() {
+    const now = DateTime.now().setZone("Europe/Paris");
+    const diff = targetDate.diff(now, ['days', 'hours', 'minutes', 'seconds']).toObject();
+
+    if (targetDate.diff(now).milliseconds <= 0) {
+        document.getElementById("countdown").innerHTML = "🎉 Bon Renouveau !";
+        // On recalcule la date pour l'année suivante après un petit délai
+        setTimeout(() => { targetDate = getNextBaptismDate(); }, 5000);
         return;
-      }
-
-      const seconds = Math.floor(diff / 1000) % 60;
-      const minutes = Math.floor(diff / (1000 * 60)) % 60;
-      const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-      document.getElementById("countdown").innerHTML =
-        `${days}j ${hours}h ${minutes}m ${seconds}s`;
     }
 
-    updateCountdown(); 
-    const timer = setInterval(updateCountdown, 1000);
+    // Formatage de l'affichage
+    const d = Math.floor(diff.days);
+    const h = Math.floor(diff.hours);
+    const m = Math.floor(diff.minutes);
+    const s = Math.floor(diff.seconds);
+
+    document.getElementById("countdown").innerHTML = `${d}j ${h}h ${m}m ${s}s`;
+}
+
+updateCountdown();
+const timer = setInterval(updateCountdown, 1000);
   </script>
