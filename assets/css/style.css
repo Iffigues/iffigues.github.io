@@ -1,0 +1,60 @@
+/* Importation d'une police élégante */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #fcfaf7; /* Un blanc cassé doux */
+    color: #4a4a4a;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: #b8926a; /* Couleur dorée/sable */
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#countdown {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #333;
+    background: #ffffff;
+    padding: 20px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    margin: 20px 0;
+    display: inline-block;
+}
+
+img {
+    max-width: 120px;
+    margin-top: 30px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+img:hover {
+    opacity: 1;
+}
+
+/* Version mobile */
+@media (max-width: 600px) {
+    #countdown {
+        font-size: 2rem;
+        padding: 15px 20px;
+    }
+    h1 {
+        font-size: 1.4rem;
+        padding: 0 10px;
+    }
+}
