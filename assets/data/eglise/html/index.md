@@ -5,14 +5,14 @@ permalink: /l
 
 
 <title>Compte à rebours bapteme</title>
-  <link rel="icon" type="image/png" href="/assets/img/fav.png">
-  <link rel="stylesheet" href="/css/style.css">
-  <script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js"></script>
+<link rel="icon" type="image/png" href="/assets/img/fav.png">
+<link rel="stylesheet" href="/css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js"></script>
 
 
-  <h1>Temps restant avant le BAPTEME :</h1>
-  <div><h1 id="countdown"></h1></div>
-  <img src="{{ '/assets/data/eglise/img/fav.png' | relative_url }}"> 
+<h1>Temps restant avant le BAPTEME :</h1>
+<div><h1 id="countdown"></h1></div>
+<img src="{{ '/assets/data/eglise/img/fav.png' | relative_url }}"> 
 
   <script>
     const DateTime = luxon.DateTime;
