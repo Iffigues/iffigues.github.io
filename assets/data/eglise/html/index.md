@@ -3,7 +3,6 @@ layout: none
 permalink: /l
 ---
 
-<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -46,4 +45,3 @@ permalink: /l
   </script>
 
 </body>
-</html>
