@@ -3,16 +3,12 @@ layout: none
 permalink: /l
 ---
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Compte à rebours bapteme</title>
+
+<title>Compte à rebours bapteme</title>
   <link rel="icon" type="image/png" href="/img/fav.png">
   <link rel="stylesheet" href="/css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js"></script>
-</head>
-<body>
+
 
   <h1>Temps restant avant le BAPTEME :</h1>
   <div><h1 id="countdown"></h1></div>
@@ -45,5 +41,3 @@ permalink: /l
     const timer = setInterval(updateCountdown, 1000);
   </script>
 
-</body>
-</html>
