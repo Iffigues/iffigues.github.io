@@ -17,6 +17,13 @@ body {
 }
 #river {
     background-image: url('/assets/eglise/img/river.png');
+    margin: 0;
+  min-height: 100vh;
+  background-image: url('votre-image.jpg');
+  background-size: cover;      /* L'image remplit tout l'espace sans se déformer */
+  background-position: center; /* L'image reste centrée */
+  background-repeat: no-repeat;/* Évite que l'image ne se répète */
+  background-attachment: fixed;/* Optionnel : l'image reste fixe au scroll */
 }
 
 h1 {
