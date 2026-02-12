@@ -5,7 +5,7 @@ permalink: /l
 
 
 <title>Compte à rebours bapteme</title>
-  <link rel="icon" type="image/png" href="/img/fav.png">
+  <link rel="icon" type="image/png" href="/assets/img/fav.png">
   <link rel="stylesheet" href="/css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js"></script>
 
