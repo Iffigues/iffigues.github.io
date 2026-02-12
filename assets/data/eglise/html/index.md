@@ -16,7 +16,7 @@ permalink: /l
 
   <script>
     const DateTime = luxon.DateTime;
-    const targetDate = DateTime.fromISO("2025-04-19T20:00:00", { zone: "Europe/Paris" });
+    const targetDate = DateTime.fromISO("2027-04-19T20:00:00", { zone: "Europe/Paris" });
 
     function updateCountdown() {
       const now = new Date();
