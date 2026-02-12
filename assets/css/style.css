@@ -10,7 +10,7 @@ body {
     justify-content: center;
     min-height: 100vh;
     background-color: #fcfaf7; /* Un blanc cassé doux */
-    background-image: url('/assets/eglise/img/river.png');
+    background-image: url('/assets/data/eglise/img/river.png');
     color: #4a4a4a;
     font-family: 'Poppins', sans-serif;
     text-align: center;
