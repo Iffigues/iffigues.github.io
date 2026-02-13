@@ -42,5 +42,3 @@ Voici le résultat final. Ce timer calcule en temps réel le temps qu'il reste a
 Ce petit bout de code est plus qu'un simple gadget. C'est un rappel quotidien de mon engagement et de la fête de la Résurrection qui approche. Chaque seconde qui défile me rapproche un peu plus de cette nuit de lumière.
 
 > "Le baptême est le sacrement de la foi." (Saint Augustin)
-
-*Prochaines étapes : Continuer les scrutins pendant le Carême et préparer ma tenue pour la cérémonie !*
