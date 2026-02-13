@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "slice e tarray"
+title: "slice and tarray"
 date: 2026-02-09 17:08:37 +0000
 categories: jekyll update
 ---
