@@ -5,12 +5,6 @@ date: 2026-02-13 11:01:26 +0000
 categories: jekyll update
 ---
 
----
-layout: post
-title: "Créer un timer intelligent pour mon baptême"
-date: 2026-02-13 11:01:26 +0000
-categories: jekyll update
----
 
 Le cheminement vers le baptême est une aventure spirituelle, mais c'est aussi une attente impatiente ! Pour marquer les jours qui me séparent de la **Vigile Pascale**, j'ai décidé de créer un compte à rebours personnalisé sur mon site.
 
