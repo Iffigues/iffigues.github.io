@@ -25,7 +25,7 @@ Désormais, le script :
 
 ## Le Compte à Rebours en direct
 
-Voici le résultat final. Ce timer calcule en temps réel le temps qu'il me reste avant de recevoir les sacrements :
+Voici le résultat final. Ce timer calcule en temps réel le temps qu'il reste avant de recevoir les sacrements :
 
 <iframe 
     src="/l" 
