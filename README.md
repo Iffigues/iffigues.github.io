@@ -23,6 +23,18 @@ Le site est conçu pour être léger, rapide et optimisé pour le référencemen
   - `jekyll-seo-tag` : Optimisation automatique des meta-données SEO et Open Graph.
 - **Style :** CSS personnalisé (adapté aux mobiles et respectant les standards de lisibilité).
 
+## 🗺️ Contenu du site
+
+Le site est organisé autour de plusieurs axes thématiques :
+
+- **🏠 Accueil :** Présentation générale et actualités de mon parcours.
+- **⚓ Alphabet Maritime :** Référence sur l'alphabet phonétique, les pavillons et les procédures radio.
+- **📟 Code Morse & Urgence :** Table de traduction Morse et protocoles Mayday/Pan-Pan.
+- **💻 Projets 42 :** Galerie de mes projets de programmation (C, C++, Système).
+- **🏅 Engagements Personnels :** - **Volontaire JO Paris 2024 :** Mon expérience au cœur de l'organisation des Jeux Olympiques.
+    - **Cheminement Spirituel :** Présentation de mon parcours de catéchumène (mon témoignage et mon engagement).
+- **📂 CV / Parcours :** Mon expérience et mes compétences techniques.
+
 ## ⚓ Page Spéciale : Alphabet Maritime
 
 L'une des sections phares de ce site est la page dédiée aux **transmissions maritimes**. Elle regroupe :
