@@ -1,2 +1,63 @@
-# iffigues.github.io
-my web portofolio
+# ⛵ iffigues.github.io
+
+Bienvenue sur le dépôt de mon portfolio personnel, hébergé via **GitHub Pages** et propulsé par **Jekyll**.
+
+Ce site me sert de vitrine pour mes projets réalisés au sein de l'école **42** et regroupe également des ressources techniques et thématiques qui me passionnent, notamment les télécommunications maritimes.
+
+---
+
+## 🚀 À propos du site
+
+Le site est conçu pour être léger, rapide et optimisé pour le référencement (SEO). Il s'articule autour de plusieurs sections :
+
+- **Portfolio :** Présentation de mes projets de programmation (C, C++, etc.).
+- **Ressources Maritimes :** Un guide complet sur l'alphabet phonétique international, le code Morse et les signaux de détresse.
+- **Parcours :** Mon évolution au sein du cursus de l'école 42.
+
+## 🛠️ Stack Technique
+
+- **Moteur de site statique :** [Jekyll](https://jekyllrb.com/)
+- **Hébergement :** [GitHub Pages](https://pages.github.com/)
+- **Plugins installés :**
+  - `jekyll-sitemap` : Génération automatique du plan du site pour Google.
+  - `jekyll-seo-tag` : Optimisation automatique des meta-données SEO et Open Graph.
+- **Style :** CSS personnalisé (adapté aux mobiles et respectant les standards de lisibilité).
+
+## ⚓ Page Spéciale : Alphabet Maritime
+
+L'une des sections phares de ce site est la page dédiée aux **transmissions maritimes**. Elle regroupe :
+- L'alphabet phonétique (Alpha, Bravo, Charlie...).
+- Les codes Morse correspondants.
+- Les signaux d'urgence universels (Mayday, Pan-Pan, Sécurité).
+
+> *Consulter la page : [iffigues.github.io/alphabet](https://iffigues.github.io/alphabet)*
+
+## 🛠️ Installation en local
+
+Si vous souhaitez cloner ce projet et le faire tourner sur votre machine :
+
+1.  **Cloner le dépôt :**
+    ```bash
+    git clone [https://github.com/Iffigues/iffigues.github.io.git](https://github.com/Iffigues/iffigues.github.io.git)
+    cd iffigues.github.io
+    ```
+
+2.  **Installer les dépendances :**
+    *(Nécessite Ruby et Bundler)*
+    ```bash
+    bundle install
+    ```
+
+3.  **Lancer le serveur Jekyll :**
+    ```bash
+    bundle exec jekyll serve
+    ```
+    Le site sera accessible sur `http://localhost:4000`.
+
+## 📬 Contact
+
+- **GitHub :** [@iffigues](https://github.com/iffigues)
+- **LinkedIn :** [Ton Nom](https://www.linkedin.com/in/ton-profil)
+
+---
+*Fait avec ❤️ par un étudiant de l'école 42.*
