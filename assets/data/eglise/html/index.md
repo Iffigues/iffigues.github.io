@@ -1,6 +1,6 @@
 ---
 layout: none
-permalink: /l
+permalink: /bapteme-timer
 ---
 
   <title>Compte à rebours bapteme</title>

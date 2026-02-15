@@ -28,7 +28,7 @@ Désormais, le script :
 Voici le résultat final. Ce timer calcule en temps réel le temps qu'il reste avant de recevoir les sacrements :
 
 <iframe 
-    src="/l" 
+    src="/bapteme-timer" 
     width="100%" 
     height="300px" 
     frameborder="0" 
