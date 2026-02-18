@@ -6,7 +6,7 @@ title: Accueil
 <div class="portfolio">
 
   <div class="intro">
-    <img src="{{ '/assets/data/42/img/bordenoy.jpg' | relative_url }}" alt="Photo de profil">
+    <img src="{{ '/assets/data/42/img/bordenoy.webp' | relative_url }}" alt="Photo de profil">
     <h1>Bienvenu sur mon portofiolio</h1>
     <p>Développeur formé à 42 (lvl 21.76), passionné par les technologies modernes, le DevOps et le CI/CD. Expérience chez l’AFP. Curieux, rigoureux, j’aime résoudre des problèmes complexes en solo ou en équipe.</p>
   </div>

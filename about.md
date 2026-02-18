@@ -6,7 +6,7 @@ title: À propos
     <div class="about-container">
         
         <div class="about-image">
-            <img src="assets/data/42/img/bordenoy.jpg" alt="Iffigues - Développeur AFP" class="profile-card">
+            <img src="assets/data/42/img/bordenoy.webp" alt="Iffigues - Développeur AFP" class="profile-card">
         </div>
 
         <div class="about-content">

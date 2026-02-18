@@ -16,7 +16,7 @@ title: JO
     <div id="comment" class="content-card">
         <div class="story-layout">
             <div class="image-container">
-                <img src="{{ '/assets/data/jo/img/voitureJO.jpg' | relative_url }}" alt="Voiture JO" class="profile-img">
+                <img src="{{ '/assets/data/jo/img/voitureJO.webp' | relative_url }}" alt="Voiture JO" class="profile-img">
                 <p class="img-caption">Flotte officielle Paris 2024</p>
             </div>
             <div class="text-content">
@@ -69,7 +69,7 @@ title: JO
 }
 
 body {
-    background: url('{{ "/assets/data/jo/img/bg.jpg" | relative_url }}') no-repeat center center fixed;
+    background: url('{{ "/assets/data/jo/img/bg.webp" | relative_url }}') no-repeat center center fixed;
     background-size: cover;
     margin: 0;
 }

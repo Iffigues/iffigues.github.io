@@ -29,3 +29,4 @@ Thumbs.db
 # Si tu fais des tests de logs ou des dumps de base de données (ex: PG)
 *.log
 *.sql
+venv

@@ -6,7 +6,7 @@ title: eglise
 <section class="personal-story">
 
   <div class="story-hero">
-    <img src="{{ '/assets/data/eglise/img/bapteme.jpg' | relative_url }}" 
+    <img src="{{ '/assets/data/eglise/img/bapteme.webp' | relative_url }}" 
          alt="Voyage à Rome et Vatican" 
          class="hero-image">
   </div>
