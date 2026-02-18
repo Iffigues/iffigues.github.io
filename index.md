@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Accueil
+description: "Développeur formé à l'École 42 (lvl 21), passionné par le DevOps, Golang et Python. Découvrez mon expérience à l'AFP et à la Banque de France."
+
 ---
 
 <div class="portfolio">
