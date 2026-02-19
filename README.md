@@ -65,7 +65,8 @@ Si vous souhaitez cloner ce projet et le faire tourner sur votre machine :
     bundle exec jekyll serve
     ```
     Le site sera accessible sur `http://localhost:4000`.
-
+## website
+- **iffigues :** [website](https://iffigues.github.io)
 ## 📬 Contact
 
 - **GitHub :** [@iffigues](https://github.com/iffigues)
