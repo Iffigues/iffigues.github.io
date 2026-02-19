@@ -69,7 +69,7 @@ Si vous souhaitez cloner ce projet et le faire tourner sur votre machine :
 ## 📬 Contact
 
 - **GitHub :** [@iffigues](https://github.com/iffigues)
-- **LinkedIn :** [Ton Nom](https://www.linkedin.com/in/ton-profil)
+- **LinkedIn :** [linkedin](www.linkedin.com/in/boris-denoyelle)
 
 ---
 *Fait avec ❤️ par un étudiant de l'école 42.*
