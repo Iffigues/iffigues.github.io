@@ -18,7 +18,7 @@ description: "Développeur formé à l'École 42 (lvl 21), passionné par le Dev
     <div class="projects">
       <div class="card">
         <h3>Rungly</h3>
-        <p>Un Chatbot qui met en contact sprtif et coach sportif.</p>
+        <p>Un Chatbot qui met en contact sportif et coach sportif.</p>
         
       </div>
       <div class="card">
