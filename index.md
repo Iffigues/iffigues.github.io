@@ -35,7 +35,7 @@ description: "Développeur formé à l'École 42 (lvl 21), passionné par le Dev
       <div class="card">HTML / CSS</div>
       <div class="card">Git / GitHub</div>
       <div class="card">Linux / Terminal</div>
-      <div class="card">C / Shell / École 42</div>
+      <div class="card">C / Shell</div>
       <div class="card">Golang</div>
       <div class="card">php</div>
     </div>
