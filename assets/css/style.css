@@ -1,6 +1,26 @@
 /* Importation d'une police élégante */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400&display=swap');
 
+/* --- DÉFINITION DES COULEURS --- */
+:root {
+    --bg-body: #fcfaf7;      /* Blanc cassé doux */
+    --bg-card: #ffffff;      /* Fond du compte à rebours */
+    --text-main: #4a4a4a;    /* Texte général */
+    --text-h1: #b8926a;      /* Doré/sable */
+    --text-counter: #333333; /* Chiffres du compteur */
+    --shadow: rgba(0,0,0,0.05);
+}
+
+[data-theme="dark"] {
+    --bg-body: #1a1a1a;      /* Anthracite sombre */
+    --bg-card: #2d2d2d;      /* Fond de carte gris foncé */
+    --text-main: #d1d1d1;    /* Texte clair */
+    --text-h1: #e2c09d;      /* Doré plus éclatant pour le sombre */
+    --text-counter: #fcfaf7; /* Chiffres presque blancs */
+    --shadow: rgba(0,0,0,0.4);
+}
+
+/* --- STYLES --- */
 body {
     margin: 0;
     padding: 0;
@@ -9,26 +29,27 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: #fcfaf7; /* Un blanc cassé doux */
-    color: #4a4a4a;
+    background-color: var(--bg-body); /* VARIABLE */
+    color: var(--text-main);          /* VARIABLE */
     font-family: 'Poppins', sans-serif;
     text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition douce */
 }
+
 #river {
     background-image: url('/assets/data/eglise/img/river.webp');
     margin: 0;
-  min-height: 100vh;
-
-  background-size: cover;      /* L'image remplit tout l'espace sans se déformer */
-  background-position: center; /* L'image reste centrée */
-  background-repeat: no-repeat;/* Évite que l'image ne se répète */
-  background-attachment: fixed;/* Optionnel : l'image reste fixe au scroll */
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 h1 {
     font-family: 'Playfair Display', serif;
     font-size: 1.8rem;
-    color: #b8926a; /* Couleur dorée/sable */
+    color: var(--text-h1); /* VARIABLE */
     margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -37,13 +58,14 @@ h1 {
 #countdown {
     font-size: 3.5rem;
     font-weight: bold;
-    color: #333;
-    background: #ffffff;
+    color: var(--text-counter); /* VARIABLE */
+    background: var(--bg-card);  /* VARIABLE */
     padding: 20px 40px;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 30px var(--shadow); /* VARIABLE */
     margin: 20px 0;
     display: inline-block;
+    transition: background-color 0.3s ease;
 }
 
 img {
@@ -51,6 +73,7 @@ img {
     margin-top: 30px;
     opacity: 0.8;
     transition: opacity 0.3s ease;
+    filter: drop-shadow(0 0 5px var(--shadow)); /* Pour que l'image ressorte */
 }
 
 img:hover {

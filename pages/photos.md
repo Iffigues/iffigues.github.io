@@ -8,7 +8,7 @@ title: Galerie Photos
 <hr>
 <div class="gallery-grid">
   {% for file in site.static_files %}
-    {% if file.path contains '/assets/data/eglise/img/noimh/' %}
+    {% if file.path contains '/assets/data/eglise/img/napt/' %}
       <div class="gallery-item">
         <img src="{{ file.path | relative_url }}" alt="Photo de mon parcours" loading="lazy">
       </div>
