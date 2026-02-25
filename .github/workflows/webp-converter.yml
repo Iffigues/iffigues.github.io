@@ -30,13 +30,14 @@ jobs:
           -not -path "./venv/*" | while read -r img; do
             
             filename=$(basename "$img")
-            dirname=$(dirname "$img")
+            dirname=$(dirname "$img") # Récupère le dossier (ex: ./assets/img)
             basename="${filename%.*}"
             webp_path="${dirname}/${basename}.webp"
             
             echo "---"
             echo "Traitement de : $img"
 
+            # 1. Création du WebP au même endroit que l'image
             if [ ! -f "$webp_path" ]; then
               echo "-> Création du WebP..."
               cwebp -q 80 "$img" -o "$webp_path"
@@ -44,16 +45,24 @@ jobs:
               echo "-> Le WebP existe déjà ($webp_path)."
             fi
             
-            echo "-> Archivage de l'original vers /old"
-            if [ -f "old/$filename" ]; then
-              mv "$img" "old/$(date +%s)_$filename"
+            # 2. ARCHIVAGE SÉCURISÉ
+            # On recrée la structure de dossiers dans /old
+            # On enlève le "./" au début du chemin pour la propreté
+            archive_dir="old/${dirname#./}"
+            mkdir -p "$archive_dir"
+
+            echo "-> Archivage de l'original vers $archive_dir"
+            
+            # Gestion des doublons de fichiers (si tu uploads une nouvelle version au même endroit)
+            if [ -f "$archive_dir/$filename" ]; then
+              mv "$img" "$archive_dir/$(date +%s)_$filename"
             else
-              mv "$img" "old/"
+              mv "$img" "$archive_dir/"
             fi
           done
 
       - name: Save Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Action: WebP conversion & Archive to /old"
+          commit_message: "Action: WebP conversion & Organized archive in /old"
           file_pattern: '.'
