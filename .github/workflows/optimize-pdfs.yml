@@ -23,7 +23,6 @@ jobs:
           mkdir -p oldpdf
           echo "Démarrage du scan global des PDF..."
           
-          # On cherche tous les .pdf sauf ceux dans oldpdf/ et les dossiers systèmes
           find . -type f -iname "*.pdf" \
           -not -path "./oldpdf/*" \
           -not -path "*/.*" \
@@ -31,26 +30,34 @@ jobs:
           -not -path "./venv/*" | while read -r pdf; do
             
             filename=$(basename "$pdf")
+            dirname=$(dirname "$pdf")
+            # On prépare le chemin d'archive (ex: oldpdf/assets/docs/mon.pdf)
+            archive_dir="oldpdf/${dirname#./}"
+            archive_path="$archive_dir/$filename"
+
             echo "---"
-            echo "Traitement de : $pdf"
+            echo "Vérification de : $pdf"
 
-            # 1. Optimisation (on crée un fichier temporaire)
-            echo "-> Optimisation du PDF..."
-            gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dNOPAUSE -dQUIET -dBATCH -sOutputFile="temp_opt.pdf" "$pdf"
-            
-            # 2. Anonymisation des métadonnées
-            echo "-> Nettoyage des métadonnées..."
-            exiftool -all= -overwrite_original "temp_opt.pdf"
-
-            # 3. Archivage de l'original vers /oldpdf (même logique de timestamp que ton script image)
-            echo "-> Archivage de l'original vers /oldpdf"
-            if [ -f "oldpdf/$filename" ]; then
-              mv "$pdf" "oldpdf/$(date +%s)_$filename"
-            else
-              mv "$pdf" "oldpdf/"
+            # SÉCURITÉ : Si l'original existe déjà dans l'archive, on ne fait rien
+            if [ -f "$archive_path" ]; then
+              echo "-> Déjà présent dans l'archive ($archive_path). Skip."
+              continue
             fi
 
-            # 4. On remplace le fichier original par la version optimisée
+            echo "-> Nouveau fichier détecté. Optimisation..."
+
+            # 1. Optimisation temporaire
+            gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dNOPAUSE -dQUIET -dBATCH -sOutputFile="temp_opt.pdf" "$pdf"
+            
+            # 2. Nettoyage des métadonnées
+            exiftool -all= -overwrite_original "temp_opt.pdf"
+
+            # 3. Archivage organisé
+            mkdir -p "$archive_dir"
+            echo "-> Archivage de l'original vers $archive_path"
+            mv "$pdf" "$archive_path"
+
+            # 4. Remplacement par la version optimisée
             mv "temp_opt.pdf" "$pdf"
             
           done
@@ -58,5 +65,5 @@ jobs:
       - name: Save Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Action: PDF optimization & Archive to /oldpdf"
+          commit_message: "Action: PDF optimization & Organized archive to /oldpdf"
           file_pattern: '.'
