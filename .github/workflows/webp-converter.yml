@@ -1,7 +1,10 @@
-name: Convert Images to WebP
+name: Global WebP Converter and Archive
 on:
   push:
-    branches: [ main, master ] # Se lance à chaque push sur la branche principale
+    paths:
+      - '**.jpg'
+      - '**.png'
+      - '**.jpeg'
 
 jobs:
   convert:
@@ -11,36 +14,46 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Récupère tout l'historique pour éviter les erreurs de push
 
-      - name: Install WebP
+      - name: Install WebP Tools
         run: sudo apt-get install -y webp
 
-      - name: Process Images
+      - name: Process All Images
         run: |
-          # Création du dossier old s'il n'existe pas
-          TARGET_DIR="assets/data/eglise/img/noimh"
-          mkdir -p "$TARGET_DIR/old"
+          # 1. Créer le dossier old à la racine s'il n'existe pas
+          mkdir -p old
           
-          echo "Vérification du dossier : $TARGET_DIR"
-          ls -R "$TARGET_DIR" # Affiche le contenu pour le debug dans les logs
-          
-          find "$TARGET_DIR" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" \) | while read img; do
+          # 2. Trouver toutes les images JPG/PNG sauf celles qui sont DÉJÀ dans old
+          # On exclut le dossier 'old' et '_site' pour éviter les boucles
+          find . -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" \) \
+          -not -path "./old/*" \
+          -not -path "./_site/*" \
+          -not -path "./venv/*" | while read img; do
+            
             filename=$(basename "$img")
+            dirname=$(dirname "$img")
             basename="${filename%.*}"
-            webp_path="$TARGET_DIR/${basename}.webp"
+            webp_path="${dirname}/${basename}.webp"
             
-            echo "Processing: $filename"
-            
+            echo "Traitement de : $img"
+
+            # 3. Conversion en WebP si le fichier n'existe pas encore au même endroit
             if [ ! -f "$webp_path" ]; then
               cwebp -q 80 "$img" -o "$webp_path"
+              echo "✅ Converti en $webp_path"
             fi
             
-            mv "$img" "$TARGET_DIR/old/"
+            # 4. Déplacement de l'original vers le dossier /old à la racine
+            # Si un fichier du même nom existe déjà dans /old, on ajoute un timestamp pour ne pas écraser
+            if [ -f "old/$filename" ]; then
+              mv "$img" "old/$(date +%Y%m%d%H%M%S)_$filename"
+            else
+              mv "$img" "old/"
+            fi
+            echo "📦 Original déplacé vers /old/"
           done
 
-      - name: Commit and Push
+      - name: Commit and Push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Auto-convert images to WebP"
+          commit_message: "Auto-convert images to WebP and archive originals to /old"
