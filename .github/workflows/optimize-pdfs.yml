@@ -1,0 +1,46 @@
+name: Optimize PDFs
+on:
+  push:
+    paths:
+      - '**.pdf'
+      - '!oldpdf/**' # Ne pas toucher aux PDF déjà archivés
+
+jobs:
+  optimize-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Tools (Ghostscript & Exiftool)
+        run: sudo apt-get update && sudo apt-get install -y ghostscript libimage-exiftool-perl
+
+      - name: Process PDFs
+        run: |
+          mkdir -p oldpdf
+          
+          # Cherche les PDF partout sauf dans /oldpdf
+          find . -name "*.pdf" ! -path "./oldpdf/*" | while read pdf; do
+            filename=$(basename "$pdf")
+            echo "Traitement de $filename..."
+            
+            # 1. Compression (réglage /printer pour un bon ratio poids/qualité)
+            gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dNOPAUSE -dQUIET -dBATCH -sOutputFile="temp_$filename" "$pdf"
+            
+            # 2. Nettoyage des métadonnées (anonymisation)
+            exiftool -all= -overwrite_original "temp_$filename"
+            
+            # 3. Archivage de l'original lourd
+            mv "$pdf" "oldpdf/$filename"
+            
+            # 4. Remplacement par la version légère et propre
+            mv "temp_$filename" "$pdf"
+          done
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "⚡ PDF optimisés et anonymisés (originaux dans /oldpdf)" || echo "No changes to commit"
+          git push
