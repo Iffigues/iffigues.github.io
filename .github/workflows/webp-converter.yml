@@ -1,32 +1,12 @@
-name: Global WebP Converter and Archive
-on:
-  push:
-    paths:
-      - '**.jpg'
-      - '**.png'
-      - '**.jpeg'
-
-jobs:
-  convert:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Install WebP Tools
-        run: sudo apt-get install -y webp
-
-      - name: Process All Images
+- name: Process Images
         run: |
-          # 1. Créer le dossier old à la racine s'il n'existe pas
           mkdir -p old
+          echo "Démarrage du scan global..."
           
-          # 2. Trouver toutes les images JPG/PNG sauf celles qui sont DÉJÀ dans old
-          # On exclut le dossier 'old' et '_site' pour éviter les boucles
+          # On cherche tous les JPG/PNG/JPEG
           find . -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" \) \
           -not -path "./old/*" \
+          -not -path "*/.*" \
           -not -path "./_site/*" \
           -not -path "./venv/*" | while read img; do
             
@@ -35,25 +15,23 @@ jobs:
             basename="${filename%.*}"
             webp_path="${dirname}/${basename}.webp"
             
+            echo "---"
             echo "Traitement de : $img"
 
-            # 3. Conversion en WebP si le fichier n'existe pas encore au même endroit
+            # 1. On crée le WebP SEULEMENT s'il n'existe pas
             if [ ! -f "$webp_path" ]; then
+              echo "-> Création du WebP..."
               cwebp -q 80 "$img" -o "$webp_path"
-              echo "✅ Converti en $webp_path"
+            else
+              echo "-> Le WebP existe déjà ($webp_path)."
             fi
             
-            # 4. Déplacement de l'original vers le dossier /old à la racine
-            # Si un fichier du même nom existe déjà dans /old, on ajoute un timestamp pour ne pas écraser
+            # 2. On déplace l'original dans /old QUOI QU'IL ARRIVE
+            echo "-> Archivage de l'original vers /old"
             if [ -f "old/$filename" ]; then
-              mv "$img" "old/$(date +%Y%m%d%H%M%S)_$filename"
+              # Si le nom existe déjà dans old, on ajoute un suffixe pour éviter l'écrasement
+              mv "$img" "old/$(date +%s)_$filename"
             else
               mv "$img" "old/"
             fi
-            echo "📦 Original déplacé vers /old/"
           done
-
-      - name: Commit and Push changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Auto-convert images to WebP and archive originals to /old"
