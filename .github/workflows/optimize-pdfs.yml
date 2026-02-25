@@ -1,47 +1,62 @@
-name: Optimize PDFs
+name: Global PDF Optimizer
 on:
   push:
-    paths:
-      - '**.pdf'
-      - '!oldpdf/**' # Ne pas toucher aux PDF déjà archivés
+    branches:
+      - main
+      - master
   workflow_dispatch:
 
 jobs:
-  optimize-pdf:
+  optimize:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Install Tools (Ghostscript & Exiftool)
+      - name: Install Tools
         run: sudo apt-get update && sudo apt-get install -y ghostscript libimage-exiftool-perl
 
       - name: Process PDFs
         run: |
           mkdir -p oldpdf
+          echo "Démarrage du scan global des PDF..."
           
-          # Cherche les PDF partout sauf dans /oldpdf
-          find . -name "*.pdf" ! -path "./oldpdf/*" | while read pdf; do
+          # On cherche tous les .pdf sauf ceux dans oldpdf/ et les dossiers systèmes
+          find . -type f -iname "*.pdf" \
+          -not -path "./oldpdf/*" \
+          -not -path "*/.*" \
+          -not -path "./_site/*" \
+          -not -path "./venv/*" | while read -r pdf; do
+            
             filename=$(basename "$pdf")
-            echo "Traitement de $filename..."
+            echo "---"
+            echo "Traitement de : $pdf"
+
+            # 1. Optimisation (on crée un fichier temporaire)
+            echo "-> Optimisation du PDF..."
+            gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dNOPAUSE -dQUIET -dBATCH -sOutputFile="temp_opt.pdf" "$pdf"
             
-            # 1. Compression (réglage /printer pour un bon ratio poids/qualité)
-            gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dNOPAUSE -dQUIET -dBATCH -sOutputFile="temp_$filename" "$pdf"
+            # 2. Anonymisation des métadonnées
+            echo "-> Nettoyage des métadonnées..."
+            exiftool -all= -overwrite_original "temp_opt.pdf"
+
+            # 3. Archivage de l'original vers /oldpdf (même logique de timestamp que ton script image)
+            echo "-> Archivage de l'original vers /oldpdf"
+            if [ -f "oldpdf/$filename" ]; then
+              mv "$pdf" "oldpdf/$(date +%s)_$filename"
+            else
+              mv "$pdf" "oldpdf/"
+            fi
+
+            # 4. On remplace le fichier original par la version optimisée
+            mv "temp_opt.pdf" "$pdf"
             
-            # 2. Nettoyage des métadonnées (anonymisation)
-            exiftool -all= -overwrite_original "temp_$filename"
-            
-            # 3. Archivage de l'original lourd
-            mv "$pdf" "oldpdf/$filename"
-            
-            # 4. Remplacement par la version légère et propre
-            mv "temp_$filename" "$pdf"
           done
 
-      - name: Commit and Push
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "⚡ PDF optimisés et anonymisés (originaux dans /oldpdf)" || echo "No changes to commit"
-          git push
+      - name: Save Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Action: PDF optimization & Archive to /oldpdf"
+          file_pattern: '.'
