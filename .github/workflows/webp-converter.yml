@@ -30,39 +30,40 @@ jobs:
           -not -path "./venv/*" | while read -r img; do
             
             filename=$(basename "$img")
-            dirname=$(dirname "$img") # Récupère le dossier (ex: ./assets/img)
+            dirname=$(dirname "$img")
             basename="${filename%.*}"
             webp_path="${dirname}/${basename}.webp"
             
-            echo "---"
-            echo "Traitement de : $img"
+            # Préparation du chemin d'archive miroir
+            archive_dir="old/${dirname#./}"
+            archive_path="$archive_dir/$filename"
 
-            # 1. Création du WebP au même endroit que l'image
+            echo "---"
+            echo "Vérification de : $img"
+
+            # SÉCURITÉ : Si l'original existe déjà dans l'archive, on skip tout
+            if [ -f "$archive_path" ]; then
+              echo "-> Déjà archivé dans $archive_path. On ne fait rien."
+              continue
+            fi
+
+            echo "-> Nouveau fichier détecté. Traitement..."
+
+            # 1. Création du WebP
             if [ ! -f "$webp_path" ]; then
               echo "-> Création du WebP..."
               cwebp -q 80 "$img" -o "$webp_path"
-            else
-              echo "-> Le WebP existe déjà ($webp_path)."
             fi
             
-            # 2. ARCHIVAGE SÉCURISÉ
-            # On recrée la structure de dossiers dans /old
-            # On enlève le "./" au début du chemin pour la propreté
-            archive_dir="old/${dirname#./}"
+            # 2. Archivage sécurisé de l'original
             mkdir -p "$archive_dir"
-
-            echo "-> Archivage de l'original vers $archive_dir"
+            echo "-> Archivage vers $archive_path"
+            mv "$img" "$archive_path"
             
-            # Gestion des doublons de fichiers (si tu uploads une nouvelle version au même endroit)
-            if [ -f "$archive_dir/$filename" ]; then
-              mv "$img" "$archive_dir/$(date +%s)_$filename"
-            else
-              mv "$img" "$archive_dir/"
-            fi
           done
 
       - name: Save Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Action: WebP conversion & Organized archive in /old"
+          commit_message: "Action: WebP conversion & Organized archive in /old (with skip logic)"
           file_pattern: '.'
