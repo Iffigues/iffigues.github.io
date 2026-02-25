@@ -4,6 +4,7 @@ on:
     paths:
       - '**.pdf'
       - '!oldpdf/**' # Ne pas toucher aux PDF déjà archivés
+  workflow_dispatch:
 
 jobs:
   optimize-pdf:
