@@ -1,14 +1,33 @@
-- name: Process Images
+name: Global WebP Converter
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install WebP
+        run: sudo apt-get install -y webp
+
+      - name: Process Images
         run: |
           mkdir -p old
           echo "Démarrage du scan global..."
           
-          # On cherche tous les JPG/PNG/JPEG
           find . -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" \) \
           -not -path "./old/*" \
           -not -path "*/.*" \
           -not -path "./_site/*" \
-          -not -path "./venv/*" | while read img; do
+          -not -path "./venv/*" | while read -r img; do
             
             filename=$(basename "$img")
             dirname=$(dirname "$img")
@@ -18,7 +37,6 @@
             echo "---"
             echo "Traitement de : $img"
 
-            # 1. On crée le WebP SEULEMENT s'il n'existe pas
             if [ ! -f "$webp_path" ]; then
               echo "-> Création du WebP..."
               cwebp -q 80 "$img" -o "$webp_path"
@@ -26,12 +44,16 @@
               echo "-> Le WebP existe déjà ($webp_path)."
             fi
             
-            # 2. On déplace l'original dans /old QUOI QU'IL ARRIVE
             echo "-> Archivage de l'original vers /old"
             if [ -f "old/$filename" ]; then
-              # Si le nom existe déjà dans old, on ajoute un suffixe pour éviter l'écrasement
               mv "$img" "old/$(date +%s)_$filename"
             else
               mv "$img" "old/"
             fi
           done
+
+      - name: Save Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Action: WebP conversion & Archive to /old"
+          file_pattern: '.'
