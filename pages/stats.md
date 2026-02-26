@@ -1,36 +1,59 @@
 ---
 layout: default
-title: Git Time-Travel Explorer
+title: Git Disk Analyzer Pro
 ---
 
-<div id="git-time-machine" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: auto; color: #24292e;">
+<div id="git-app" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1000px; margin: auto; color: #24292e; background: #fff;">
     
-    <div style="background: #24292e; padding: 20px; border-radius: 8px; color: white; display: flex; gap: 10px; flex-wrap: wrap;">
-        <input type="text" id="repoInput" placeholder="propriétaire/nom-du-repo" style="flex: 2; padding: 10px; border-radius: 4px; border: none;">
-        <input type="password" id="tokenInput" placeholder="Token GitHub (Optionnel)" style="flex: 1; padding: 10px; border-radius: 4px; border: none; background: #3f4448; color: white;">
-        <button onclick="loadCommits()" style="background: #2ea44f; color: white; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer;">Charger l'Historique</button>
+    <div style="background: #24292e; padding: 20px; border-radius: 8px 8px 0 0; color: white; display: flex; gap: 10px; align-items: center;">
+        <div style="flex: 2;">
+            <label style="font-size: 10px; text-transform: uppercase; color: #8b949e; display: block; margin-bottom: 4px;">Dépôt GitHub</label>
+            <input type="text" id="repoInput" placeholder="propriétaire/nom-du-repo" style="width: 100%; padding: 10px; border-radius: 4px; border: none; background: #3f4448; color: white;">
+        </div>
+        <div style="flex: 1;">
+            <label style="font-size: 10px; text-transform: uppercase; color: #8b949e; display: block; margin-bottom: 4px;">Token (Optionnel)</label>
+            <input type="password" id="tokenInput" placeholder="ghp_xxxx" style="width: 100%; padding: 10px; border-radius: 4px; border: none; background: #3f4448; color: white;">
+        </div>
+        <button onclick="initAnalysis()" style="margin-top: 15px; background: #2ea44f; color: white; border: none; padding: 11px 20px; border-radius: 6px; font-weight: bold; cursor: pointer;">Scanner</button>
     </div>
 
-    <div id="main-layout" style="display: grid; grid-template-columns: 300px 1fr; gap: 20px; margin-top: 20px; display: none;">
+    <div id="disk-section" style="display: none; padding: 20px; border: 1px solid #e1e4e8; border-top: none; background: #f6f8fa;">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 15px;">
+            <div style="background: white; padding: 10px; border-radius: 6px; border: 1px solid #ddd;">
+                <div style="font-size: 10px; color: #666;">TAILLE TOTALE (Quota)</div>
+                <div style="font-size: 1.2em; font-weight: bold;">5.00 GB</div>
+            </div>
+            <div style="background: white; padding: 10px; border-radius: 6px; border: 1px solid #ddd;">
+                <div style="font-size: 10px; color: #666;">UTILISÉ (Repo .git)</div>
+                <div id="diskUsed" style="font-size: 1.2em; font-weight: bold; color: #d73a49;">-</div>
+            </div>
+            <div style="background: white; padding: 10px; border-radius: 6px; border: 1px solid #ddd;">
+                <div style="font-size: 10px; color: #666;">DISPONIBLE</div>
+                <div id="diskAvail" style="font-size: 1.2em; font-weight: bold; color: #2ea44f;">-</div>
+            </div>
+            <div style="background: white; padding: 10px; border-radius: 6px; border: 1px solid #ddd;">
+                <div style="font-size: 10px; color: #666;">INSTANTANÉ (HEAD)</div>
+                <div id="snapshotSize" style="font-size: 1.2em; font-weight: bold;">-</div>
+            </div>
+        </div>
+        <div style="width: 100%; height: 10px; background: #eee; border-radius: 5px; overflow: hidden; display: flex;">
+            <div id="barUsed" style="background: #d73a49; width: 0%;"></div>
+            <div id="barFree" style="background: #2ea44f; width: 100%;"></div>
+        </div>
+    </div>
+
+    <div id="main-view" style="display: none; display: grid; grid-template-columns: 280px 1fr; gap: 0; border: 1px solid #e1e4e8; border-top: none;">
         
-        <div style="border: 1px solid #e1e4e8; border-radius: 6px; background: #f6f8fa;">
-            <div style="padding: 10px; border-bottom: 1px solid #e1e4e8; font-weight: bold; font-size: 0.9em;">Derniers Commits</div>
-            <div id="commitList" style="max-height: 600px; overflow-y: auto;"></div>
+        <div style="border-right: 1px solid #e1e4e8; background: #fff;">
+            <div style="padding: 10px; background: #fafbfc; border-bottom: 1px solid #e1e4e8; font-size: 11px; font-weight: bold; color: #586069;">HISTORIQUE DES COMMITS</div>
+            <div id="commitList" style="max-height: 500px; overflow-y: auto;"></div>
         </div>
 
-        <div style="border: 1px solid #e1e4e8; border-radius: 6px; background: white; display: flex; flex-direction: column;">
-            <div id="explorerHeader" style="padding: 15px; border-bottom: 1px solid #e1e4e8; background: #fff;">
-                <div id="currentCommitInfo" style="margin-bottom: 10px; font-size: 0.85em; color: #586069;"></div>
-                <div id="breadcrumb" style="font-family: monospace; font-size: 0.9em; color: #0366d6;"></div>
+        <div style="background: #fff; min-height: 500px;">
+            <div id="explorerHeader" style="padding: 12px; border-bottom: 1px solid #e1e4e8;">
+                <div id="breadcrumb" style="font-family: monospace; font-size: 13px; color: #0366d6;"></div>
             </div>
             <table style="width: 100%; border-collapse: collapse;">
-                <thead style="background: #fafbfc; border-bottom: 1px solid #e1e4e8; font-size: 0.8em; color: #586069;">
-                    <tr>
-                        <th style="padding: 10px; text-align: left;">Nom</th>
-                        <th style="padding: 10px; text-align: left; width: 100px;">Taille</th>
-                        <th style="padding: 10px; text-align: left; width: 80px;">Part</th>
-                    </tr>
-                </thead>
                 <tbody id="fileTable"></tbody>
             </table>
         </div>
@@ -38,118 +61,132 @@ title: Git Time-Travel Explorer
 </div>
 
 <script>
-let allFiles = [];
-let currentRepo = "";
-let totalSizeAtCommit = 0;
+let repoFullTree = [];
+let repoMeta = {};
+const GITHUB_LIMIT = 5 * 1024 * 1024 * 1024; // 5GB en octets
 
-// 1. Charger la liste des commits
-async function loadCommits() {
+async function initAnalysis() {
     const repo = document.getElementById('repoInput').value.trim();
     const token = document.getElementById('tokenInput').value.trim();
     const headers = token ? { "Authorization": `token ${token}` } : {};
 
     try {
-        const res = await fetch(`https://api.github.com/repos/${repo}/commits?per_page=15`, { headers });
-        const commits = await res.json();
-        currentRepo = repo;
+        // 1. Meta pour la taille disque réelle (.git)
+        const rRes = await fetch(`https://api.github.com/repos/${repo}`, { headers });
+        repoMeta = await rRes.json();
+        
+        // MAJ Disk Stats (df style)
+        const usedBytes = repoMeta.size * 1024;
+        const availBytes = GITHUB_LIMIT - usedBytes;
+        document.getElementById('diskUsed').innerText = formatSize(usedBytes);
+        document.getElementById('diskAvail').innerText = formatSize(availBytes);
+        document.getElementById('barUsed').style.width = (usedBytes / GITHUB_LIMIT * 100) + "%";
+        document.getElementById('disk-section').style.display = 'block';
 
-        const list = document.getElementById('commitList');
-        list.innerHTML = "";
-        commits.forEach((c, index) => {
-            const div = document.createElement('div');
-            div.style.cssText = "padding: 12px; border-bottom: 1px solid #e1e4e8; cursor: pointer; font-size: 0.85em;";
-            div.innerHTML = `
-                <div style="font-weight: bold; margin-bottom: 4px;">${c.commit.message.substring(0, 50)}</div>
-                <div style="color: #666; font-size: 0.8em;">${new Date(c.commit.author.date).toLocaleDateString()} • ${c.sha.substring(0,7)}</div>
-            `;
-            div.onclick = () => {
-                document.querySelectorAll('#commitList div').forEach(d => d.style.background = "transparent");
-                div.style.background = "#fff";
-                loadTree(c.sha, c.commit.message);
-            };
-            list.appendChild(div);
-            if(index === 0) div.click(); // Charger le plus récent par défaut
-        });
+        // 2. Commits
+        const cRes = await fetch(`https://api.github.com/repos/${repo}/commits?per_page=12`, { headers });
+        const commits = await cRes.json();
+        renderCommits(commits);
 
-        document.getElementById('main-layout').style.display = 'grid';
-    } catch (e) { alert("Erreur lors du chargement des commits."); }
+        document.getElementById('main-view').style.display = 'grid';
+    } catch (e) { alert("Erreur d'accès au dépôt."); }
 }
 
-// 2. Charger l'arborescence d'un commit spécifique
-async function loadTree(sha, message) {
+function renderCommits(commits) {
+    const list = document.getElementById('commitList');
+    list.innerHTML = "";
+    commits.forEach((c, i) => {
+        const item = document.createElement('div');
+        item.style.cssText = "padding: 12px; border-bottom: 1px solid #f1f1f1; cursor: pointer; font-size: 12px; transition: 0.2s;";
+        item.innerHTML = `
+            <div style="font-weight: 600; color: #24292e;">${c.commit.message.substring(0, 40)}...</div>
+            <div style="color: #6a737d; margin-top: 4px;">${c.sha.substring(0,7)} • ${new Date(c.commit.author.date).toLocaleDateString()}</div>
+        `;
+        item.onclick = () => {
+            document.querySelectorAll('#commitList div').forEach(d => d.style.background = "none");
+            item.style.background = "#f1f8ff";
+            loadTreeAtCommit(c.sha);
+        };
+        list.appendChild(item);
+        if(i === 0) item.click();
+    });
+}
+
+async function loadTreeAtCommit(sha) {
+    const repo = document.getElementById('repoInput').value.trim();
     const token = document.getElementById('tokenInput').value.trim();
     const headers = token ? { "Authorization": `token ${token}` } : {};
-    
-    document.getElementById('currentCommitInfo').innerText = `📅 Snapshot : "${message}" (${sha.substring(0,7)})`;
-    document.getElementById('fileTable').innerHTML = "<tr><td colspan='3' style='padding:20px; text-align:center;'>Chargement des fichiers...</td></tr>";
 
-    try {
-        const res = await fetch(`https://api.github.com/repos/${currentRepo}/git/trees/${sha}?recursive=1`, { headers });
-        const data = await res.json();
-        allFiles = data.tree;
-        totalSizeAtCommit = allFiles.reduce((acc, i) => acc + (i.size || 0), 0);
-        renderFolder("");
-    } catch (e) { alert("Erreur d'arborescence."); }
+    const res = await fetch(`https://api.github.com/repos/${repo}/git/trees/${sha}?recursive=1`, { headers });
+    const data = await res.json();
+    repoFullTree = data.tree;
+    
+    const snapshotSize = repoFullTree.reduce((acc, i) => acc + (i.size || 0), 0);
+    document.getElementById('snapshotSize').innerText = formatSize(snapshotSize);
+    
+    renderExplorer("");
 }
 
-// 3. Afficher un dossier spécifique
-function renderFolder(path) {
+function renderExplorer(path) {
     const table = document.getElementById('fileTable');
     const bread = document.getElementById('breadcrumb');
     table.innerHTML = "";
 
-    // Breadcrumb
-    bread.innerHTML = `<span onclick="renderFolder('')" style="cursor:pointer">root</span>` + 
+    bread.innerHTML = `<span onclick="renderExplorer('')" style="cursor:pointer">root</span>` + 
         path.split('/').filter(x=>x).map((p, i, arr) => {
             const fp = arr.slice(0, i+1).join('/');
-            return ` / <span onclick="renderFolder('${fp}')" style="cursor:pointer">${p}</span>`;
+            return ` / <span onclick="renderExplorer('${fp}')" style="cursor:pointer">${p}</span>`;
         }).join('');
 
     const items = {};
-    allFiles.forEach(item => {
+    const totalInSnapshot = repoFullTree.reduce((acc, i) => acc + (i.size || 0), 0);
+
+    repoFullTree.forEach(item => {
         if (path === "" || item.path.startsWith(path + "/")) {
             const rel = path === "" ? item.path : item.path.substring(path.length + 1);
-            const name = rel.split('/')[0];
-            if (!items[name]) {
-                items[name] = { name, type: rel.includes('/') ? 'tree' : item.type, size: 0, path: path===""?name:path+"/"+name };
+            const part = rel.split('/')[0];
+            if (!items[part]) {
+                items[part] = { name: part, type: rel.includes('/') ? 'tree' : item.type, size: 0, fullPath: path===""?part:path+"/"+part };
             }
-            items[name].size += (item.size || 0);
+            items[part].size += (item.size || 0);
         }
     });
 
     const sorted = Object.values(items).sort((a,b) => (b.type==='tree')-(a.type==='tree') || b.size - a.size);
 
-    if(path !== "") {
+    if (path !== "") {
         const parent = path.includes('/') ? path.split('/').slice(0,-1).join('/') : "";
-        addRow("..", 0, 'tree', parent, true);
+        addFileRow("..", 0, 'tree', parent, totalInSnapshot, true);
     }
-
-    sorted.forEach(item => addRow(item.name, item.size, item.type, item.path));
+    sorted.forEach(item => addFileRow(item.name, item.size, item.type, item.fullPath, totalInSnapshot));
 }
 
-function addRow(name, size, type, path, isBack) {
-    const row = document.createElement('tr');
-    row.style.cssText = "border-bottom: 1px solid #f1f1f1; cursor: pointer;";
-    row.onclick = () => type === 'tree' ? renderFolder(path) : null;
-    
-    const pct = ((size / totalSizeAtCommit) * 100).toFixed(1);
+function addFileRow(name, size, type, fPath, total, isBack) {
+    const tr = document.createElement('tr');
+    tr.style.cssText = "border-bottom: 1px solid #f6f8fa; cursor: pointer; font-size: 13px;";
+    tr.onclick = () => type === 'tree' ? renderExplorer(fPath) : null;
+    tr.onmouseover = () => tr.style.background = "#fbfcfe";
+    tr.onmouseout = () => tr.style.background = "none";
 
-    row.innerHTML = `
-        <td style="padding: 10px; color: ${type==='tree'?'#0366d6':'#24292e'}">${type==='tree'?'📁':'📄'} ${name}</td>
-        <td style="padding: 10px; color: #666; font-size: 0.9em;">${isBack?'-':formatSize(size)}</td>
-        <td style="padding: 10px;">
-            <div style="font-size: 0.7em; color: #999;">${isBack?'':pct+'%'}</div>
-            <div style="height:3px; background:#eee; border-radius:2px;">
-                <div style="height:100%; background:#0366d6; width:${isBack?0:pct}%"></div>
-            </div>
+    const pct = ((size / total) * 100).toFixed(1);
+
+    tr.innerHTML = `
+        <td style="padding: 10px; width: 60%;">${type==='tree'?'📁':'📄'} ${name}</td>
+        <td style="padding: 10px; color: #666; width: 20%; text-align: right;">${isBack?'-':formatSize(size)}</td>
+        <td style="padding: 10px; width: 20%;">
+            ${!isBack ? `
+                <div style="height:4px; background:#eee; border-radius:2px; width:100%; position:relative;">
+                    <div style="height:100%; background:#0366d6; width:${pct}%"></div>
+                </div>
+            ` : ''}
         </td>
     `;
-    document.getElementById('fileTable').appendChild(row);
+    document.getElementById('fileTable').appendChild(tr);
 }
 
-function formatSize(b) {
-    if (b === 0) return '0 B';
-    const i = Math.floor(Math.log(b) / Math.log(1024));
-    return (b / Math.pow(1024, i)).toFixed(1) + ' ' + ['B', 'KB', 'MB', 'GB'][i];
+function formatSize(bytes) {
+    if (bytes === 0) return '0 B';
+    const i = Math.floor(Math.log(bytes) / Math.log(1024));
+    return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + ['B', 'KB', 'MB', 'GB'][i];
 }
 </script>
