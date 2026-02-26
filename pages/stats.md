@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Analyseur de Mémoire GitHub
+title: Inspecteur de Taille Git
 ---
 
 <div id="analyzer-container" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: auto;">
