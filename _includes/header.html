@@ -1,39 +1,170 @@
-<header>
-  <div class="header-bar">
+---
+layout: default
+title: Dashboard Mémoire GitHub
+---
 
-    <!-- Menu principal centré -->
-    <nav class="main-nav">
-      <a href="{{ '/' | relative_url }}">Accueil</a>
-      <a href="{{ '/blog' | relative_url }}">Blog</a>
-      <a href="{{ '/about' | relative_url }}">À propos</a>
-    </nav>
-
-    <!-- Menu mobile -->
-    <div id="low">
-      <button id="accordion-toggle" aria-expanded="false">☰ Menu</button>
-      <nav id="accordion-menu">
-        <a href="{{ '/42' | relative_url }}">Parcours à l'école 42</a>
-        <a href="{{ '/jo' | relative_url }}">J'ai fait les jeux</a>
-        <a href="{{ '/eglise' | relative_url }}">Mon parcours de catéchumène</a>
-        <a href="{{ '/cv' | relative_url }}">CV</a>
-        <a href="{{ '/daily' | relative_url }}">Daily</a>
-        <a href="{{ '/alphabet' | relative_url }}">Code International des Signaux</a>
-        <a href="{{ '/bapteme-chrono' | relative_url }}">Timer avant le baptême</a>
-        <a href="{{ '/stats' | relative_url }}">Github Stats</a>
-      </nav>
+<div id="git-dashboard" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; max-width: 850px; margin: auto; color: #24292e;">
+    
+    <div style="display: flex; gap: 10px; margin-bottom: 25px;">
+        <input type="text" id="repoInput" placeholder="propriétaire/nom-du-repo" style="flex-grow: 1; padding: 12px; border: 1px solid #d1d5da; border-radius: 6px; font-size: 16px;">
+        <button onclick="startAnalysis()" style="background: #2ea44f; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px;">Analyser le dépôt</button>
     </div>
 
-  </div>
+    <div id="loader" style="display: none; text-align: center; padding: 40px;">⏳ Analyse des objets Git en cours...</div>
 
-  <script>
-    const toggleBtn = document.getElementById('accordion-toggle');
-    const menu = document.getElementById('accordion-menu');
+    <div id="mainContent" style="display: none;">
+        
+        <div style="background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; padding: 20px; margin-bottom: 25px;">
+            <h3 style="margin-top: 0; font-size: 1.1em;">Capacité du dépôt (Quota GitHub 5GB)</h3>
+            <div style="width: 100%; background: #e1e4e8; height: 24px; border-radius: 12px; overflow: hidden; display: flex; border: 1px solid #d1d5da; margin: 10px 0;">
+                <div id="quotaBar" style="background: #d73a49; width: 0%; transition: width 1s ease-in-out;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.9em; color: #586069;">
+                <span id="txtUsed">Utilisé: 0 MB</span>
+                <span id="txtRemaining">Restant: 5120 MB</span>
+            </div>
+        </div>
 
-    toggleBtn.addEventListener('click', function () {
-      const isOpen = menu.style.display === 'block';
-      menu.style.display = isOpen ? 'none' : 'block';
-      toggleBtn.setAttribute('aria-expanded', !isOpen);
+        <div style="border: 1px solid #e1e4e8; border-radius: 6px; overflow: hidden; background: white;">
+            <div id="breadcrumb" style="padding: 12px; background: #f6f8fa; border-bottom: 1px solid #e1e4e8; font-family: monospace; font-size: 0.9em;"></div>
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="text-align: left; background: #fafbfc; border-bottom: 1px solid #e1e4e8; font-size: 0.85em; color: #586069;">
+                        <th style="padding: 12px;">NOM DU DOSSIER / FICHIER</th>
+                        <th style="padding: 12px; width: 130px;">TAILLE</th>
+                        <th style="padding: 12px; width: 120px;">% REPO</th>
+                    </tr>
+                </thead>
+                <tbody id="fileList"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+let fullTree = [];
+let currentPath = "";
+let repoSizeTotal = 0; // Taille réelle du code actuel
+const GITHUB_LIMIT_KB = 5 * 1024 * 1024; // Limite théorique 5GB
+
+async function startAnalysis() {
+    const repo = document.getElementById('repoInput').value.trim().replace('https://github.com/', '');
+    if(!repo.includes('/')) return alert("Format requis : utilisateur/depot");
+
+    document.getElementById('loader').style.display = 'block';
+    document.getElementById('mainContent').style.display = 'none';
+
+    try {
+        // 1. Infos globales pour la jauge (Taille compressée sur disque GitHub)
+        const rRes = await fetch(`https://api.github.com/repos/${repo}`);
+        const rData = await rRes.json();
+        const diskSizeKB = rData.size; // Taille du dossier .git complet
+
+        // 2. Arbre récursif (Taille réelle de chaque fichier)
+        const tRes = await fetch(`https://api.github.com/repos/${repo}/git/trees/${rData.default_branch}?recursive=1`);
+        const tData = await tRes.json();
+        fullTree = tData.tree;
+        
+        // Calcul taille totale du code (HEAD)
+        repoSizeTotal = fullTree.reduce((acc, item) => acc + (item.size || 0), 0);
+
+        // Mise à jour de la Jauge (Section df)
+        const percentQuota = ((diskSizeKB / GITHUB_LIMIT_KB) * 100).toFixed(2);
+        document.getElementById('quotaBar').style.width = percentQuota + '%';
+        document.getElementById('txtUsed').innerText = `Utilisé (Git History included): ${formatSize(diskSizeKB * 1024)}`;
+        document.getElementById('txtRemaining').innerText = `Restant (sur quota 5GB): ${formatSize((GITHUB_LIMIT_KB - diskSizeKB) * 1024)}`;
+
+        // Lancement de l'explorateur
+        renderPath("");
+        
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+    } catch (e) {
+        alert("Erreur : Dépôt introuvable ou limite d'API atteinte.");
+        document.getElementById('loader').style.display = 'none';
+    }
+}
+
+function renderPath(path) {
+    currentPath = path;
+    const list = document.getElementById('fileList');
+    const breadcrumb = document.getElementById('breadcrumb');
+    list.innerHTML = "";
+
+    // Breadcrumb
+    breadcrumb.innerHTML = `<span style="color:#0366d6; cursor:pointer" onclick="renderPath('')">~ root</span>` + 
+        path.split('/').filter(x => x).map((p, i, arr) => {
+            const fullP = arr.slice(0, i+1).join('/');
+            return ` / <span style="color:#0366d6; cursor:pointer" onclick="renderPath('${fullP}')">${p}</span>`;
+        }).join('');
+
+    // Calculer les dossiers et fichiers du niveau actuel
+    const items = {};
+    fullTree.forEach(item => {
+        if (path === "" || item.path.startsWith(path + "/")) {
+            const relPath = path === "" ? item.path : item.path.substring(path.length + 1);
+            const part = relPath.split('/')[0];
+            
+            if (!items[part]) {
+                items[part] = { 
+                    name: part, 
+                    type: relPath.includes('/') ? 'tree' : item.type, 
+                    size: 0, 
+                    fullPath: path === "" ? part : path + "/" + part 
+                };
+            }
+            items[part].size += (item.size || 0);
+        }
     });
-  </script>
-</header>
 
+    // Conversion en tableau et tri (Dossiers en premier, puis taille)
+    const sortedItems = Object.values(items).sort((a, b) => (b.type === 'tree') - (a.type === 'tree') || b.size - a.size);
+
+    // Bouton retour ".."
+    if (path !== "") {
+        const parent = path.includes('/') ? path.split('/').slice(0, -1).join('/') : "";
+        addTableRow("..", 0, 'tree', parent, true);
+    }
+
+    sortedItems.forEach(item => {
+        addTableRow(item.name, item.size, item.type, item.fullPath);
+    });
+}
+
+function addTableRow(name, size, type, fullPath, isBack = false) {
+    const tbody = document.getElementById('fileList');
+    const tr = document.createElement('tr');
+    tr.style.borderBottom = "1px solid #e1e4e8";
+    tr.style.cursor = "pointer";
+    tr.onmouseover = () => tr.style.background = "#f6f8fa";
+    tr.onmouseout = () => tr.style.background = "transparent";
+    tr.onclick = () => type === 'tree' ? renderPath(fullPath) : null;
+
+    const icon = type === 'tree' ? "📁" : "📄";
+    const percentOfRepo = ((size / repoSizeTotal) * 100).toFixed(1);
+
+    tr.innerHTML = `
+        <td style="padding: 12px; font-weight: ${type === 'tree' ? '600' : '400'}; color: ${type === 'tree' ? '#0366d6' : '#24292e'};">
+            ${icon} ${name}
+        </td>
+        <td style="padding: 12px; color: #586069; font-size: 0.9em;">
+            ${isBack ? '-' : formatSize(size)}
+        </td>
+        <td style="padding: 12px;">
+            ${!isBack ? `
+                <div style="font-size: 0.75em; color: #6a737d; margin-bottom: 3px;">${percentOfRepo}%</div>
+                <div style="background:#e1e4e8; height:4px; border-radius:2px; width: 100%;">
+                    <div style="background:#0366d6; width:${percentOfRepo}%; height:100%;"></div>
+                </div>
+            ` : ''}
+        </td>
+    `;
+    tbody.appendChild(tr);
+}
+
+function formatSize(bytes) {
+    if (bytes === 0) return '0 B';
+    const i = Math.floor(Math.log(bytes) / Math.log(1024));
+    return (bytes / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'KB', 'MB', 'GB', 'TB'][i];
+}
+</script>
