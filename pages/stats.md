@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: 
 title: Git Disk Analyzer Pro - Full History
 ---
 
