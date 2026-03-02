@@ -53,7 +53,7 @@ title: Contact
 
 <section class="contact-container">
   <h2>📩 On discute ?</h2>
-  <p>Envoyez-moi un message direct ou passez par <a href="https://www.linkedin.com/in/boris-denoyelle" target="_blank">LinkedIn</a>.</p>
+  <p>Envoyez-moi un message direct.</p>
 
   <form id="contact-form">
     <div class="form-group">
