@@ -12,6 +12,8 @@ image: "{{ '/assets/data/eglie/img/pn01.webp' | relative_url }}"
 
 ## Un moment de partage inoubliable
 
+![Saint Nicolas à l'église]({{ '/assets/data/eglise/img/pn02.webp' | relative_url }})
+
 C'est avec une immense joie et une pointe d'émotion que j'ai eu l'honneur, cette année, de revêtir la mitre et la crosse pour incarner Saint Nicolas. L'événement s'est déroulé au cœur de notre quartier, dans la magnifique église **Saint Jean Baptiste de Belleville**.
 
 {:.lead}
