@@ -45,4 +45,4 @@ Cette journée a été riche en émotions et en rencontres humaines. Je repars a
 Et vous, quelles sont vos traditions préférées pour la Saint Nicolas ou les fêtes de fin d'année ? N'hésitez pas à partager vos souvenirs dans les commentaires !
 
 
-![Saint Nicolas à l'église]({{ '/assets/data/eglie/img/pn01.webp' | relative_url }})
+![Saint Nicolas à l'église]({{ '/assets/data/eglise/img/pn01.webp' | relative_url }})
