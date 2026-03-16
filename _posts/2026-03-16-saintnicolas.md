@@ -1,20 +1,17 @@
 ---
 layout: post
-title: "saintnicolas"
+title: "Saint Nicolas à Belleville"
 date: 2026-03-16 10:55:04 +0000
 categories: jekyll update
 tags: [Saint Nicolas, Belleville, Église Saint Jean Baptiste, Noël, Bénévolat]
-# ---
-# OPTIONNEL : Si votre thème utilise une image principale (feature image)
 image: "{{ '/assets/data/eglise/img/pn02.webp' | relative_url }}"
-# ---
 ---
 
 ## Un moment de partage inoubliable
 
 ![Saint Nicolas à l'église]({{ '/assets/data/eglise/img/pn02.webp' | relative_url }})
 
-C'est avec une immense joie et une pointe d'émotion que j'ai eu l'honneur, cette année, de revêtir la mitre et la crosse pour incarner Saint Nicolas. L'événement s'est déroulé au cœur de notre quartier, dans la magnifique église **Saint Jean Baptiste de Belleville**.
+C'est avec une immense joie et une pointe d'émotion que j'ai eu l'honneur, cette année, de revêtir la mitre et la crosse pour incarner **Saint Nicolas**. L'événement s'est déroulé au cœur de notre quartier, dans la magnifique église **Saint Jean Baptiste de Belleville**.
 
 {:.lead}
 Un grand merci à la paroisse et à tous les bénévoles pour leur accueil chaleureux.
@@ -23,8 +20,6 @@ Un grand merci à la paroisse et à tous les bénévoles pour leur accueil chale
 
 L'atmosphère était tout simplement magique. En entrant dans la nef, j'ai été frappé par la beauté de l'architecture, sublimée par les décorations de l'Avent.
 
-`).
--->
 Cette première image tente de capturer un peu de cette ambiance solennelle et joyeuse qui régnait avant l'arrivée des familles.
 
 ## Le plus beau moment : les sourires des enfants
@@ -37,12 +32,13 @@ Cette seconde image montre l'instant précieux de l'échange, un moment de pure 
 
 ---
 
+![Saint Nicolas à l'église]({{ '/assets/data/eglise/img/pn01.webp' | relative_url }})
+
+---
+
 ### Une expérience à renouveler
 
 Cette journée a été riche en émotions et en rencontres humaines. Je repars avec le cœur léger et des souvenirs plein la tête. Un grand merci encore à tous ceux qui ont rendu ce moment possible. J'espère avoir l'occasion de recommencer l'année prochaine !
 
 {:.note}
 Et vous, quelles sont vos traditions préférées pour la Saint Nicolas ou les fêtes de fin d'année ? N'hésitez pas à partager vos souvenirs dans les commentaires !
-
-
-![Saint Nicolas à l'église]({{ '/assets/data/eglise/img/pn01.webp' | relative_url }})
