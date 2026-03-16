@@ -6,7 +6,7 @@ categories: jekyll update
 tags: [Saint Nicolas, Belleville, Église Saint Jean Baptiste, Noël, Bénévolat]
 # ---
 # OPTIONNEL : Si votre thème utilise une image principale (feature image)
-image: "{{ '/assets/data/eglie/img/pn01.webp' | relative_url }}"
+image: "{{ '/assets/data/eglise/img/pn02.webp' | relative_url }}"
 # ---
 ---
 
