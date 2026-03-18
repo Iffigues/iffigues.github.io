@@ -12,8 +12,8 @@ const getAccessToken = async (ci, cs) => {
     return data.access_token;
 }
 
-const getMyProfile = async (token) => {
-    const response = await fetch('https://api.intra.42.fr/v2/users/42488', {
+const getMyProfile = async (token, id) => {
+    const response = await fetch('https://api.intra.42.fr/v2/users/${id}', {
         headers: {
             'Authorization': `Bearer ${token}`
         }
@@ -53,8 +53,8 @@ const bb = async () => {
 id = "42488"
 let b = await getAccessToken("", "")
 console.log(b)
-//let c = await getStudentId(b)
-let cc = await  getMyProfile(b)
+let c = await getStudentId(b)
+let cc = await  getMyProfile(b, c)
 console.log(cc)
 }
 

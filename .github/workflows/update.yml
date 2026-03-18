@@ -1,0 +1,23 @@
+name: Sync 42 Data
+on:
+  schedule:
+    - cron: '0 0 * * *' # Une fois par jour
+  workflow_dispatch:      # Permet de cliquer sur un bouton pour tester
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Fetch Script
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        run: node fetch_42_data.js
+      - name: Commit changes
+        run: |
+          git config --global user.name '42-Data-Bot'
+          git config --global user.email 'bot@42.fr'
+          git add _data/denoyelle.json
+          git commit -m "Auto-update 42 profile" || echo "No changes to commit"
+          git push
