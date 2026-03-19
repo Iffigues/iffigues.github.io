@@ -4,14 +4,20 @@ const getAccessToken = async (ci, cs) => {
     const response = await fetch('https://api.intra.42.fr/oauth/token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `grant_type=client_credentials&client_id=${ci}&client_secret=${cs}`
+        body: `grant_type=client_credentials&client_id=${ci.trim()}&client_secret=${cs.trim()}`
     });
+
     const data = await response.json();
-    
-    // VERIFICATION CRUCIALE
-    if (!data.access_token) {
-        throw new Error("❌ Erreur d'authentification : Vérifie tes Secrets GitHub (UID/SECRET) !");
+
+    // C'EST CETTE PARTIE QUI VA NOUS DIRE LA VÉRITÉ
+    if (!response.ok) {
+        console.log("--- ERREUR API 42 ---");
+        console.log("Status:", response.status);
+        console.log("Message:", data.error_description || data.error);
+        console.log("----------------------");
+        throw new Error("Impossible de récupérer le token");
     }
+
     return data.access_token;
 };
 
