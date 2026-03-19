@@ -53,7 +53,7 @@ const run = async () => {
         // Utilisation des variables d'environnement de GitHub
         const ci = process.env.CLIENT_ID;
         const cs = process.env.CLIENT_SECRET;
-
+        console.log(ci, cs)
         const token = await getAccessToken(ci, cs);
         console.log("✅ Token obtenu avec succès.");
 
