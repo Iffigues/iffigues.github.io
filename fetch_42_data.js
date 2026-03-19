@@ -58,7 +58,7 @@ const run = async () => {
         if (!ci || !cs) {
             throw new Error("Les variables d'environnement sont vides ou mal chargées.");
         }
-        console.log(ci, cs)
+        console.log("Token = ", ci, cs)
         const token = await getAccessToken(ci, cs);
         console.log("✅ Token obtenu avec succès.");
 
