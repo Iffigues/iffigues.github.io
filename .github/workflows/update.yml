@@ -1,8 +1,6 @@
 name: Sync 42 Data
 on:
-  schedule:
-    - cron: '0 0 * * *' # Une fois par jour
-  workflow_dispatch:      # Permet de cliquer sur un bouton pour tester
+  workflow_dispatch: # Le bouton magique dans l'onglet Actions
 
 jobs:
   update:
@@ -10,15 +8,28 @@ jobs:
     environment: github-pages
     steps:
       - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
       - name: Run Fetch Script
         env:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         run: node fetch_42_data.js
+
       - name: Commit changes
         run: |
           git config --global user.name '42-Data-Bot'
           git config --global user.email 'bot@42.fr'
-          git add _data/denoyelle.json
-          git commit -m "Auto-update 42 profile" || echo "No changes to commit"
-          git push
+          # On vérifie si le fichier a bien été créé avant de tenter un commit
+          if [ -f _data/denoyelle.json ]; then
+            git add _data/denoyelle.json
+            git commit -m "Manual sync of 42 profile data" || echo "No changes to commit"
+            git push
+          else
+            echo "Erreur : Le fichier JSON n'a pas été généré."
+            exit 1
+          fi
