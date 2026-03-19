@@ -51,8 +51,13 @@ async function findUserByLogin(token, targetLogin) {
 const run = async () => {
     try {
         // Utilisation des variables d'environnement de GitHub
-        const ci = process.env.CLIENT_ID;
-        const cs = process.env.CLIENT_SECRET;
+        // .trim() retire les espaces ou retours à la ligne accidentels
+        const ci = process.env.CLIENT_ID ? process.env.CLIENT_ID.trim() : null;
+        const cs = process.env.CLIENT_SECRET ? process.env.CLIENT_SECRET.trim() : null;
+
+        if (!ci || !cs) {
+            throw new Error("Les variables d'environnement sont vides ou mal chargées.");
+        }
         console.log(ci, cs)
         const token = await getAccessToken(ci, cs);
         console.log("✅ Token obtenu avec succès.");
