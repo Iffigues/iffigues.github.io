@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-// 1. Récupérer le Token d'accès
+// 1. Ton modèle pour le Token
 const getAccessToken = async (ci, cs) => {
     const response = await fetch('https://api.intra.42.fr/oauth/token', {
         method: 'POST',
@@ -11,49 +11,72 @@ const getAccessToken = async (ci, cs) => {
     return data.access_token;
 };
 
-// 2. Récupérer l'ID numérique à partir du login
-const getStudentId = async (token, login) => {
-    const response = await fetch(`https://api.intra.42.fr/v2/users/${login}`, {
-        method: 'GET',
-        headers: { 'Authorization': `Bearer ${token}` }
-    });
-    if (!response.ok) throw new Error(`Erreur login: ${response.status}`);
-    const data = await response.json();
-    return data.id;
-};
+// 2. Ta logique : Boucler sur /v2/users jusqu'à trouver le pseudo
+async function findUserByLogin(token, targetLogin) {
+    let page = 1;
+    let foundUser = null;
 
-// 3. Récupérer le profil complet via l'ID numérique
-const getProfileById = async (token, id) => {
-    const response = await fetch(`https://api.intra.42.fr/v2/users/${id}`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-    });
-    if (!response.ok) throw new Error(`Erreur ID: ${response.status}`);
-    return await response.json();
-};
+    console.log(`🔍 Recherche de ${targetLogin} dans la liste globale...`);
 
+    while (!foundUser) {
+        // On demande la page actuelle (100 utilisateurs max par page)
+        const response = await fetch(`https://api.intra.42.fr/v2/users?page[number]=${page}&page[size]=100`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (!response.ok) throw new Error(`Erreur page ${page}: ${response.status}`);
+
+        const users = await response.json();
+        
+        // Si la liste est vide, on a fait le tour sans trouver
+        if (users.length === 0) break;
+
+        // On cherche dans la page actuelle
+        foundUser = users.find(user => user.login === targetLogin);
+
+        if (foundUser) {
+            console.log(`✅ Trouvé ! ID de ${targetLogin} : ${foundUser.id}`);
+            return foundUser;
+        }
+
+        console.log(`Page ${page} vérifiée... (pas encore trouvé)`);
+        page++;
+
+        // Sécurité pour éviter de boucler à l'infini et brûler ton quota
+        if (page > 50) { 
+            console.log("⚠️ Arrêt après 50 pages pour protéger le quota.");
+            break; 
+        }
+    }
+    return null;
+}
+
+// 3. Le Runner
 const run = async () => {
     try {
-        const client_id = process.env.CLIENT_ID;
-        const client_secret = process.env.CLIENT_SECRET;
-        const target_login = "bordenoy"; 
+        const ci = process.env.CLIENT_ID;
+        const cs = process.env.CLIENT_SECRET;
+        const login = "bordenoy";
 
-        console.log("1. Authentification...");
-        const token = await getAccessToken(client_id, client_secret);
+        const token = await getAccessToken(ci, cs);
+        const userData = await findUserByLogin(token, login);
 
-        console.log(`2. Recherche de l'ID pour ${target_login}...`);
-        const id = await getStudentId(token, target_login);
-        console.log(`ID trouvé : ${id}`);
+        if (userData) {
+            // On récupère le profil complet avec l'ID trouvé
+            const fullProfileResponse = await fetch(`https://api.intra.42.fr/v2/users/${userData.id}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const fullData = await fullProfileResponse.json();
 
-        console.log(`3. Récupération des données via l'ID ${id}...`);
-        const profileData = await getProfileById(token, id);
-
-        // Sauvegarde pour ton Jekyll
-        if (!fs.existsSync('_data')) fs.mkdirSync('_data');
-        fs.writeFileSync('_data/denoyelle.json', JSON.stringify(profileData, null, 2));
-        
-        console.log("Terminé : _data/denoyelle.json est prêt !");
+            // Sauvegarde Jekyll
+            if (!fs.existsSync('_data')) fs.mkdirSync('_data');
+            fs.writeFileSync('_data/denoyelle.json', JSON.stringify(fullData, null, 2));
+            console.log("📁 Fichier _data/denoyelle.json mis à jour.");
+        } else {
+            console.log("❌ Utilisateur non trouvé dans les premières pages.");
+        }
     } catch (error) {
-        console.error("Erreur dans le workflow :", error);
+        console.error(error);
         process.exit(1);
     }
 };
