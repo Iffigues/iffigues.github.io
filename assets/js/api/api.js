@@ -1,61 +1,15 @@
-// Sur ton site Jekyll, dans un fichier .js
-const getAccessToken = async (ci, cs) => {
-    const response = await fetch('https://api.intra.42.fr/oauth/token', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `grant_type=client_credentials&client_id=${ci}&client_secret=${cs}`
-    });
-
+/**
+ * Récupère les données de Boris et retourne l'objet JSON
+ */
+async function fetchBorisData(url) {  
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
+    
     const data = await response.json();
-    return data.access_token;
+    return data; // C'est ici que l'objet est "propulsé" hors de la fonction
+  } catch (error) {
+    console.error("Impossible de charger les données 42:", error);
+    return null; // On retourne null pour éviter de faire crash le reste du code
+  }
 }
-
-const getMyProfile = async (token, id) => {
-    const response = await fetch('https://api.intra.42.fr/v2/users/${id}', {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
-
-    const userData = await response.json();
-    return(userData);
-}
-
-
-async function getStudentId(token, login = "bordenoy") {
-    try {
-        const response = await fetch(`https://api.intra.42.fr/v2/users/${login}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`Erreur: ${response.status}`);
-        }
-
-        const data = await response.json();
-        
-        // L'ID numérique est ici :
-        console.log(`L'ID de ${login} est : ${data.id}`);
-        return data.id;
-
-    } catch (error) {
-        console.error("Impossible de récupérer l'ID :", error);
-    }
-}
-
-
-const bb = async () => {
-id = "42488"
-let b = await getAccessToken("", "")
-console.log(b)
-let c = await getStudentId(b)
-let cc = await  getMyProfile(b, c)
-console.log(cc)
-}
-
-bb()
