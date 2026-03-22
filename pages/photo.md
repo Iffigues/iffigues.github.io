@@ -7,7 +7,7 @@ title: Photos de mon Église
 
 <div class="church-gallery">
   {% for file in site.static_files %}
-    {% if file.path contains '/assets/data/photo/new/new' %}
+    {% if file.path contains 'old/assets/data/photo/new/new' %}
       {% if file.extname == '.JPG' or file.extname == '.jpeg' or file.extname == '.png' or file.extname == '.webp' %}
         
         <div class="gallery-item">
