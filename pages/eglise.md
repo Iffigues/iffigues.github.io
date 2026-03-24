@@ -72,7 +72,7 @@ title: eglise
     <h3>📖 Pour aller plus loin</h3>
     <div class="articles-grid">
       
-      <a href="{{ '/bapteme-chrono| relative_url }}" class="article-card">
+      <a href="{{ '/bapteme-chrono's| relative_url }}" class="article-card">
         <div class="article-info">
           <h4>Mon pèlerinage à Rome</h4>
           <p>Retour sur les moments forts vécus au Vatican et la rencontre avec la communauté.</p>
