@@ -74,16 +74,16 @@ title: eglise
       
       <a href="{{ '/jekyll/update/2026/02/13/bapteme-timer.html's| relative_url }}" class="article-card">
         <div class="article-info">
-          <h4>Mon pèlerinage à Rome</h4>
-          <p>Retour sur les moments forts vécus au Vatican et la rencontre avec la communauté.</p>
+          <h4>un timer pour Pâques</h4>
+          <p>Mon timer pour Pâques</p>
           <span class="read-more">Lire l'article →</span>
         </div>
       </a>
 
       <a href="{{ '/jekyll/update/2026/03/16/saintnicolas.html' | relative_url }}" class="article-card">
         <div class="article-info">
-          <h4>Le déclic en Côte d'Ivoire</h4>
-          <p>Comment ce voyage de 2023 a transformé ma vision de la foi.</p>
+          <h4>J'ai  joué Saint Nicolas</h4>
+          <p>J'ai fais Saint Nicolas.</p>
           <span class="read-more">Lire l'article →</span>
         </div>
       </a>
