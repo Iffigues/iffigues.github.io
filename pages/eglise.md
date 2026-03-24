@@ -72,7 +72,7 @@ title: eglise
     <h3>📖 Pour aller plus loin</h3>
     <div class="articles-grid">
       
-      <a href="{{ '/bapteme-chrono/ | relative_url }}" class="article-card">
+      <a href="{{ '/bapteme-chrono| relative_url }}" class="article-card">
         <div class="article-info">
           <h4>Mon pèlerinage à Rome</h4>
           <p>Retour sur les moments forts vécus au Vatican et la rencontre avec la communauté.</p>
@@ -80,7 +80,7 @@ title: eglise
         </div>
       </a>
 
-      <a href="{{ '/update/2026/03/16/saintnicolas.html' | relative_url }}" class="article-card">
+      <a href="{{ '/jekyll/update/2026/03/16/saintnicolas.html' | relative_url }}" class="article-card">
         <div class="article-info">
           <h4>Le déclic en Côte d'Ivoire</h4>
           <p>Comment ce voyage de 2023 a transformé ma vision de la foi.</p>
