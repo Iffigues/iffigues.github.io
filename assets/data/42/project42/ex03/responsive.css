@@ -1,0 +1,72 @@
+html {
+	background-color:black;
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+body {
+	height: 100%;
+	min-height: 100%;
+
+	padding: 0px;
+	margin: 0px;
+
+	background-color: black;
+	background-image: url(https://previews.123rf.com/images/ljubovb/ljubovb1603/ljubovb160300010/54228081-seamless-avec-des-%C3%A9l%C3%A9ments-de-fantasy-alchimie-sur-fond-noir-vector-illustration-.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+}
+table , #t {
+	float: left;
+	width: 100%;
+	height: 100%;
+}
+td {
+	margin: 0px;
+	padding: 0px;
+}
+p ,h1{
+	padding:0%;
+	margin: 0%;
+}
+tr{
+	position: relative;
+}
+td, p, h1 {
+	font-size: 1vw;
+}
+.b{
+	background-color: #50BFE6;
+}
+.c {
+	background-color: #CD607E;
+}
+.o {
+	background-color: #FF7A00;
+}
+.r {
+	background-color: #FF5470;
+}
+.s {
+	background-color: #D98695;
+}
+.w {
+	background-color: #A0E6FF;
+}
+.e {
+	background-color: #44D7A8;
+}
+.bp {
+	background-color: #FEFEFA;
+}
+.vv {
+	background-color: #5FA778;
+}
+.bg {
+	background-color: #FFD3F8;
+}
+.tr {
+	background-color: #8A496B;
+}

@@ -66,7 +66,30 @@ title: eglise
       </iframe>
     </div>
   </div>
+<hr class="section-divider">
 
+  <div class="related-articles">
+    <h3>📖 Pour aller plus loin</h3>
+    <div class="articles-grid">
+      
+      <a href="{{ '/jekyll/update/2026/02/13/bapteme-timer.html's| relative_url }}" class="article-card">
+        <div class="article-info">
+          <h4>un timer pour Pâques</h4>
+          <p>Mon timer pour Pâques</p>
+          <span class="read-more">Lire l'article →</span>
+        </div>
+      </a>
+
+      <a href="{{ '/jekyll/update/2026/03/16/saintnicolas.html' | relative_url }}" class="article-card">
+        <div class="article-info">
+          <h4>J'ai  joué Saint Nicolas</h4>
+          <p>J'ai fais Saint Nicolas.</p>
+          <span class="read-more">Lire l'article →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
 </section>
 
 <style>
@@ -163,4 +186,71 @@ title: eglise
   border-radius: 14px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
+
+/* Section Articles Connexes */
+.section-divider {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+  margin: 20px 40px;
+}
+
+.related-articles {
+  padding: 0 40px 40px;
+}
+
+.related-articles h3 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.article-card {
+  text-decoration: none;
+  color: inherit;
+  background: #f9f9f9;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  border-color: #0055a4;
+}
+
+.article-info {
+  padding: 20px;
+}
+
+.article-info h4 {
+  margin-top: 0;
+  color: #0055a4;
+  font-size: 1.1rem;
+}
+
+.article-info p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.read-more {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #0055a4;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 </style>
