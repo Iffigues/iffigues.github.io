@@ -72,7 +72,7 @@ title: eglise
     <h3>📖 Pour aller plus loin</h3>
     <div class="articles-grid">
       
-      <a href="{{ '/jekyll/update/2026/02/13/bapteme-timer.html's| relative_url }}" class="article-card">
+      <a href="{{ '/jekyll/update/2026/02/13/bapteme-timer.html'| relative_url }}" class="article-card">
         <div class="article-info">
           <h4>un timer pour Pâques</h4>
           <p>Mon timer pour Pâques</p>

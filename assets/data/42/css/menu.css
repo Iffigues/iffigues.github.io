@@ -1,0 +1,64 @@
+html, body {
+    background-color: black;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+div, button {
+    margin: 0;
+    padding: 0;
+}
+
+/* Le conteneur du menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%; /* S'adapte à la largeur de l'iframe */
+}
+
+/* Le bouton principal */
+.boutonmenuprincipal {
+    width: 100%;
+    background-color: #e83737;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 15px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.boutonmenuprincipal:hover {
+    background-color: #ff4444;
+}
+
+/* Le sous-menu déroulant qui FLOTTE au-dessus */
+.dropdown-child {
+    display: none;
+    position: absolute; /* ESSENTIEL : permet de flotter sans pousser le reste */
+    top: 100%;          /* Se place juste en dessous du bouton */
+    left: 0;
+    width: 100%;        /* Même largeur que le bouton */
+    background-color: #f28c8c;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+    z-index: 1000;      /* Passe au-dessus de tout le reste */
+}
+
+/* Les liens du menu */
+.dropdown-child a {
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-child a:hover {
+    background-color: #d9534f;
+}
+
+/* Affichage au survol */
+.dropdown:hover .dropdown-child {
+    display: block;
+}
