@@ -12,22 +12,22 @@ permalink: /ex02
     <body>
         <div id="day">
             <div id="top"> 
-                <img id="doth" width="50%" height="100%" src="{{ '/assets/data/42/ressources/day_of_the_42.png' | relative_url }}" />
-                <img id="loupe" width="30%" height="100%" src="{{ '/assets/data/42/ressources/loupe.png' | relative_url }}"/>
-                <a href="https://www.disney.com"><img id="reload" title="Recommencer au debut" width="10%" height="20%" src="{{ '/assets/data/42/ressources/reload.png' | relative_url }}"/></a>
+                <img id="doth" width="50%" height="100%" src="{{ '/assets/data/42/ressources/day_of_the_42.webp' | relative_url }}" />
+                <img id="loupe" width="30%" height="100%" src="{{ '/assets/data/42/ressources/loupe.webp' | relative_url }}"/>
+                <a href="https://www.disney.com"><img id="reload" title="Recommencer au debut" width="10%" height="20%" src="{{ '/assets/data/42/ressources/reload.webp' | relative_url }}"/></a>
                 <a href="https://www.relaischateaux.com/fr/"><img id="close" title="Deconnecter" width="10%" height="20%" src="{{ '/assets/data/42/ressources/close.gif' | relative_url }}"/></a>
             </div>
             <div id="left">
-                <img id="arrow" width="100%" height="18%" src="{{ '/assets/data/42/ressources/arrow.png' | relative_url }}" title="Avancer" />
-                <img id="main" width="100%" height="18%" src="{{ '/assets/data/42/ressources/main.png' | relative_url }}" title="Prendre" />
-                <img id="oeil" width="100%" height="18%" src="{{ '/assets/data/42/ressources/oeil.png' | relative_url }}" title="Regarder" />
-                <img id="outil" width="100%" height="18%" src="{{ '/assets/data/42/ressources/outil.png' | relative_url }}" title="Utiliser"/>
-                <img id="chat" width="100%" height="18%" src="{{ '/assets/data/42/ressources/chat-icon.png' | relative_url }}" title="Parler"/>
+                <img id="arrow" width="100%" height="18%" src="{{ '/assets/data/42/ressources/arrow.webp' | relative_url }}" title="Avancer" />
+                <img id="main" width="100%" height="18%" src="{{ '/assets/data/42/ressources/main.webp' | relative_url }}" title="Prendre" />
+                <img id="oeil" width="100%" height="18%" src="{{ '/assets/data/42/ressources/oeil.webp' | relative_url }}" title="Regarder" />
+                <img id="outil" width="100%" height="18%" src="{{ '/assets/data/42/ressources/outil.webp' | relative_url }}" title="Utiliser"/>
+                <img id="chat" width="100%" height="18%" src="{{ '/assets/data/42/ressources/chat-icon.webp' | relative_url }}" title="Parler"/>
             </div>
             <div id="middle">
                 <a href="https://www.apple.com/"><div id="lol"></div></a>
                 <a href="https://www.ikea.com/"><div id="lil"></div></a>
-                <img id="cluster" width="100%" height="100%" src="{{ '/assets/data/42/ressources/cluster.jpg' | relative_url }}"/>
+                <img id="cluster" width="100%" height="100%" src="{{ '/assets/data/42/ressources/cluster.webp' | relative_url }}"/>
                 <div id="fa">
                     <p style="position:absolute; top:2%;">Vous entrer alors dans une grande piece remplie</p>
                     <p style="position:absolute; top:13%; text-shadow: red 0.1em 0.1em 0.2em;">d'ordinateurs.</p>
@@ -37,9 +37,9 @@ permalink: /ex02
                 </div>
             </div>
             <div id="right">
-                <img id="book" width="100%" height="18%" src="{{ '/assets/data/42/ressources/book.png' | relative_url }}"/>
-                <img id="towel" width="100%" height="18%" src="{{ '/assets/data/42/ressources/towel.png' | relative_url }}"/>
-                <div id="brick" style="width:80%; height:10%; background-image:url('{{ '/assets/data/42/ressources/brick.jpg' | relative_url }}');"></div>
+                <img id="book" width="100%" height="18%" src="{{ '/assets/data/42/ressources/book.webp' | relative_url }}"/>
+                <img id="towel" width="100%" height="18%" src="{{ '/assets/data/42/ressources/towel.webp' | relative_url }}"/>
+                <div id="brick" style="width:80%; height:10%; background-image:url('{{ '/assets/data/42/ressources/brick.webp' | relative_url }}');"></div>
             </div>
         </div>
     </body>
