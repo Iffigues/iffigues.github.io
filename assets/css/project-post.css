@@ -1,0 +1,57 @@
+/* assets/css/project-post.css */
+
+.project-article {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.project-img-main {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    margin-bottom: 30px;
+}
+
+.project-body {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+.intro-text {
+    font-size: 1.25rem;
+    color: #222;
+    border-left: 4px solid #0077b5;
+    padding-left: 20px;
+    margin-bottom: 30px;
+}
+
+.project-section {
+    margin-bottom: 25px;
+}
+
+.project-section h3 {
+    color: #0077b5;
+    margin-bottom: 15px;
+}
+
+.highlight-box {
+    background: #f0f7ff;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px inset rgba(0, 119, 181, 0.1);
+}
+
+.evolution {
+    text-align: center;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .project-body {
+        padding: 20px;
+    }
+}
