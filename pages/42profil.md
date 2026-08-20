@@ -15,7 +15,6 @@ custom_js:
         <div class="main-nav-buttons">
         <a href="{{ '/42' | relative_url }}"><button id="btn-projects" class="btn-42">42</button></a>
             <a href="{{ '/42project' | relative_url }}"><button id="btn-projects" class="btn-42">Mes Projets 42</button></a>
-            <a href="{{ '/42profil' | relative_url }}"><button id="btn-profil" class="btn-42">Profil</button></a>
             <a href="{{ '/42time' | relative_url }}"><button id="btn-profil" class="btn-42">Time</button></a>
             <a href="{{ '/42coalition' | relative_url }}"><button id="btn-profil" class="btn-42">Coalitions</button></a>
         </div>
