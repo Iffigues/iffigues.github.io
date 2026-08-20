@@ -1,0 +1,31 @@
+/* assets/css/bapteme-timer.css */
+
+.post-content, .wrapper, main, .content {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+}
+
+.iframe-container {
+    width: 100%;
+    height: calc(100vh - 140px);
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.iframe-container iframe {
+    display: block;
+    vertical-align: bottom;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+}

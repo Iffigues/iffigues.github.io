@@ -1,0 +1,206 @@
+/* assets/css/git-analyzer.css */
+
+#git-app {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    max-width: 1100px;
+    margin: auto;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+}
+
+.analyzer-header {
+    background: #24292e;
+    padding: 20px;
+    color: white;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.analyzer-input-repo {
+    flex: 2;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+}
+
+.analyzer-input-token {
+    flex: 1;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    background: #3f4448;
+    color: white;
+}
+
+.analyzer-btn-scan {
+    background: #2ea44f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.disk-section {
+    display: none;
+    padding: 20px;
+    background: #f6f8fa;
+    border-bottom: 1px solid #e1e4e8;
+}
+
+.disk-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.disk-card {
+    background: white;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.disk-card-title {
+    font-size: 10px;
+    color: #666;
+}
+
+.disk-card-val {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.disk-card-val.used { color: #d73a49; }
+.disk-card-val.avail { color: #2ea44f; }
+
+.progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background: #eee;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+}
+
+.progress-bar-fill {
+    background: #d73a49;
+    width: 0%;
+}
+
+.main-view {
+    display: none;
+    grid-template-columns: 320px 1fr;
+    border-top: 1px solid #e1e4e8;
+}
+
+.commits-panel {
+    border-right: 1px solid #e1e4e8;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.commits-header {
+    padding: 10px;
+    background: #fafbfc;
+    border-bottom: 1px solid #e1e4e8;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.commit-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: 500px;
+}
+
+.commit-item {
+    padding: 10px;
+    border-bottom: 1px solid #f1f1f1;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.btn-load-more {
+    width: 100%;
+    padding: 10px;
+    background: #f6f8fa;
+    border: none;
+    border-top: 1px solid #e1e4e8;
+    cursor: pointer;
+    font-size: 12px;
+    color: #0366d6;
+}
+
+.explorer-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.explorer-toolbar {
+    padding: 12px;
+    border-bottom: 1px solid #e1e4e8;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.breadcrumb {
+    font-family: monospace;
+    color: #0366d6;
+}
+
+.breadcrumb-item {
+    cursor: pointer;
+}
+
+.btn-audit {
+    font-size: 11px;
+    background: #fff;
+    border: 1px solid #d1d5da;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 2px 8px;
+}
+
+.explorer-table-container {
+    overflow-y: auto;
+    max-height: 550px;
+}
+
+.explorer-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.explorer-row {
+    border-bottom: 1px solid #f9f9f9;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.suggestion-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    z-index: 100;
+    border: 1px solid #ddd;
+}
+
+.btn-modal-close {
+    margin-top: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+}
