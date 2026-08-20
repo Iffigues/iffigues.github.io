@@ -7,3 +7,14 @@ custom_css:
 custom_js:
   - /assets/js/42time.js
 ---
+
+<div class="page-42-wrapper">
+  <header class="section-header">
+    <h1><span class="glitch">42</span> : Le cursus</h1>
+    <div class="main-nav-buttons">
+      <a href="{{ '/42' | relative_url }}"><button id="btn-projects" class="btn-42">42</button></a>
+      <a href="{{ '/42profil' | relative_url }}"><button id="btn-profil" class="btn-42">Profil</button></a>
+      <a href="{{ '/42coalition' | relative_url }}"><button id="btn-profil" class="btn-42">Coalitions</button></a>
+    </div>
+  </header>
+</div>
