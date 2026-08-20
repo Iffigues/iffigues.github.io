@@ -9,7 +9,7 @@ description: "Développeur formé à l'École 42 (lvl 21), passionné par le Dev
 
   <div class="intro">
     <img src="{{ '/assets/data/42/img/bordenoy.webp' | relative_url }}" alt="Photo de profil">
-    <h1>Bienvenu sur mon portofiolio</h1>
+    <h1>Bienvenue sur mon portofolio</h1>
     <p>Développeur formé à 42 (lvl 21.76), passionné par les technologies modernes, le DevOps et le CI/CD. Expérience chez l’AFP. Curieux, rigoureux, j’aime résoudre des problèmes complexes en solo ou en équipe.</p>
   </div>
 
