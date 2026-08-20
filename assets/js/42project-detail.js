@@ -33,34 +33,39 @@ document.addEventListener('DOMContentLoaded', async () => {
         const rawData = await response.json();
         const user = rawData.user || rawData;
 
-        // 1. Extraction des collections principales
+        // 1. Extraire les collections
         const projectsList = rawData.projects_users || user.projects_users || [];
         const allScaleTeams = rawData.scale_teams || user.scale_teams || [];
         const currentUserId = user.id;
 
-        console.log(`📦 Projet ID visé : ${projectId}`);
-
-        // 2. Filtrer toutes les occurrences associées à cet ID de projet
+        // 2. Filtrer toutes les occurrences du projet
         const matchingProjects = projectsList.filter(p => {
             const pId = p.project?.id || p.project_id;
             return pId && parseInt(pId, 10) === projectId;
         });
 
-        // Récupération des informations du projet (nom, description, statut, note globale)
-        let projectName = '';
-        let projectDesc = '';
-        let projectStatus = '';
-        let projectFinalMark = null;
-        let isValidated = false;
-
-        // On prend l'occurrence la plus récente ou la plus pertinente
-        const bestOccurrence = matchingProjects[matchingProjects.length - 1];
-
-        if (bestOccurrence) {
-            projectStatus = bestOccurrence.status || '';
-            projectFinalMark = bestOccurrence.final_mark ?? null;
-            isValidated = bestOccurrence['validated?'] ?? false;
+        if (matchingProjects.length === 0) {
+            if (evalsContainer) evalsContainer.innerHTML = "<p>Projet introuvable dans le profil.</p>";
+            console.groupEnd();
+            return;
         }
+
+        // Sélection de la meilleure tentative (validée en priorité, ou avec la note max)
+        let bestOccurrence = matchingProjects[0];
+        matchingProjects.forEach(p => {
+            const isVal = p['validated?'] === true || p.validated === true;
+            const bestIsVal = bestOccurrence['validated?'] === true || bestOccurrence.validated === true;
+            
+            if (isVal && !bestIsVal) {
+                bestOccurrence = p;
+            } else if ((p.final_mark ?? 0) >= (bestOccurrence.final_mark ?? 0)) {
+                bestOccurrence = p;
+            }
+        });
+
+        // Nom et description
+        let projectName = bestOccurrence.project?.name || '';
+        let projectDesc = bestOccurrence.project?.description || '';
 
         for (const p of matchingProjects) {
             if (!projectName && p.project?.name) {
@@ -71,65 +76,61 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
 
+        const projectStatus = bestOccurrence.status || 'finished';
+        const projectFinalMark = bestOccurrence.final_mark ?? 0;
+        const isValidated = bestOccurrence['validated?'] === true || bestOccurrence.validated === true;
+
         // Mise à jour du titre
         const titleEl = document.getElementById('project-title');
         if (titleEl) {
             titleEl.innerHTML = `<span class="glitch">42</span> : ${escapeHtml(projectName || `Projet #${projectId}`)}`;
         }
 
-        // --- AFFICHAGE DU STATUT ET DE LA NOTE GLOBALE ---
+        // --- AFFICHAGE DU STATUT ET DE LA NOTE DANS LE BLOC "INFORMATIONS DU PROJET" ---
         const metaContainer = document.getElementById('project-meta-info');
         if (metaContainer) {
-            const statusBadgeClass = isValidated ? 'status-success' : 'status-fail';
-            const statusText = projectStatus ? escapeHtml(projectStatus) : 'Inconnu';
-            const markText = projectFinalMark !== null ? `${projectFinalMark}/100` : 'N/A';
+            const statusClass = isValidated ? 'status-success' : 'status-fail';
+            const statusLabel = isValidated ? 'Validé' : escapeHtml(projectStatus);
 
             metaContainer.innerHTML = `
-                <div class="project-info-badge">
-                    <span><strong>Statut :</strong> <span class="${statusBadgeClass}">${statusText}</span></span>
-                    <span><strong>Note finale :</strong> <strong>${markText}</strong></span>
-                </div>
+                <p><strong>Statut :</strong> <span class="${statusClass}">${statusLabel}</span></p>
+                <p><strong>Note finale :</strong> <strong class="mark-highlight">${projectFinalMark}/100</strong></p>
             `;
         }
 
-        // --- AFFICHAGE DE LA DESCRIPTION ---
+        // --- DESCRIPTION ---
         const descCard = document.getElementById('project-description-card');
         const descText = document.getElementById('project-description-text');
         
-        if (projectDesc && descCard && descText) {
+        if (projectDesc && projectDesc.trim() !== '' && descCard && descText) {
             descText.style.whiteSpace = 'pre-wrap';
-            descText.textContent = projectDesc;
+            descText.textContent = projectDesc.trim();
             descCard.style.display = 'block';
         } else if (descCard) {
             descCard.style.display = 'none';
         }
 
-        // 3. Récupérer TOUS les ID d'équipes associées
+        // 3. Récupération des IDs d'équipes pour les évaluations
         const teamIds = new Set();
         matchingProjects.forEach(p => {
             if (p.current_team_id) teamIds.add(p.current_team_id);
             if (Array.isArray(p.teams)) {
-                p.teams.forEach(t => {
-                    if (t && t.id) teamIds.add(t.id);
-                });
+                p.teams.forEach(t => { if (t && t.id) teamIds.add(t.id); });
             }
         });
 
-        // 4. Filtrage des évaluations (scale_teams)
+        // 4. Filtrage des scale_teams
         const projectScales = allScaleTeams.filter(scale => {
             if (!scale) return false;
-
             const scaleTeamId = scale.team_id || scale.team?.id;
             if (scaleTeamId && teamIds.has(scaleTeamId)) return true;
-
             const scaleProjId = scale.team?.project_id || scale.project_id || scale.project?.id;
             if (scaleProjId && parseInt(scaleProjId, 10) === projectId) return true;
-
             const scaleProjName = (scale.team?.project_name || scale.project?.name || '').toLowerCase();
             return projectName && scaleProjName === projectName.toLowerCase();
         });
 
-        // 5. Tri des évaluations : reçues vs données
+        // 5. Tri des évaluations (reçues vs données)
         const evalsReceived = [];
         const evalsGiven = [];
 
@@ -142,7 +143,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
 
-        // 6. Rendu du contenu HTML
+        // 6. Rendu HTML des commentaires
         let htmlContent = '';
 
         if (evalsReceived.length > 0) {
@@ -187,7 +188,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     } catch (err) {
         console.error('❌ Erreur lors de l\'exécution:', err);
-        if (evalsContainer) evalsContainer.innerHTML = `<p class="error-msg">Erreur lors de la récupération des commentaires.</p>`;
+        if (evalsContainer) evalsContainer.innerHTML = `<p class="error-msg">Erreur lors de la récupération des données.</p>`;
     } finally {
         console.groupEnd();
     }
