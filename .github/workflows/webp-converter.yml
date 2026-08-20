@@ -1,0 +1,69 @@
+name: Global WebP Converter
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install WebP
+        run: sudo apt-get install -y webp
+
+      - name: Process Images
+        run: |
+          mkdir -p old
+          echo "Démarrage du scan global..."
+          
+          find . -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" \) \
+          -not -path "./old/*" \
+          -not -path "*/.*" \
+          -not -path "./_site/*" \
+          -not -path "./venv/*" | while read -r img; do
+            
+            filename=$(basename "$img")
+            dirname=$(dirname "$img")
+            basename="${filename%.*}"
+            webp_path="${dirname}/${basename}.webp"
+            
+            # Préparation du chemin d'archive miroir
+            archive_dir="old/${dirname#./}"
+            archive_path="$archive_dir/$filename"
+
+            echo "---"
+            echo "Vérification de : $img"
+
+            # SÉCURITÉ : Si l'original existe déjà dans l'archive, on skip tout
+            if [ -f "$archive_path" ]; then
+              echo "-> Déjà archivé dans $archive_path. On ne fait rien."
+              continue
+            fi
+
+            echo "-> Nouveau fichier détecté. Traitement..."
+
+            # 1. Création du WebP
+            if [ ! -f "$webp_path" ]; then
+              echo "-> Création du WebP..."
+              cwebp -q 80 "$img" -o "$webp_path"
+            fi
+            
+            # 2. Archivage sécurisé de l'original
+            mkdir -p "$archive_dir"
+            echo "-> Archivage vers $archive_path"
+            mv "$img" "$archive_path"
+            
+          done
+
+      - name: Save Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Action: WebP conversion & Organized archive in /old (with skip logic)"
+          file_pattern: '.'

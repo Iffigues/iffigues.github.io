@@ -1,0 +1,84 @@
+/* Le CSS pour rendre ça propre sur ton Jekyll */
+.about-section {
+    padding: 40px 20px;
+    color: #333;
+    font-family: sans-serif;
+}
+
+.about-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+/* La fameuse photo carrée moderne */
+.profile-card {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 20px; /* Coins arrondis "Squircle" */
+    border: 3px solid #0077b5;
+    box-shadow: 12px 12px 0px #0077b5; /* Ombre décalée style Tech */
+    transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 17px 17px 0px #00a0dc;
+}
+
+.about-content {
+    flex: 1;
+    min-width: 300px;
+}
+
+.lead {
+    font-size: 1.2rem;
+    color: #0077b5;
+}
+
+.highlight-item {
+    margin-bottom: 20px;
+    border-left: 4px solid #eee;
+    padding-left: 15px;
+}
+
+.highlight-item h3 {
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+.tech-stack {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    background: #f0f0f0;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    border: 1px solid #ddd;
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .highlight-item {
+        border-left: none;
+        border-bottom: 1px solid #eee;
+        padding: 0 0 15px 0;
+    }
+    .tech-stack {
+        justify-content: center;
+    }
+}

@@ -1,0 +1,87 @@
+<head>
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Favicons (Fichiers .webp du dépôt) -->
+  <link rel="icon" type="image/webp" sizes="32x32" href="{{ '/assets/img/favicon/favicon-32x32.webp' | relative_url }}">
+  <link rel="icon" type="image/webp" sizes="16x16" href="{{ '/assets/img/favicon/favicon-16x16.webp' | relative_url }}">
+  <link rel="icon" type="image/webp" sizes="96x96" href="{{ '/assets/img/favicon/favicon-96x96.webp' | relative_url }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/img/favicon/apple-icon-180x180.webp' | relative_url }}">
+  <link rel="manifest" href="{{ '/assets/img/favicon/manifest.json' | relative_url }}">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="google-site-verification" content="kAObNxtDcufLtvAlNlEQZnO9L7zJkxA8-aBOaQhZiNM" />
+
+  <!-- SEO & OpenGraph (Gestion dynamique Jekyll) -->
+  <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }} - Développeur{% endif %}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta property="og:description" content="{{ page.description | default: site.description }}">
+
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta name="twitter:description" content="{{ page.description | default: site.description }}">
+
+  <!-- Données structurées Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "{{ site.title }}",
+    "url": "{{ site.url }}",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "{{ site.url }}/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="{{ '/assets/css/base.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/layout.css' | relative_url }}">
+
+{% assign css_list = page.custom_css | default: layout.custom_css %}
+
+{% if css_list %}
+  {% if css_list.first %}
+    {% for css_file in css_list %}
+      <link rel="stylesheet" href="{{ css_file | relative_url }}">
+    {% endfor %}
+  {% else %}
+    <link rel="stylesheet" href="{{ css_list | relative_url }}">
+  {% endif %}
+{% endif %}
+
+  <!-- Scripts différés (Non bloquants pour l'affichage) -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script defer src="{{ '/assets/js/pdf/pdf.js' | relative_url }}"></script>
+  <script defer src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+
+
+  <script>
+  window.siteBaseUrl = "{{ '' | relative_url }}";
+</script>
+
+{% if page.custom_js %}
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  {% for script in page.custom_js %}
+    <script defer src="{{ script | relative_url }}"></script>
+  {% endfor %}
+{% endif %}
+
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XFQBS31SJC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XFQBS31SJC');
+  </script>
+<script src="{{ '/assets/js/api/api.js' | relative_url }}"></script>
+</head>

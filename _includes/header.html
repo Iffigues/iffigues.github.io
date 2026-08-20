@@ -1,0 +1,39 @@
+<header>
+  <div class="header-bar">
+
+    <!-- Menu principal centré -->
+    <nav class="main-nav">
+      <a href="{{ '/' | relative_url }}">Accueil</a>
+      <a href="{{ '/blog' | relative_url }}">Blog</a>
+      <a href="{{ '/about' | relative_url }}">À propos</a>
+    </nav>
+
+    <!-- Menu mobile -->
+    <div id="low">
+      <button id="accordion-toggle" aria-expanded="false">☰ Menu</button>
+      <nav id="accordion-menu">
+        <a href="{{ '/42' | relative_url }}">Parcours à l'école 42</a>
+        <a href="{{ '/jo' | relative_url }}">J'ai fait les jeux</a>
+        <a href="{{ '/eglise' | relative_url }}">Mon parcours de catéchumène</a>
+        <a href="{{ '/cv' | relative_url }}">CV</a>
+        <a href="{{ '/daily' | relative_url }}">Daily</a>
+        <a href="{{ '/alphabet' | relative_url }}">Code International des Signaux</a>
+        <a href="{{ '/bapteme-chrono' | relative_url }}">Timer avant le baptême</a>
+        <a href="{{ '/stats' | relative_url }}">Github Stats</a>
+      </nav>
+    </div>
+
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('accordion-toggle');
+    const menu = document.getElementById('accordion-menu');
+
+    toggleBtn.addEventListener('click', function () {
+      const isOpen = menu.style.display === 'block';
+      menu.style.display = isOpen ? 'none' : 'block';
+      toggleBtn.setAttribute('aria-expanded', !isOpen);
+    });
+  </script>
+</header>
+

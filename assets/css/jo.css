@@ -1,0 +1,168 @@
+/* assets/css/pages/jo.css */
+
+:root {
+    --jo-purple: #6e3e91;
+    --jo-pink: #ff007a;
+    --jo-gold: #d7c378;
+    --jo-bg-card: rgba(255, 255, 255, 0.92);
+}
+
+body {
+    background: url('../data/jo/img/bg.webp') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+}
+
+.page-jo-wrapper {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+}
+
+/* --- HEADER --- */
+.section-header h1 {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 30px;
+    color: white !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.7);
+}
+
+.highlight { color: var(--jo-pink); }
+
+/* --- BOUTONS --- */
+.main-nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.btn-jo {
+    background: white;
+    border: 2px solid var(--jo-purple);
+    color: var(--jo-purple);
+    padding: 12px 25px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: 0.3s;
+}
+
+.btn-jo:hover {
+    background: var(--jo-purple);
+    color: white;
+    box-shadow: 0 4px 15px rgba(110, 62, 145, 0.4);
+}
+
+/* --- CONTENU --- */
+.content-card {
+    background: var(--jo-bg-card);
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.2);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.story-layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.profile-img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: 3px solid white;
+}
+
+.img-caption {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.timeline {
+    padding: 15px;
+    background: #fdf2f8;
+    border-left: 5px solid var(--jo-pink);
+    border-radius: 4px;
+    color: #333;
+}
+
+/* --- PDF TABS --- */
+.pdf-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+    justify-content: center;
+}
+
+.tab-btn {
+    background: #eee;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.tab-btn.active {
+    background: var(--jo-purple);
+    color: white;
+}
+
+/* --- PDF VIEWER --- */
+.pdf-viewer { text-align: center; }
+
+canvas {
+    max-width: 100%;
+    height: auto !important;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    background: white;
+}
+
+.pdf-toolbar {
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    background: #222;
+    padding: 12px 30px;
+    border-radius: 50px;
+    color: white;
+}
+
+.ctrl-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.btn-download {
+    color: var(--jo-gold) !important;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid var(--jo-gold);
+    padding: 4px 12px;
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .story-layout { grid-template-columns: 1fr; }
+    .section-header h1 { font-size: 2rem; }
+}

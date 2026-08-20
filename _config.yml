@@ -1,0 +1,32 @@
+title: "Portofolio d'iffigues"
+description: "Site perso avec thème custom"
+baseurl: "" # utile si sous-domaine
+url: "https://iffigues.github.io"
+author: "iffigues"
+
+# Supprime ou commente cette ligne si elle existe :
+# theme: minima
+
+plugins:
+  - jekyll-feed # facultatif
+  - jekyll-sitemap
+  - jekyll-seo-tag
+excerpt_separator: ""
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
+  - _site
+
+social:
+  name: "Boris Denoyelle"
+  links:
+    - https://github.com/iffigues
+
+defaults:
+  - scope:
+      path: "pages"
+    values:
+      permalink: /:basename/

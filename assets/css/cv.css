@@ -1,0 +1,68 @@
+    /* Spécifique à la page CV pour le contraste */
+    .cv-page-wrapper {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .section-header h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+    }
+
+    /* On réutilise tes classes de carte pour la cohérence */
+    .content-card {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        backdrop-filter: blur(5px);
+    }
+
+    .highlight {
+        color: #0077b5; /* Bleu pro pour le CV */
+    }
+
+    /* Toolbar PDF stylisée */
+    .pdf-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin-top: 20px;
+        padding: 15px;
+        background: #222;
+        border-radius: 50px;
+        color: white;
+    }
+
+    .ctrl-btn {
+        background: none;
+        border: 1px solid rgba(255,255,255,0.3);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .ctrl-btn:hover {
+        background: rgba(255,255,255,0.1);
+    }
+
+    .page-info {
+        font-weight: bold;
+        min-width: 80px;
+        text-align: center;
+    }
+
+    canvas {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+        height: auto !important;
+        border-radius: 4px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }

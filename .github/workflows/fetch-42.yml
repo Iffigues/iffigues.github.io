@@ -1,0 +1,35 @@
+name: Update 42 Data
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Exécution automatique chaque jour à minuit UTC
+  workflow_dispatch: # Permet le lancement manuel depuis GitHub
+
+jobs:
+  update-42-json:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Execute fetch script
+        env:
+          FT_CLIENT_ID: ${{ secrets.FT_CLIENT_ID }}
+          FT_CLIENT_SECRET: ${{ secrets.FT_CLIENT_SECRET }}
+          FT_USER_LOGIN: 'bordenoy'
+        run: node scripts/fetch-42-data.js
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add assets/data/42/user_data.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update 42 data for bordenoy [skip ci]" && git push)

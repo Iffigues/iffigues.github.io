@@ -1,0 +1,171 @@
+.page-42-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Grille verticale pour afficher chaque carte */
+.coalitions-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Structure de la carte de coalition */
+.coalition-card {
+  background: #1e222b;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid #2c313a;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.coalition-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+}
+
+.coalition-card.inactive-coalition {
+  opacity: 0.85;
+}
+
+/* Bannière d'en-tête */
+.coalition-banner {
+  position: relative;
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.coalition-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to top, #1e222b 0%, rgba(30, 34, 43, 0.4) 100%);
+  z-index: 1;
+}
+
+.coalition-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.coalition-icon {
+  width: 70px;
+  height: 70px;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+}
+
+.coalition-subtitle {
+  font-size: 0.75rem;
+  color: #abb2bf;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: block;
+}
+
+.coalition-titles h2 {
+  margin: 2px 0 0 0;
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+/* Badge de statut (Active / Inactive) */
+.status-badge {
+  position: relative;
+  z-index: 2;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.active-badge {
+  background: rgba(0, 186, 188, 0.2);
+  color: #00babc;
+  border: 1px solid #00babc;
+}
+
+.inactive-badge {
+  background: rgba(171, 178, 191, 0.1);
+  color: #5c6370;
+  border: 1px solid #3e4451;
+}
+
+/* Corps de la carte avec les métriques */
+.coalition-body {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  background: #1e222b;
+}
+
+.stat-box {
+  background: #15181e;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: #abb2bf;
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.stat-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: #abb2bf;
+}
+
+.color-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.color-box {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.color-code {
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+/* Messages d'état */
+.loading-msg, .empty-msg, .error-msg {
+  text-align: center;
+  padding: 40px;
+  color: #abb2bf;
+  font-size: 1.1rem;
+}
+
+.error-msg {
+  color: #e06c75;
+}
