@@ -6,7 +6,7 @@
       "id": 47,
       "image_url": "https://cdn.intra.42.fr/coalition/image/47/order.svg",
       "name": "The Order",
-      "score": 239935,
+      "score": 239977,
       "slug": "42cursus-paris-the-order",
       "user_id": 209139
     },
@@ -3316,7 +3316,7 @@
       "user_id": 42488
     }
   ],
-  "fetched_at": "2026-08-24T14:37:36.298Z",
+  "fetched_at": "2026-08-24T14:45:59.445Z",
   "locations": [
     {
       "begin_at": "2024-02-10T22:19:43.353Z",
