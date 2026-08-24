@@ -1,35 +1,39 @@
 name: Sync 42 Data
+
 on:
-  workflow_dispatch: # Le bouton magique dans l'onglet Actions
+  workflow_dispatch: # Lancement manuel depuis l'onglet Actions
 
 jobs:
   update:
     runs-on: ubuntu-latest
     environment: github-pages
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Run Fetch Script
         env:
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-        run: node fetch_42_data.js
+          FT_CLIENT_ID: ${{ secrets.FT_CLIENT_ID }}
+          FT_CLIENT_SECRET: ${{ secrets.FT_CLIENT_SECRET }}
+          FT_USER_LOGIN: 'bordenoy'
+        run: node scripts/fetch-42-data.js
 
       - name: Commit changes
         run: |
           git config --global user.name '42-Data-Bot'
           git config --global user.email 'bot@42.fr'
-          # On vérifie si le fichier a bien été créé avant de tenter un commit
-          if [ -f _data/denoyelle.json ]; then
-            git add _data/denoyelle.json
-            git commit -m "Manual sync of 42 profile data" || echo "No changes to commit"
-            git push
+          
+          TARGET_FILE="assets/data/42/user_data.json"
+          
+          if [ -f "$TARGET_FILE" ]; then
+            git add "$TARGET_FILE"
+            git diff --quiet && git diff --staged --quiet || (git commit -m "chore: manual sync of 42 profile data [skip ci]" && git push)
           else
-            echo "Erreur : Le fichier JSON n'a pas été généré."
+            echo "Erreur : Le fichier $TARGET_FILE n'a pas été généré."
             exit 1
           fi

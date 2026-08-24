@@ -31,5 +31,13 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add assets/data/42/user_data.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update 42 data for bordenoy [skip ci]" && git push)
+          
+          TARGET_FILE="assets/data/42/user_data.json"
+          
+          if [ -f "$TARGET_FILE" ]; then
+            git add "$TARGET_FILE"
+            git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update 42 data for bordenoy [skip ci]" && git push)
+          else
+            echo "Erreur : Le fichier $TARGET_FILE n'a pas été généré."
+            exit 1
+          fi
