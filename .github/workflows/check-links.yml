@@ -13,19 +13,22 @@ on:
 jobs:
   linkChecker:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Link Checker
+        id: lychee
         uses: lycheeverse/lychee-action@v1.9.0
         with:
           # On vérifie ton site en ligne pour tester les liens internes ET externes
           args: --verbose --no-progress "https://iffigues.github.io"
-          fail: true # Fait échouer l'action si un lien est mort
+          fail: false # Permet de créer une issue avec le rapport complet
 
       - name: Create Issue From Failure
-        if: env.lychee_exit_code != 0
+        if: always() && steps.lychee.outputs.exit_code != 0
         uses: peter-evans/create-issue-from-file@v4
         with:
           title: "🔗 Alerte : Liens morts détectés"
