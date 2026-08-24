@@ -44,25 +44,35 @@ async function getAccessToken() {
     return data.access_token;
 }
 
-async function fetchAllPages(endpoint, token) {
+// Support des endpoints utilisateur ET des URL complètes avec filtres
+async function fetchAllPages(endpointOrUrl, token) {
     let results = [];
     let page = 1;
     const pageSize = 100;
 
+    const isFullUrl = endpointOrUrl.startsWith('http');
+
     while (true) {
-        const url = `https://api.intra.42.fr/v2/users/${USER_LOGIN}/${endpoint}?page[size]=${pageSize}&page[number]=${page}`;
+        let url;
+        if (isFullUrl) {
+            const separator = endpointOrUrl.includes('?') ? '&' : '?';
+            url = `${endpointOrUrl}${separator}page[size]=${pageSize}&page[number]=${page}`;
+        } else {
+            url = `https://api.intra.42.fr/v2/users/${USER_LOGIN}/${endpointOrUrl}?page[size]=${pageSize}&page[number]=${page}`;
+        }
+
         const response = await fetch(url, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
         if (response.status === 429) {
-            console.warn(`⚠️ Rate limit (429) sur ${endpoint}. Pause de 2s...`);
+            console.warn(`⚠️ Rate limit (429). Pause de 2s...`);
             await sleep(2000);
             continue;
         }
 
         if (!response.ok) {
-            throw new Error(`Échec récupération ${endpoint} (page ${page}) : ${response.statusText}`);
+            throw new Error(`Échec récupération (page ${page}) : ${response.statusText}`);
         }
 
         const data = await response.json();
@@ -137,23 +147,32 @@ async function main() {
         console.log('🔑 Génération du token OAuth2...');
         const token = await getAccessToken();
 
-        console.log(`📡 [1/6] Profil utilisateur (${USER_LOGIN})...`);
+        console.log(`📡 [1/7] Profil utilisateur (${USER_LOGIN})...`);
         const userProfile = await fetchUserProfile(token);
 
-        console.log(`⏱️ [2/6] Historique logtime (locations)...`);
+        console.log(`⏱️ [2/7] Historique logtime (locations)...`);
         const locations = await fetchAllPages('locations', token);
 
-        console.log(`📝 [3/6] Évaluations (scale_teams)...`);
+        console.log(`📝 [3/7] Évaluations (scale_teams)...`);
         const scaleTeams = await fetchAllPages('scale_teams', token);
 
-        console.log(`📅 [4/6] Événements (events_users)...`);
+        console.log(`📅 [4/7] Événements (events_users)...`);
         const eventsUsers = await fetchAllPages('events_users', token);
 
-        console.log(`🛡️ [5/6] Coalitions...`);
+        console.log(`🛡️ [5/7] Coalitions...`);
         const coalitionsUsers = await fetchAllPages('coalitions_users', token);
         const coalitions = await fetchAllPages('coalitions', token);
 
-        console.log(`🚀 [6/6] Projets & Récupération des descriptions (/v2/projects/:id)...`);
+        console.log(`🤝 [6/7] Partenariats (partnerships_users)...`);
+        let partnerships = [];
+        try {
+            const partnershipsUrl = `https://api.intra.42.fr/v2/partnerships_users?filter[user_id]=${userProfile.id}`;
+            partnerships = await fetchAllPages(partnershipsUrl, token);
+        } catch (e) {
+            console.warn(`⚠️ Impossible de récupérer les partenariats :`, e.message);
+        }
+
+        console.log(`🚀 [7/7] Projets & Récupération des descriptions (/v2/projects/:id)...`);
         const projectsUsers = await fetchAllPages('projects_users', token);
 
         const uniqueProjectIds = [...new Set(projectsUsers.map(p => p.project?.id).filter(Boolean))];
@@ -186,6 +205,7 @@ async function main() {
             events_users: eventsUsers,
             coalitions: coalitions,
             coalitions_users: coalitionsUsers,
+            partnerships: partnerships,
             projects_users: enrichedProjects
         });
 
