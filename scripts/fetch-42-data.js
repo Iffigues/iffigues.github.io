@@ -137,23 +137,32 @@ async function main() {
         console.log('🔑 Génération du token OAuth2...');
         const token = await getAccessToken();
 
-        console.log(`📡 [1/6] Profil utilisateur (${USER_LOGIN})...`);
+        console.log(`📡 [1/7] Profil utilisateur (${USER_LOGIN})...`);
         const userProfile = await fetchUserProfile(token);
 
-        console.log(`⏱️ [2/6] Historique logtime (locations)...`);
+        console.log(`⏱️ [2/7] Historique logtime (locations)...`);
         const locations = await fetchAllPages('locations', token);
 
-        console.log(`📝 [3/6] Évaluations (scale_teams)...`);
+        console.log(`📝 [3/7] Évaluations (scale_teams)...`);
         const scaleTeams = await fetchAllPages('scale_teams', token);
 
-        console.log(`📅 [4/6] Événements (events_users)...`);
+        console.log(`📅 [4/7] Événements (events_users)...`);
         const eventsUsers = await fetchAllPages('events_users', token);
 
-        console.log(`🛡️ [5/6] Coalitions...`);
+        console.log(`🛡️ [5/7] Coalitions...`);
         const coalitionsUsers = await fetchAllPages('coalitions_users', token);
         const coalitions = await fetchAllPages('coalitions', token);
 
-        console.log(`🚀 [6/6] Projets & Récupération des descriptions (/v2/projects/:id)...`);
+        console.log(`🤝 [6/7] Partenariats (partnerships)...`);
+        let partnerships = [];
+        try {
+            partnerships = await fetchAllPages('partnerships', token);
+        } catch (e) {
+            console.warn(`⚠️ Impossible de récupérer via partnerships, tentative via partnerships_users...`);
+            partnerships = await fetchAllPages('partnerships_users', token);
+        }
+
+        console.log(`🚀 [7/7] Projets & Récupération des descriptions (/v2/projects/:id)...`);
         const projectsUsers = await fetchAllPages('projects_users', token);
 
         const uniqueProjectIds = [...new Set(projectsUsers.map(p => p.project?.id).filter(Boolean))];
@@ -186,6 +195,7 @@ async function main() {
             events_users: eventsUsers,
             coalitions: coalitions,
             coalitions_users: coalitionsUsers,
+            partnerships: partnerships,
             projects_users: enrichedProjects
         });
 
