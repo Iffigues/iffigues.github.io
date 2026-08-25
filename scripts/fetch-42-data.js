@@ -10,10 +10,12 @@ const USER_LOGIN = process.env.FT_USER_LOGIN || 'bordenoy';
 // Pause pour respecter le rate-limit de l'API 42 (2 requêtes/sec)
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// Tri récursif des clés d'un objet pour garantir un JSON déterministe
+// Tri récursif des clés et des tableaux pour garantir un JSON déterministe
 function sortKeys(obj) {
     if (Array.isArray(obj)) {
-        return obj.map(sortKeys);
+        return obj
+            .map(sortKeys)
+            .sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b), undefined, { numeric: true, sensitivity: 'base' }));
     } else if (obj !== null && typeof obj === 'object') {
         return Object.keys(obj)
             .sort()
@@ -23,6 +25,26 @@ function sortKeys(obj) {
             }, {});
     }
     return obj;
+}
+
+function stripFetchedAt(value) {
+    if (Array.isArray(value)) {
+        return value.map(stripFetchedAt);
+    }
+
+    if (value !== null && typeof value === 'object') {
+        return Object.keys(value).reduce((acc, key) => {
+            if (key === 'fetched_at') return acc;
+            acc[key] = stripFetchedAt(value[key]);
+            return acc;
+        }, {});
+    }
+
+    return value;
+}
+
+function stableStringify(value) {
+    return `${JSON.stringify(sortKeys(value), null, 2).replace(/\r\n/g, '\n')}\n`;
 }
 
 async function getAccessToken() {
@@ -212,27 +234,24 @@ async function main() {
         const outputPath = path.join(process.cwd(), 'assets/data/42/user_data.json');
         fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 
-        // Vérification avec le fichier existant
         if (fs.existsSync(outputPath)) {
             try {
                 const existingRaw = fs.readFileSync(outputPath, 'utf8');
                 const existingData = JSON.parse(existingRaw);
 
-                // On compare les contenus en ignorant la propriété fetched_at
-                const existingCompare = JSON.stringify({ ...existingData, fetched_at: null });
-                const newCompare = JSON.stringify({ ...fullData, fetched_at: null });
+                const existingCompare = stableStringify(stripFetchedAt(existingData));
+                const newCompare = stableStringify(stripFetchedAt(fullData));
 
                 if (existingCompare === newCompare) {
                     console.log('ℹ️ Aucun changement dans les données. Fichier user_data.json conservé intact.');
                     return;
                 }
             } catch (e) {
-                // En cas d'erreur de lecture/parse, on continue et écrase le fichier
+                // En cas d'erreur de lecture/parse, on continue et écrase le fichier.
             }
         }
 
-        // Formatage final avec fins de ligne LF (\n)
-        const jsonContent = JSON.stringify(fullData, null, 2).replace(/\r\n/g, '\n') + '\n';
+        const jsonContent = stableStringify(fullData);
         fs.writeFileSync(outputPath, jsonContent, 'utf8');
 
         console.log(`✅ Nouvelles données enregistrées dans ${outputPath}`);
