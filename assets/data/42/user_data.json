@@ -26,7 +26,7 @@
       "id": 47,
       "image_url": "https://cdn.intra.42.fr/coalition/image/47/order.svg",
       "name": "The Order",
-      "score": 293742,
+      "score": 293700,
       "slug": "42cursus-paris-the-order",
       "user_id": 209139
     }
@@ -3316,7 +3316,7 @@
       "user_id": 42488
     }
   ],
-  "fetched_at": "2026-09-04T04:27:54.271Z",
+  "fetched_at": "2026-09-05T04:22:52.646Z",
   "locations": [
     {
       "begin_at": "2018-08-27T07:04:18.096Z",
@@ -96070,7 +96070,7 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-26T21:15:33.624Z",
@@ -96433,7 +96433,7 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           }
         ],
         "manual_subscription": true,
@@ -96940,7 +96940,7 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           }
         ],
         "manual_subscription": true,
@@ -97109,7 +97109,7 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           }
         ],
         "manual_subscription": true,
@@ -97278,7 +97278,7 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           }
         ],
         "manual_subscription": true,
@@ -97447,7 +97447,7 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           }
         ],
         "manual_subscription": true,
@@ -97616,7 +97616,7 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           }
         ],
         "manual_subscription": true,
@@ -98123,7 +98123,7 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           }
         ],
         "manual_subscription": true,
@@ -98461,7 +98461,7 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           }
         ],
         "manual_subscription": true,
@@ -102505,7 +102505,7 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-19T15:34:38.767Z"
+            "updated_at": "2026-09-03T15:46:17.489Z"
           }
         ],
         "manual_subscription": true,
@@ -104739,14 +104739,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-25T13:53:15.851Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-25T17:45:14.784Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -104961,14 +104961,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-25T13:53:15.851Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-25T17:45:14.784Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -105183,14 +105183,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-25T13:53:15.851Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-25T17:45:14.784Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -107040,14 +107040,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -107774,14 +107774,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -107942,14 +107942,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -111777,14 +111777,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -112189,14 +112189,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -112582,7 +112582,7 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           }
         ],
         "manual_subscription": true,
@@ -114300,14 +114300,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -117018,14 +117018,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -117170,14 +117170,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -117924,14 +117924,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -118137,14 +118137,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-25T13:53:15.851Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-25T17:45:14.784Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -123556,14 +123556,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -124794,14 +124794,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -125817,14 +125817,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -126258,14 +126258,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -127930,14 +127930,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-25T13:53:15.851Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-25T17:45:14.784Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -128611,14 +128611,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -128851,14 +128851,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -129073,14 +129073,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -129295,14 +129295,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -129517,14 +129517,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -129739,14 +129739,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -129947,14 +129947,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -130173,14 +130173,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -130399,14 +130399,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -130625,14 +130625,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -130851,14 +130851,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -131979,14 +131979,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -132201,14 +132201,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -132423,14 +132423,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -132645,14 +132645,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -132848,14 +132848,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -133463,14 +133463,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -133584,14 +133584,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -133824,14 +133824,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -142182,14 +142182,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-27T12:17:48.664Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": false,
@@ -142421,14 +142421,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -142829,14 +142829,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -143045,14 +143045,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -143285,14 +143285,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": false,
@@ -143611,14 +143611,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -143833,14 +143833,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -144055,14 +144055,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -144277,14 +144277,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -144499,14 +144499,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -144721,14 +144721,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -144943,14 +144943,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -145068,14 +145068,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -145203,14 +145203,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -145346,14 +145346,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -145471,14 +145471,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -145596,14 +145596,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -145841,14 +145841,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -146608,21 +146608,21 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           },
           {
             "created_at": "2019-08-09T15:14:32.544Z",
             "id": 11,
             "identifier": "es",
             "name": "Spanish",
-            "updated_at": "2026-09-03T09:56:58.442Z"
+            "updated_at": "2026-09-05T00:18:58.865Z"
           }
         ],
         "manual_subscription": true,
@@ -152022,14 +152022,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -153126,14 +153126,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-05T08:39:26.924Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-05T09:49:30.711Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -153310,14 +153310,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-05T08:39:26.924Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-05T09:49:30.711Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -153494,14 +153494,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-05T08:39:26.924Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-05T09:49:30.711Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -153870,14 +153870,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -154062,14 +154062,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -154259,14 +154259,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -154465,14 +154465,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -154666,14 +154666,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -154863,14 +154863,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -155993,14 +155993,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-26T09:58:15.478Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-26T16:34:13.432Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -156190,14 +156190,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -156396,14 +156396,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -156597,14 +156597,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -156781,14 +156781,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-17T06:52:26.137Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-18T12:55:42.542Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -157141,21 +157141,21 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-02T16:58:43.555Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           },
           {
             "created_at": "2019-08-09T15:14:32.544Z",
             "id": 11,
             "identifier": "es",
             "name": "Spanish",
-            "updated_at": "2026-09-02T16:18:20.753Z"
+            "updated_at": "2026-09-04T15:40:19.714Z"
           }
         ],
         "manual_subscription": true,
@@ -157340,21 +157340,21 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-02T16:58:43.555Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           },
           {
             "created_at": "2019-08-09T15:14:32.544Z",
             "id": 11,
             "identifier": "es",
             "name": "Spanish",
-            "updated_at": "2026-09-02T16:18:20.753Z"
+            "updated_at": "2026-09-04T15:40:19.714Z"
           }
         ],
         "manual_subscription": true,
@@ -157531,14 +157531,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-17T06:52:26.137Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-18T12:55:42.542Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -157723,21 +157723,21 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           },
           {
             "created_at": "2019-08-09T15:14:32.544Z",
             "id": 11,
             "identifier": "es",
             "name": "Spanish",
-            "updated_at": "2026-08-29T09:32:58.019Z"
+            "updated_at": "2026-09-05T00:18:58.865Z"
           }
         ],
         "manual_subscription": true,
@@ -157922,7 +157922,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -158107,14 +158107,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-19T15:34:38.767Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-20T14:31:20.306Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -158299,14 +158299,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-19T15:34:38.767Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-20T14:31:20.306Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -158491,14 +158491,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-19T15:34:38.767Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-20T14:31:20.306Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -159809,14 +159809,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-19T15:34:38.767Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-20T14:31:20.306Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -160015,14 +160015,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -160208,14 +160208,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -160928,14 +160928,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -161120,14 +161120,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -163745,14 +163745,14 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           },
           {
             "created_at": "2020-03-12T09:15:12.038Z",
             "id": 15,
             "identifier": "hy",
             "name": "Armenian",
-            "updated_at": "2026-09-03T09:57:00.574Z"
+            "updated_at": "2026-09-05T00:19:01.814Z"
           }
         ],
         "manual_subscription": true,
@@ -164336,7 +164336,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -164521,7 +164521,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -164684,14 +164684,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-17T06:52:26.137Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-18T12:55:42.542Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -166367,21 +166367,21 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           },
           {
             "created_at": "2019-08-09T15:14:32.544Z",
             "id": 11,
             "identifier": "es",
             "name": "Spanish",
-            "updated_at": "2026-08-31T11:10:25.737Z"
+            "updated_at": "2026-09-05T00:18:58.865Z"
           }
         ],
         "manual_subscription": true,
@@ -166566,7 +166566,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -166751,7 +166751,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -166936,7 +166936,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -167121,7 +167121,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -167306,7 +167306,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -168059,14 +168059,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -168825,14 +168825,14 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           },
           {
             "created_at": "2019-08-09T15:14:32.544Z",
             "id": 11,
             "identifier": "es",
             "name": "Spanish",
-            "updated_at": "2026-09-03T15:46:20.957Z"
+            "updated_at": "2026-09-05T00:18:58.865Z"
           }
         ],
         "manual_subscription": true,
@@ -169017,14 +169017,14 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           },
           {
             "created_at": "2019-08-09T15:14:32.544Z",
             "id": 11,
             "identifier": "es",
             "name": "Spanish",
-            "updated_at": "2026-09-03T15:46:20.957Z"
+            "updated_at": "2026-09-05T00:18:58.865Z"
           }
         ],
         "manual_subscription": true,
@@ -169806,7 +169806,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -170175,7 +170175,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -171372,14 +171372,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-05T08:39:26.924Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-05T09:49:30.711Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -171786,14 +171786,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -171978,14 +171978,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -172377,14 +172377,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -172569,14 +172569,14 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-19T15:34:40.103Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           },
           {
             "created_at": "2020-03-12T09:15:12.038Z",
             "id": 15,
             "identifier": "hy",
             "name": "Armenian",
-            "updated_at": "2026-08-19T11:08:02.696Z"
+            "updated_at": "2026-09-04T16:57:47.181Z"
           }
         ],
         "manual_subscription": true,
@@ -172753,14 +172753,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-05T08:39:26.924Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-05T09:49:30.711Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -173329,7 +173329,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T14:03:59.876Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -173514,7 +173514,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T14:03:59.876Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -173627,7 +173627,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -173812,7 +173812,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T14:03:59.876Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -174194,14 +174194,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -175008,7 +175008,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-01T16:23:52.734Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -175130,7 +175130,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -175328,7 +175328,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-01T16:23:52.734Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -175535,7 +175535,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-01T16:23:52.734Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -176119,7 +176119,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -176704,14 +176704,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -177464,14 +177464,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -177632,14 +177632,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -178613,7 +178613,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-14T16:09:22.331Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -179167,7 +179167,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T14:03:59.876Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -179662,14 +179662,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": false,
@@ -181913,14 +181913,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-19T15:34:38.767Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-20T14:31:20.306Z"
+            "updated_at": "2026-09-04T16:57:34.770Z"
           }
         ],
         "manual_subscription": true,
@@ -183683,7 +183683,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -184060,7 +184060,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -184627,7 +184627,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -184809,7 +184809,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -184995,7 +184995,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -185172,7 +185172,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -185349,7 +185349,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -185526,14 +185526,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -185710,14 +185710,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -185894,14 +185894,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -186014,14 +186014,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-04T21:14:12.599Z"
           }
         ],
         "manual_subscription": false,
@@ -186618,14 +186618,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -186832,14 +186832,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -187046,14 +187046,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -187424,14 +187424,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -187592,14 +187592,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-17T06:52:26.137Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-18T12:55:42.542Z"
+            "updated_at": "2026-09-04T21:14:12.599Z"
           }
         ],
         "manual_subscription": true,
@@ -188071,14 +188071,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -188937,7 +188937,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -189090,7 +189090,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -190106,14 +190106,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -190489,7 +190489,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -190642,7 +190642,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -190832,14 +190832,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-09-03T15:46:17.489Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -192369,7 +192369,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -192546,21 +192546,21 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-10T11:13:59.625Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-10T15:54:21.272Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           },
           {
             "created_at": "2019-08-09T15:14:32.544Z",
             "id": 11,
             "identifier": "es",
             "name": "Spanish",
-            "updated_at": "2026-08-10T15:54:05.666Z"
+            "updated_at": "2026-09-05T00:18:58.865Z"
           }
         ],
         "manual_subscription": true,
@@ -192713,7 +192713,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-04T02:38:52.790Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -192898,14 +192898,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-31T15:08:00.920Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -193296,14 +193296,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-27T11:32:14.447Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-08-28T14:31:46.905Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -193480,14 +193480,14 @@
             "id": 1,
             "identifier": "fr",
             "name": "Français",
-            "updated_at": "2026-08-31T11:16:38.219Z"
+            "updated_at": "2026-09-04T16:57:37.334Z"
           },
           {
             "created_at": "2015-04-14T16:07:38.122Z",
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T08:48:15.688Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -194762,7 +194762,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -195173,7 +195173,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
@@ -195388,7 +195388,7 @@
             "id": 2,
             "identifier": "en",
             "name": "English",
-            "updated_at": "2026-09-03T09:56:56.811Z"
+            "updated_at": "2026-09-05T00:18:56.245Z"
           }
         ],
         "manual_subscription": true,
