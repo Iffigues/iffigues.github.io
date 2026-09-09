@@ -15,15 +15,22 @@ title: Moteur de recherche GitHub
 <script>
 async function fetchPageInfo(url, fallbackTitle) {
   try {
-    const response = await fetch(url);
-    if (!response.ok) return null;
-    const text = await response.text();
-    const match = text.match(/<title[^>]*>([^<]+)<\/title>/i);
-    const title = (match && match[1]) ? match[1].trim() : fallbackTitle;
-    return { url, title };
+    // 1. Essai standard pour récupérer le titre HTML
+    const response = await fetch(url, { method: 'GET' });
+    if (response.ok) {
+      const text = await response.text();
+      const match = text.match(/<title[^>]*>([^<]+)<\/title>/i);
+      const title = (match && match[1]) ? match[1].trim() : fallbackTitle;
+      return { url, title };
+    }
+    // Si HTTP 404, la page n'existe vraiment pas
+    if (response.status === 404) return null;
   } catch (err) {
-    return null;
+    // 2. Si fetch échoue à cause du CORS, la page EXISTE quand même !
+    // On la conserve avec le titre par défaut au lieu de la jeter.
+    return { url, title: fallbackTitle };
   }
+  return null;
 }
 
 async function search() {
