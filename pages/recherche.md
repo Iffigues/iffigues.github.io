@@ -13,24 +13,100 @@ title: Moteur de recherche GitHub
 <div id="results"></div>
 
 <script>
-async function fetchPageInfo(url, fallbackTitle) {
-  try {
-    // 1. Essai standard pour récupérer le titre HTML
-    const response = await fetch(url, { method: 'GET' });
-    if (response.ok) {
-      const text = await response.text();
-      const match = text.match(/<title[^>]*>([^<]+)<\/title>/i);
-      const title = (match && match[1]) ? match[1].trim() : fallbackTitle;
-      return { url, title };
+async function search() {
+  const query = document.getElementById('queryInput').value.trim();
+  const statusDiv = document.getElementById('status');
+  const resultsDiv = document.getElementById('results');
+
+  if (!query) return;
+
+  statusDiv.textContent = 'Recherche en cours...';
+  resultsDiv.innerHTML = '';
+
+  const cleanQuery = query.toLowerCase().replace(/\s+/g, '');
+  const domains = {};
+
+  // Fonction de récupération tolérante aux erreurs CORS
+  async function checkAndAdd(url, fallbackTitle, domainKey) {
+    try {
+      const resp = await fetch(url);
+      if (resp.ok) {
+        const text = await resp.text();
+        const match = text.match(/<title[^>]*>([^<]+)<\/title>/i);
+        const title = (match && match[1]) ? match[1].trim() : fallbackTitle;
+        
+        domains[domainKey] = domains[domainKey] || [];
+        if (!domains[domainKey].some(p => p.url === url)) {
+          domains[domainKey].push({ url, title });
+        }
+      }
+    } catch (e) {
+      // Si CORS bloque, le domaine existe quand même : on conserve le lien !
+      domains[domainKey] = domains[domainKey] || [];
+      if (!domains[domainKey].some(p => p.url === url)) {
+        domains[domainKey].push({ url, title: fallbackTitle });
+      }
     }
-    // Si HTTP 404, la page n'existe vraiment pas
-    if (response.status === 404) return null;
-  } catch (err) {
-    // 2. Si fetch échoue à cause du CORS, la page EXISTE quand même !
-    // On la conserve avec le titre par défaut au lieu de la jeter.
-    return { url, title: fallbackTitle };
   }
-  return null;
+
+  // 1. Tester la racine directe si recherche sur un seul mot/pseudo
+  if (!query.includes(' ')) {
+    const userDomain = `${cleanQuery}.github.io`;
+    await checkAndAdd(`https://${userDomain}/`, userDomain, userDomain);
+  }
+
+  // 2. Requête API GitHub élargie (100 résultats max)
+  try {
+    // Requête principale
+    let apiURL = `https://api.github.com/search/repositories?q=${encodeURIComponent(query)}+fork:true&per_page=100`;
+    let apiResp = await fetch(apiURL);
+    let data = await apiResp.json();
+
+    if (data.items && data.items.length > 0) {
+      // Filtrer les projets qui ont GitHub Pages activé ou le nom de repo adéquat
+      const checks = data.items.map(repo => {
+        if (repo.has_pages || repo.name.toLowerCase().endsWith('.github.io')) {
+          const pageUrl = `https://${repo.owner.login}.github.io/${repo.name}/`;
+          const domainKey = `${repo.owner.login}.github.io`;
+          return checkAndAdd(pageUrl, `${repo.owner.login}/${repo.name}`, domainKey);
+        }
+      });
+
+      await Promise.all(checks);
+    }
+  } catch (err) {
+    console.error("Erreur lors de la recherche API:", err);
+  }
+
+  // 3. Affichage
+  statusDiv.textContent = '';
+  const domainNames = Object.keys(domains);
+
+  if (domainNames.length === 0) {
+    resultsDiv.innerHTML = '<p>Aucun résultat fonctionnel trouvé.</p>';
+    return;
+  }
+
+  domainNames.forEach(domain => {
+    const pages = domains[domain];
+    const rootPage = pages.find(p => p.url === `https://${domain}/`);
+    const mainUrl = rootPage ? rootPage.url : pages[0].url;
+
+    let pagesHtml = pages.map(p => `
+      <li>
+        <a href="${p.url}" target="_blank">📄 ${p.title}</a>
+        <br><small style="color:#666;">${p.url}</small>
+      </li>
+    `).join('');
+
+    const card = document.createElement('div');
+    card.style.cssText = "background:#fff; border:1px solid #d0d7de; padding:15px; margin-bottom:15px; border-radius:6px;";
+    card.innerHTML = `
+      <h3 style="margin-top:0;">🌐 <a href="${mainUrl}" target="_blank">${domain}</a> (${pages.length} page(s))</h3>
+      <ul style="padding-left:20px;">${pagesHtml}</ul>
+    `;
+    resultsDiv.appendChild(card);
+  });
 }
 
 async function search() {
