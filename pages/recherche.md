@@ -128,7 +128,7 @@ custom_js:
                     </div>
                 </div>
 
-                <!-- FILTRE DATE -->
+                <!-- FILTRE DATE (Correction appliquée : inputs type="date" inclus) -->
                 <div class="filter-group full-width">
                     <label for="pushed-mode-select">Filtre de date (Dernier push)</label>
                     <select id="pushed-mode-select">
@@ -157,6 +157,7 @@ custom_js:
                                 <option value=">">&gt;</option>
                             </select>
                             <input type="date" id="pushed-start-date" placeholder="Début">
+                            <span>à</span>
                             <select id="pushed-end-op">
                                 <option value="<=" selected>&lt;=</option>
                                 <option value="<">&lt;</option>

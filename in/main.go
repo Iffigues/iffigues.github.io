@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"strconv"
 	"strings"
 	"sync"
@@ -38,10 +39,15 @@ type APIResponse struct {
 }
 
 func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	http.HandleFunc("/api/search", corsMiddleware(handleSearch))
 
-	log.Println("Serveur démarré sur http://localhost:8080")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	log.Printf("Serveur démarré sur le port :%s", port)
+	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		log.Fatalf("Erreur serveur : %v", err)
 	}
 }
@@ -50,7 +56,7 @@ func corsMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 
 		if r.Method == http.MethodOptions {
 			w.WriteHeader(http.StatusOK)
@@ -62,7 +68,6 @@ func corsMiddleware(next http.HandlerFunc) http.HandlerFunc {
 }
 
 func handleSearch(w http.ResponseWriter, r *http.Request) {
-	// --- LOGS REQUÊTE ENTRANTE ---
 	log.Printf("--> [%s] %s %s (depuis %s)", r.Method, r.URL.Path, r.URL.RawQuery, r.RemoteAddr)
 
 	if r.Method != http.MethodGet {
@@ -77,14 +82,11 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 1. Construction du paramètre "q" pour GitHub
+	// 1. Construction de la requête pour GitHub
 	var qParts []string
 	qParts = append(qParts, baseQuery)
-
-	// Filtre obligatoire : uniquement les dépôts avec GitHub Pages
 	qParts = append(qParts, "has:pages")
 
-	// --- GESTION DES LANGAGES (OR avec ',', AND avec '+') ---
 	if rawLang := strings.TrimSpace(queryParams.Get("language")); rawLang != "" {
 		var op string
 		var langs []string
@@ -112,19 +114,17 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// --- GESTION DES ÉTOILES (intervalles, comparateurs et OR avec virgules) ---
 	if starsFilter := parseStarsParam(queryParams.Get("stars")); starsFilter != "" {
 		qParts = append(qParts, starsFilter)
 	}
 
-	// --- GESTION DU DATE / PUSHED (version originale brute) ---
 	if pushed := strings.TrimSpace(queryParams.Get("pushed")); pushed != "" {
 		qParts = append(qParts, fmt.Sprintf("pushed:%s", pushed))
 	}
 
 	fullQuery := strings.Join(qParts, " ")
 
-	// 2. Traitement de la pagination et du tri
+	// 2. Pagination et Tri
 	page, _ := strconv.Atoi(queryParams.Get("page"))
 	if page < 1 {
 		page = 1
@@ -150,7 +150,6 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 
 	ghURL.RawQuery = ghParams.Encode()
 
-	// --- LOGS REQUÊTE GITHUB ---
 	log.Printf("    ↳ Requête construite q: %s", fullQuery)
 	log.Printf("    ↳ URL finale GitHub:    %s", ghURL.String())
 
@@ -161,15 +160,27 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	req.Header.Set("Accept", "application/vnd.github.v3+json")
-	req.Header.Set("User-Agent", "GitHub-Pages-Checker")
+	req.Header.Set("User-Agent", "GitHub-Pages-App-Checker")
+
+	// Injection du Token si présent sur Fly.io
+	if token := os.Getenv("GITHUB_TOKEN"); token != "" {
+		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", token))
+	}
 
 	client := &http.Client{Timeout: 10 * time.Second}
 	resp, err := client.Do(req)
-	if err != nil || resp.StatusCode != http.StatusOK {
-		http.Error(w, fmt.Sprintf("Erreur API GitHub (HTTP %d)", resp.StatusCode), http.StatusBadGateway)
+	if err != nil {
+		log.Printf("Erreur réseau lors de l'appel GitHub: %v", err)
+		http.Error(w, "Erreur de connexion à GitHub", http.StatusBadGateway)
 		return
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		log.Printf("GitHub a répondu avec le code HTTP %d", resp.StatusCode)
+		http.Error(w, fmt.Sprintf("Erreur API GitHub (HTTP %d)", resp.StatusCode), http.StatusBadGateway)
+		return
+	}
 
 	var ghResp GitHubSearchResponse
 	if err := json.NewDecoder(resp.Body).Decode(&ghResp); err != nil {
@@ -177,7 +188,7 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 4. Test de résolutions HTTP concurrentes sur les URL de pages
+	// 4. Test des URLs GitHub Pages
 	urlsToTest := make([]string, len(ghResp.Items))
 	for i, item := range ghResp.Items {
 		urlsToTest[i] = fmt.Sprintf("https://%s.github.io/%s/", item.Owner.Login, item.Name)
@@ -185,10 +196,10 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 
 	validURLs := filterLiveURLs(urlsToTest)
 
-	// 5. Calcul de la pagination
+	// 5. Réponse
 	totalCount := ghResp.TotalCount
 	if totalCount > 1000 {
-		totalCount = 1000 // Limite absolue de l'API Search GitHub
+		totalCount = 1000
 	}
 
 	totalPages := (totalCount + perPage - 1) / perPage
@@ -248,22 +259,39 @@ func parseStarsParam(rawValue string) string {
 func filterLiveURLs(urls []string) []string {
 	var wg sync.WaitGroup
 	validChan := make(chan string, len(urls))
-	client := &http.Client{Timeout: 3 * time.Second}
+	client := &http.Client{Timeout: 4 * time.Second}
 
 	for _, targetURL := range urls {
 		wg.Add(1)
 		go func(u string) {
 			defer wg.Done()
+
 			req, err := http.NewRequest(http.MethodHead, u, nil)
 			if err != nil {
 				return
 			}
-			req.Header.Set("User-Agent", "GitHub-Pages-Checker")
+			req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
 
 			resp, err := client.Do(req)
 			if err == nil {
 				defer resp.Body.Close()
 				if resp.StatusCode == http.StatusOK {
+					validChan <- u
+					return
+				}
+			}
+
+			// Fallback en GET au cas où les HEAD sont bloqués
+			reqGet, err := http.NewRequest(http.MethodGet, u, nil)
+			if err != nil {
+				return
+			}
+			reqGet.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
+
+			respGet, err := client.Do(reqGet)
+			if err == nil {
+				defer respGet.Body.Close()
+				if respGet.StatusCode == http.StatusOK {
 					validChan <- u
 				}
 			}

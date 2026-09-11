@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return null;
     }
 
-    // ÉVÉNEMENTS
+    // ÉVÉNEMENTS & REQUÊTE HTTP
     if (form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
