@@ -18,9 +18,9 @@ type GitHubSearchResponse struct {
 }
 
 type GitHubRepo struct {
-	Name    string `json:"name"`
-	Owner   Owner  `json:"owner"`
-	HasPages bool  `json:"has_pages"`
+	Name     string `json:"name"`
+	Owner    Owner  `json:"owner"`
+	HasPages bool   `json:"has_pages"`
 }
 
 type Owner struct {
@@ -62,6 +62,9 @@ func corsMiddleware(next http.HandlerFunc) http.HandlerFunc {
 }
 
 func handleSearch(w http.ResponseWriter, r *http.Request) {
+	// --- LOGS REQUÊTE ENTRANTE ---
+	log.Printf("--> [%s] %s %s (depuis %s)", r.Method, r.URL.Path, r.URL.RawQuery, r.RemoteAddr)
+
 	if r.Method != http.MethodGet {
 		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
 		return
@@ -81,13 +84,40 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 	// Filtre obligatoire : uniquement les dépôts avec GitHub Pages
 	qParts = append(qParts, "has:pages")
 
-	// Injection des filtres optionnels
-	if lang := strings.TrimSpace(queryParams.Get("language")); lang != "" {
-		qParts = append(qParts, fmt.Sprintf("language:%s", lang))
+	// --- GESTION DES LANGAGES (OR avec ',', AND avec '+') ---
+	if rawLang := strings.TrimSpace(queryParams.Get("language")); rawLang != "" {
+		var op string
+		var langs []string
+
+		if strings.Contains(rawLang, "+") {
+			op = " AND "
+			langs = strings.Split(rawLang, "+")
+		} else {
+			op = " OR "
+			langs = strings.Split(rawLang, ",")
+		}
+
+		var langFilters []string
+		for _, lang := range langs {
+			lang = strings.TrimSpace(lang)
+			if lang != "" {
+				langFilters = append(langFilters, fmt.Sprintf("language:%s", lang))
+			}
+		}
+
+		if len(langFilters) == 1 {
+			qParts = append(qParts, langFilters[0])
+		} else if len(langFilters) > 1 {
+			qParts = append(qParts, fmt.Sprintf("(%s)", strings.Join(langFilters, op)))
+		}
 	}
-	if stars := strings.TrimSpace(queryParams.Get("stars")); stars != "" {
-		qParts = append(qParts, fmt.Sprintf("stars:%s", stars))
+
+	// --- GESTION DES ÉTOILES (intervalles, comparateurs et OR avec virgules) ---
+	if starsFilter := parseStarsParam(queryParams.Get("stars")); starsFilter != "" {
+		qParts = append(qParts, starsFilter)
 	}
+
+	// --- GESTION DU DATE / PUSHED (version originale brute) ---
 	if pushed := strings.TrimSpace(queryParams.Get("pushed")); pushed != "" {
 		qParts = append(qParts, fmt.Sprintf("pushed:%s", pushed))
 	}
@@ -119,6 +149,10 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ghURL.RawQuery = ghParams.Encode()
+
+	// --- LOGS REQUÊTE GITHUB ---
+	log.Printf("    ↳ Requête construite q: %s", fullQuery)
+	log.Printf("    ↳ URL finale GitHub:    %s", ghURL.String())
 
 	// 3. Appel à l'API GitHub
 	req, err := http.NewRequest(http.MethodGet, ghURL.String(), nil)
@@ -184,6 +218,31 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(responsePayload)
+}
+
+func parseStarsParam(rawValue string) string {
+	rawValue = strings.TrimSpace(rawValue)
+	if rawValue == "" {
+		return ""
+	}
+
+	parts := strings.Split(rawValue, ",")
+	var clauses []string
+
+	for _, part := range parts {
+		part = strings.TrimSpace(part)
+		if part != "" {
+			clauses = append(clauses, fmt.Sprintf("stars:%s", part))
+		}
+	}
+
+	if len(clauses) == 1 {
+		return clauses[0]
+	} else if len(clauses) > 1 {
+		return fmt.Sprintf("(%s)", strings.Join(clauses, " OR "))
+	}
+
+	return ""
 }
 
 func filterLiveURLs(urls []string) []string {
