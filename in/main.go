@@ -1,9 +1,11 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
@@ -153,7 +155,7 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 	log.Printf("    ↳ Requête construite q: %s", fullQuery)
 	log.Printf("    ↳ URL finale GitHub:    %s", ghURL.String())
 
-	// 3. Appel à l'API GitHub
+	// 3. Appel à l'API GitHub avec client forcé en IPv4 (tcp4)
 	req, err := http.NewRequest(http.MethodGet, ghURL.String(), nil)
 	if err != nil {
 		http.Error(w, "Erreur lors de la création de la requête", http.StatusInternalServerError)
@@ -162,12 +164,11 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 	req.Header.Set("Accept", "application/vnd.github.v3+json")
 	req.Header.Set("User-Agent", "GitHub-Pages-App-Checker")
 
-	// Injection du Token si présent sur Fly.io
 	if token := os.Getenv("GITHUB_TOKEN"); token != "" {
 		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", token))
 	}
 
-	client := &http.Client{Timeout: 10 * time.Second}
+	client := createIPv4Client(10 * time.Second)
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Printf("Erreur réseau lors de l'appel GitHub: %v", err)
@@ -259,40 +260,37 @@ func parseStarsParam(rawValue string) string {
 func filterLiveURLs(urls []string) []string {
 	var wg sync.WaitGroup
 	validChan := make(chan string, len(urls))
-	client := &http.Client{Timeout: 4 * time.Second}
+	client := createIPv4Client(4 * time.Second)
 
 	for _, targetURL := range urls {
 		wg.Add(1)
 		go func(u string) {
 			defer wg.Done()
 
+			// Essai en HEAD
 			req, err := http.NewRequest(http.MethodHead, u, nil)
-			if err != nil {
-				return
-			}
-			req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
-
-			resp, err := client.Do(req)
 			if err == nil {
-				defer resp.Body.Close()
-				if resp.StatusCode == http.StatusOK {
-					validChan <- u
-					return
+				req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
+				resp, err := client.Do(req)
+				if err == nil {
+					resp.Body.Close()
+					if resp.StatusCode == http.StatusOK {
+						validChan <- u
+						return
+					}
 				}
 			}
 
-			// Fallback en GET au cas où les HEAD sont bloqués
+			// Fallback en GET si HEAD échoue
 			reqGet, err := http.NewRequest(http.MethodGet, u, nil)
-			if err != nil {
-				return
-			}
-			reqGet.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
-
-			respGet, err := client.Do(reqGet)
 			if err == nil {
-				defer respGet.Body.Close()
-				if respGet.StatusCode == http.StatusOK {
-					validChan <- u
+				reqGet.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
+				respGet, err := client.Do(reqGet)
+				if err == nil {
+					respGet.Body.Close()
+					if respGet.StatusCode == http.StatusOK {
+						validChan <- u
+					}
 				}
 			}
 		}(targetURL)
@@ -306,4 +304,23 @@ func filterLiveURLs(urls []string) []string {
 		valid = append(valid, u)
 	}
 	return valid
+}
+
+// Client HTTP configuré en tcp4 (IPv4 uniquement) pour éviter les blocages Fly.io
+func createIPv4Client(timeout time.Duration) *http.Client {
+	dialer := &net.Dialer{
+		Timeout:   timeout,
+		KeepAlive: 30 * time.Second,
+	}
+
+	transport := &http.Transport{
+		DialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
+			return dialer.DialContext(ctx, "tcp4", addr)
+		},
+	}
+
+	return &http.Client{
+		Timeout:   timeout,
+		Transport: transport,
+	}
 }
