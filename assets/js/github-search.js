@@ -1,8 +1,12 @@
-    const API_BASE_URL = 'https://in-long-aurora-7849.fly.dev/api/search';
+const API_BASE_URL = 'https://in-long-aurora-7849.fly.dev/api/search';
 
 let currentQuery = '';
 let currentPage = 1;
 let maxPages = 1;
+
+// Tableaux globaux pour stocker les signatures et langages dynamiques
+let activeSignatures = [];
+let selectedLanguages = [];
 
 // Éléments du DOM principaux
 const form = document.getElementById('search-form');
@@ -25,7 +29,108 @@ const sortSelect = document.getElementById('sort-select');
 const orderSelect = document.getElementById('order-select');
 const perPageSelect = document.getElementById('per-page-select');
 
-// LOGIQUE DES LANGAGES (SINGLE, MULTI AND/OR/NOT, RAW)
+// ==========================================
+// 1. LOGIQUE DES SIGNATURES TECHNIQUES MULTIPLES
+// ==========================================
+const techSignatureInput = document.getElementById('tech-signature-input');
+const techOperatorSelect = document.getElementById('tech-operator-select');
+const addSignatureBtn = document.getElementById('add-signature-btn');
+const signaturesTagsList = document.getElementById('signatures-tags-list');
+
+if (addSignatureBtn && techSignatureInput) {
+    addSignatureBtn.addEventListener('click', addSignatureTag);
+    techSignatureInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            addSignatureTag();
+        }
+    });
+}
+
+function addSignatureTag() {
+    const val = techSignatureInput.value.trim();
+    if (!val) return;
+
+    const op = techOperatorSelect ? techOperatorSelect.value : 'AND';
+    activeSignatures.push({ value: val, operator: op });
+    
+    renderSignatureTags();
+    techSignatureInput.value = '';
+}
+
+function removeSignatureTag(index) {
+    activeSignatures.splice(index, 1);
+    renderSignatureTags();
+}
+
+function renderSignatureTags() {
+    if (!signaturesTagsList) return;
+    signaturesTagsList.innerHTML = '';
+
+    activeSignatures.forEach((sig, index) => {
+        let prefix = '';
+        if (sig.operator === 'NOT') prefix = 'NOT ';
+        if (sig.operator === 'OR') prefix = 'OU ';
+
+        const tag = document.createElement('div');
+        tag.className = 'lang-tag';
+        tag.innerHTML = `
+            <span><strong>${prefix}</strong>${sig.value}</span>
+            <span class="remove-tag" onclick="removeSignatureTag(${index})">&times;</span>
+        `;
+        signaturesTagsList.appendChild(tag);
+    });
+}
+
+function processSignaturesFilter() {
+    if (techSignatureInput && techSignatureInput.value.trim()) {
+        const val = techSignatureInput.value.trim();
+        const op = techOperatorSelect ? techOperatorSelect.value : 'AND';
+        activeSignatures.push({ value: val, operator: op });
+        techSignatureInput.value = '';
+        renderSignatureTags();
+    }
+
+    if (activeSignatures.length === 0) return null;
+
+    let andParts = [];
+    let orParts = [];
+    let notParts = [];
+
+    activeSignatures.forEach(sig => {
+        if (sig.operator === 'NOT') {
+            notParts.push(`NOT ${sig.value}`);
+        } else if (sig.operator === 'OR') {
+            orParts.push(sig.value);
+        } else {
+            andParts.push(sig.value);
+        }
+    });
+
+    let queryParts = [];
+
+    if (andParts.length > 0) {
+        queryParts.push(andParts.join(' '));
+    }
+
+    if (orParts.length > 0) {
+        if (orParts.length === 1) {
+            queryParts.push(orParts[0]);
+        } else {
+            queryParts.push(`(${orParts.join(' OR ')})`);
+        }
+    }
+
+    if (notParts.length > 0) {
+        queryParts.push(notParts.join(' '));
+    }
+
+    return queryParts.join(' ');
+}
+
+// ==========================================
+// 2. LOGIQUE DES LANGAGES DYNAMIQUES (AND / OR / NOT)
+// ==========================================
 const langModeSelect = document.getElementById('lang-mode-select');
 const langModeSingle = document.getElementById('lang-mode-single');
 const langModeMulti = document.getElementById('lang-mode-multi');
@@ -37,8 +142,6 @@ const langMultiInput = document.getElementById('lang-multi-input');
 const addLangBtn = document.getElementById('add-lang-btn');
 const langTagsList = document.getElementById('lang-tags-list');
 const pushedLangRaw = document.getElementById('pushed-lang-raw');
-
-let selectedLanguages = [];
 
 langModeSelect.addEventListener('change', () => {
     const mode = langModeSelect.value;
@@ -57,24 +160,35 @@ langMultiInput.addEventListener('keypress', (e) => {
 
 function addLanguageTag() {
     const val = langMultiInput.value.trim().toLowerCase();
-    if (val && !selectedLanguages.includes(val)) {
-        selectedLanguages.push(val);
-        renderLangTags();
-        langMultiInput.value = '';
+    if (val) {
+        const op = langOperatorSelect.value;
+        const exists = selectedLanguages.some(l => l.lang === val && l.operator === op);
+        if (!exists) {
+            selectedLanguages.push({ lang: val, operator: op });
+            renderLangTags();
+            langMultiInput.value = '';
+        }
     }
 }
 
-function removeLanguageTag(lang) {
-    selectedLanguages = selectedLanguages.filter(l => l !== lang);
+function removeLanguageTag(index) {
+    selectedLanguages.splice(index, 1);
     renderLangTags();
 }
 
 function renderLangTags() {
     langTagsList.innerHTML = '';
-    selectedLanguages.forEach(lang => {
+    selectedLanguages.forEach((item, index) => {
+        let prefix = '';
+        if (item.operator === 'NOT') prefix = 'NOT ';
+        if (item.operator === 'OR') prefix = 'OU ';
+
         const tag = document.createElement('div');
         tag.className = 'lang-tag';
-        tag.innerHTML = `<span>${lang}</span><span class="remove-tag" onclick="removeLanguageTag('${lang}')">&times;</span>`;
+        tag.innerHTML = `
+            <span><strong>${prefix}</strong>${item.lang}</span>
+            <span class="remove-tag" onclick="removeLanguageTag(${index})">&times;</span>
+        `;
         langTagsList.appendChild(tag);
     });
 }
@@ -90,19 +204,39 @@ function processLanguageFilter() {
     if (mode === 'multi') {
         if (selectedLanguages.length === 0) return { languageParam: null, queryExtra: null };
 
-        const op = langOperatorSelect.value;
-        if (op === 'OR') {
-            const expr = selectedLanguages.map(l => `language:${l}`).join(' OR ');
-            return { languageParam: null, queryExtra: `(${expr})` };
+        let andParts = [];
+        let orParts = [];
+        let notParts = [];
+
+        selectedLanguages.forEach(item => {
+            if (item.operator === 'NOT') {
+                notParts.push(`-language:${item.lang}`);
+            } else if (item.operator === 'OR') {
+                orParts.push(`language:${item.lang}`);
+            } else {
+                andParts.push(`language:${item.lang}`);
+            }
+        });
+
+        let queryParts = [];
+
+        if (andParts.length > 0) {
+            queryParts.push(andParts.join(' '));
         }
-        if (op === 'AND') {
-            const expr = selectedLanguages.map(l => `language:${l}`).join(' ');
-            return { languageParam: null, queryExtra: expr };
+
+        if (orParts.length > 0) {
+            if (orParts.length === 1) {
+                queryParts.push(orParts[0]);
+            } else {
+                queryParts.push(`(${orParts.join(' OR ')})`);
+            }
         }
-        if (op === 'NOT') {
-            const expr = selectedLanguages.map(l => `-language:${l}`).join(' ');
-            return { languageParam: null, queryExtra: expr };
+
+        if (notParts.length > 0) {
+            queryParts.push(notParts.join(' '));
         }
+
+        return { languageParam: null, queryExtra: queryParts.join(' ') };
     }
 
     if (mode === 'raw') {
@@ -113,7 +247,9 @@ function processLanguageFilter() {
     return { languageParam: null, queryExtra: null };
 }
 
-// LOGIQUE ÉTOILES
+// ==========================================
+// 3. LOGIQUE ÉTOILES & DATES
+// ==========================================
 const starsModeSelect = document.getElementById('stars-mode-select');
 const starsControlsContainer = document.getElementById('stars-controls-container');
 const starsModeMin = document.getElementById('stars-mode-min');
@@ -156,7 +292,6 @@ function buildStarsParam() {
     return null;
 }
 
-// LOGIQUE DATES
 const pushedModeSelect = document.getElementById('pushed-mode-select');
 const dateControlsContainer = document.getElementById('date-controls-container');
 const modeSingle = document.getElementById('mode-single');
@@ -245,7 +380,9 @@ function buildPushedParam() {
     return null;
 }
 
-// EVENEMENTS ET REQUÊTE HTTP
+// ==========================================
+// 4. ÉVÉNEMENTS ET SOUMISSION DE REQUÊTE
+// ==========================================
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     const query = input.value.trim();
@@ -271,13 +408,21 @@ async function fetchResults(query, page) {
 
     const params = new URLSearchParams();
     
+    let finalQueryParts = [query];
+
+    // Traitement des signatures techniques
+    const signaturesExtra = processSignaturesFilter();
+    if (signaturesExtra) {
+        finalQueryParts.push(signaturesExtra);
+    }
+
     // Traitement du filtre de langage
     const langResult = processLanguageFilter();
-    let finalQuery = query;
-
     if (langResult.queryExtra) {
-        finalQuery += ` ${langResult.queryExtra}`;
+        finalQueryParts.push(langResult.queryExtra);
     }
+
+    const finalQuery = finalQueryParts.join(' ');
 
     params.append('q', finalQuery);
     params.append('page', page);
@@ -385,6 +530,10 @@ function setLoading(isLoading) {
 
     sortSelect.disabled = isLoading;
     perPageSelect.disabled = isLoading;
+
+    if (techSignatureInput) techSignatureInput.disabled = isLoading;
+    if (techOperatorSelect) techOperatorSelect.disabled = isLoading;
+    if (addSignatureBtn) addSignatureBtn.disabled = isLoading;
 
     langModeSelect.disabled = isLoading;
     langSingleInput.disabled = isLoading;

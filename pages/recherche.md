@@ -74,21 +74,21 @@ custom_js:
                     </div>
                 </div>
 
-                <!-- FILTRE JEKYLL -->
-                <div class="filter-group">
-                    <label for="jekyll-mode-select">Filtre Jekyll / Thèmes</label>
-                    <select id="jekyll-mode-select">
-                        <option value="none" selected>Tous les projets</option>
-                        <option value="only-jekyll">Presence de _config.yml</option>
-                        <option value="theme">Thème spécifique</option>
-                        <option value="topic">Topic #jekyll</option>
-                    </select>
-
-                    <div id="jekyll-controls-container" class="sub-container hidden">
-                        <div id="jekyll-mode-theme" class="hidden">
-                            <input type="text" id="jekyll-theme-input" placeholder="ex: minima, cayman...">
-                        </div>
+                <!-- FILTRE DE RECHERCHE TECHNIQUE ET EMPREINTES MULTIPLES -->
+                <div class="filter-group full-width">
+                    <label for="tech-signature-input">Empreintes techniques / Fichiers / Topics</label>
+                    <div class="input-group">
+                        <select id="tech-operator-select" style="width: auto;">
+                            <option value="AND" selected>ET (Obligatoire)</option>
+                            <option value="OR">OU (Optionnel)</option>
+                            <option value="NOT">EXCLURE (NOT)</option>
+                        </select>
+                        <input type="text" id="tech-signature-input" placeholder="ex: filename:package.json, path:docs, topic:react...">
+                        <button type="button" id="add-signature-btn" class="btn-secondary">Ajouter</button>
                     </div>
+
+                    <!-- Zone d'affichage des signatures ajoutées -->
+                    <div id="signatures-tags-list" class="lang-tags-container"></div>
                 </div>
 
                 <!-- FILTRE LANGAGE MULTI-OPERATEUR -->
@@ -108,15 +108,12 @@ custom_js:
 
                         <!-- Mode Multi / Opérateurs -->
                         <div id="lang-mode-multi" class="hidden">
-                            <div class="input-group" style="margin-bottom: 8px;">
-                                <label style="font-size: 0.8rem; white-space: nowrap;">Liaison :</label>
-                                <select id="lang-operator-select" style="width: auto;">
-                                    <option value="OR" selected>OU (OR - Au moins l'un des langages)</option>
-                                    <option value="AND">ET (AND - Plusieurs langages requis)</option>
-                                    <option value="NOT">EXCLURE (NOT - Exclure ces langages)</option>
-                                </select>
-                            </div>
                             <div class="input-group">
+                                <select id="lang-operator-select" style="width: auto;">
+                                    <option value="AND" selected>ET (Obligatoire)</option>
+                                    <option value="OR">OU (Optionnel)</option>
+                                    <option value="NOT">EXCLURE (NOT)</option>
+                                </select>
                                 <input type="text" id="lang-multi-input" list="languages-list" placeholder="Ajouter un langage...">
                                 <button type="button" id="add-lang-btn" class="btn-secondary">Ajouter</button>
                             </div>
