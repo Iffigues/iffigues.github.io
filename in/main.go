@@ -84,11 +84,12 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 1. Construction de la requête pour GitHub
+	// 1. Construction dynamique des filtres de la requête GitHub
 	var qParts []string
 	qParts = append(qParts, baseQuery)
 	qParts = append(qParts, "has:pages")
 
+	// Langage (support de séparateurs simples)
 	if rawLang := strings.TrimSpace(queryParams.Get("language")); rawLang != "" {
 		var op string
 		var langs []string
@@ -116,12 +117,54 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	// Étoiles
 	if starsFilter := parseStarsParam(queryParams.Get("stars")); starsFilter != "" {
 		qParts = append(qParts, starsFilter)
 	}
 
+	// Date du dernier push
 	if pushed := strings.TrimSpace(queryParams.Get("pushed")); pushed != "" {
 		qParts = append(qParts, fmt.Sprintf("pushed:%s", pushed))
+	}
+
+	// Topic / Sujet
+	if topic := strings.TrimSpace(queryParams.Get("topic")); topic != "" {
+		qParts = append(qParts, fmt.Sprintf("topic:%s", topic))
+	}
+
+	// Utilisateur
+	if user := strings.TrimSpace(queryParams.Get("user")); user != "" {
+		qParts = append(qParts, fmt.Sprintf("user:%s", user))
+	}
+
+	// Organisation
+	if org := strings.TrimSpace(queryParams.Get("org")); org != "" {
+		qParts = append(qParts, fmt.Sprintf("org:%s", org))
+	}
+
+	// Licence (ex: mit, apache-2.0)
+	if license := strings.TrimSpace(queryParams.Get("license")); license != "" {
+		qParts = append(qParts, fmt.Sprintf("license:%s", license))
+	}
+
+	// Gestion des Forks (true, only, false)
+	if fork := strings.TrimSpace(queryParams.Get("fork")); fork != "" {
+		qParts = append(qParts, fmt.Sprintf("fork:%s", fork))
+	}
+
+	// Dépôts archivés (true, false)
+	if archived := strings.TrimSpace(queryParams.Get("archived")); archived != "" {
+		qParts = append(qParts, fmt.Sprintf("archived:%s", archived))
+	}
+
+	// Taille du dépôt en Ko (ex: >1000, 100..5000)
+	if size := strings.TrimSpace(queryParams.Get("size")); size != "" {
+		qParts = append(qParts, fmt.Sprintf("size:%s", size))
+	}
+
+	// Nombre de followers de l'auteur (ex: >50)
+	if followers := strings.TrimSpace(queryParams.Get("followers")); followers != "" {
+		qParts = append(qParts, fmt.Sprintf("followers:%s", followers))
 	}
 
 	fullQuery := strings.Join(qParts, " ")
@@ -155,7 +198,7 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 	log.Printf("    ↳ Requête construite q: %s", fullQuery)
 	log.Printf("    ↳ URL finale GitHub:    %s", ghURL.String())
 
-	// 3. Appel à l'API GitHub avec client forcé en IPv4 (tcp4)
+	// 3. Appel à l'API GitHub (client force en IPv4 / tcp4)
 	req, err := http.NewRequest(http.MethodGet, ghURL.String(), nil)
 	if err != nil {
 		http.Error(w, "Erreur lors de la création de la requête", http.StatusInternalServerError)
@@ -189,7 +232,7 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 4. Test des URLs GitHub Pages
+	// 4. Test d'accessibilité HTTP des domaines GitHub Pages
 	urlsToTest := make([]string, len(ghResp.Items))
 	for i, item := range ghResp.Items {
 		urlsToTest[i] = fmt.Sprintf("https://%s.github.io/%s/", item.Owner.Login, item.Name)
@@ -197,7 +240,7 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 
 	validURLs := filterLiveURLs(urlsToTest)
 
-	// 5. Réponse
+	// 5. Formatage de la réponse
 	totalCount := ghResp.TotalCount
 	if totalCount > 1000 {
 		totalCount = 1000
@@ -281,7 +324,7 @@ func filterLiveURLs(urls []string) []string {
 				}
 			}
 
-			// Fallback en GET si HEAD échoue
+			// Fallback en GET
 			reqGet, err := http.NewRequest(http.MethodGet, u, nil)
 			if err == nil {
 				reqGet.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
@@ -306,7 +349,6 @@ func filterLiveURLs(urls []string) []string {
 	return valid
 }
 
-// Client HTTP configuré en tcp4 (IPv4 uniquement) pour éviter les blocages Fly.io
 func createIPv4Client(timeout time.Duration) *http.Client {
 	dialer := &net.Dialer{
 		Timeout:   timeout,

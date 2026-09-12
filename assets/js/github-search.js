@@ -29,6 +29,16 @@ const sortSelect = document.getElementById('sort-select');
 const orderSelect = document.getElementById('order-select');
 const perPageSelect = document.getElementById('per-page-select');
 
+// Nouveaux éléments de filtres ciblés
+const topicInput = document.getElementById('topic-input');
+const userInput = document.getElementById('user-input');
+const orgInput = document.getElementById('org-input');
+const licenseSelect = document.getElementById('license-select');
+const forkSelect = document.getElementById('fork-select');
+const archivedSelect = document.getElementById('archived-select');
+const sizeInput = document.getElementById('size-input');
+const followersInput = document.getElementById('followers-input');
+
 // ==========================================
 // 1. LOGIQUE DES SIGNATURES TECHNIQUES MULTIPLES
 // ==========================================
@@ -206,37 +216,21 @@ function processLanguageFilter() {
 
         let andParts = [];
         let orParts = [];
-        let notParts = [];
 
         selectedLanguages.forEach(item => {
-            if (item.operator === 'NOT') {
-                notParts.push(`-language:${item.lang}`);
-            } else if (item.operator === 'OR') {
-                orParts.push(`language:${item.lang}`);
-            } else {
-                andParts.push(`language:${item.lang}`);
+            if (item.operator === 'OR') {
+                orParts.push(item.lang);
+            } else if (item.operator === 'AND') {
+                andParts.push(item.lang);
             }
         });
 
-        let queryParts = [];
-
+        // Le backend Go supporte la syntaxe "lang1+lang2" (AND) ou "lang1,lang2" (OR)
         if (andParts.length > 0) {
-            queryParts.push(andParts.join(' '));
+            return { languageParam: andParts.join('+'), queryExtra: null };
+        } else if (orParts.length > 0) {
+            return { languageParam: orParts.join(','), queryExtra: null };
         }
-
-        if (orParts.length > 0) {
-            if (orParts.length === 1) {
-                queryParts.push(orParts[0]);
-            } else {
-                queryParts.push(`(${orParts.join(' OR ')})`);
-            }
-        }
-
-        if (notParts.length > 0) {
-            queryParts.push(notParts.join(' '));
-        }
-
-        return { languageParam: null, queryExtra: queryParts.join(' ') };
     }
 
     if (mode === 'raw') {
@@ -428,9 +422,16 @@ async function fetchResults(query, page) {
     params.append('page', page);
     params.append('per_page', perPageSelect.value);
 
-    if (langResult.languageParam) {
-        params.append('language', langResult.languageParam);
-    }
+    // Injection des nouveaux paramètres gérés directement par le backend Go
+    if (langResult.languageParam) params.append('language', langResult.languageParam);
+    if (topicInput && topicInput.value.trim()) params.append('topic', topicInput.value.trim());
+    if (userInput && userInput.value.trim()) params.append('user', userInput.value.trim());
+    if (orgInput && orgInput.value.trim()) params.append('org', orgInput.value.trim());
+    if (licenseSelect && licenseSelect.value) params.append('license', licenseSelect.value);
+    if (forkSelect && forkSelect.value) params.append('fork', forkSelect.value);
+    if (archivedSelect && archivedSelect.value) params.append('archived', archivedSelect.value);
+    if (sizeInput && sizeInput.value.trim()) params.append('size', sizeInput.value.trim());
+    if (followersInput && followersInput.value.trim()) params.append('followers', followersInput.value.trim());
 
     if (sortSelect.value) {
         params.append('sort', sortSelect.value);
@@ -530,6 +531,15 @@ function setLoading(isLoading) {
 
     sortSelect.disabled = isLoading;
     perPageSelect.disabled = isLoading;
+
+    if (topicInput) topicInput.disabled = isLoading;
+    if (userInput) userInput.disabled = isLoading;
+    if (orgInput) orgInput.disabled = isLoading;
+    if (licenseSelect) licenseSelect.disabled = isLoading;
+    if (forkSelect) forkSelect.disabled = isLoading;
+    if (archivedSelect) archivedSelect.disabled = isLoading;
+    if (sizeInput) sizeInput.disabled = isLoading;
+    if (followersInput) followersInput.disabled = isLoading;
 
     if (techSignatureInput) techSignatureInput.disabled = isLoading;
     if (techOperatorSelect) techOperatorSelect.disabled = isLoading;

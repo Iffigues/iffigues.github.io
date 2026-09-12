@@ -49,6 +49,64 @@ custom_js:
                     </select>
                 </div>
 
+                <!-- PROPRIÉTAIRES ET SUJETS -->
+                <div class="filter-group">
+                    <label for="topic-input">Topic / Sujet</label>
+                    <input type="text" id="topic-input" placeholder="ex: jekyll, react, game">
+                </div>
+
+                <div class="filter-group">
+                    <label for="user-input">Utilisateur</label>
+                    <input type="text" id="user-input" placeholder="ex: octocat">
+                </div>
+
+                <div class="filter-group">
+                    <label for="org-input">Organisation</label>
+                    <input type="text" id="org-input" placeholder="ex: github">
+                </div>
+
+                <!-- PROPRIÉTÉS DU DÉPÔT -->
+                <div class="filter-group">
+                    <label for="license-select">Licence</label>
+                    <select id="license-select">
+                        <option value="" selected>Toutes les licences</option>
+                        <option value="mit">MIT</option>
+                        <option value="apache-2.0">Apache 2.0</option>
+                        <option value="gpl-3.0">GPL v3</option>
+                        <option value="bsd-3-clause">BSD 3-Clause</option>
+                        <option value="unlicense">Unlicense</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="fork-select">Dépôts Forkés</label>
+                    <select id="fork-select">
+                        <option value="" selected>Exclure les forks (Défaut)</option>
+                        <option value="true">Inclure les forks</option>
+                        <option value="only">Uniquement les forks</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="archived-select">Dépôts Archivés</label>
+                    <select id="archived-select">
+                        <option value="" selected>Tous</option>
+                        <option value="false">Exclure les archivés</option>
+                        <option value="true">Uniquement les archivés</option>
+                    </select>
+                </div>
+
+                <!-- MÉTRIQUES SUPPLÉMENTAIRES -->
+                <div class="filter-group">
+                    <label for="size-input">Taille (Ko)</label>
+                    <input type="text" id="size-input" placeholder="ex: >1000, 100..5000">
+                </div>
+
+                <div class="filter-group">
+                    <label for="followers-input">Followers de l'auteur</label>
+                    <input type="text" id="followers-input" placeholder="ex: >50">
+                </div>
+
                 <!-- FILTRE ÉTOILES -->
                 <div class="filter-group">
                     <label for="stars-mode-select">Filtre d'étoiles (Stars)</label>
@@ -76,14 +134,14 @@ custom_js:
 
                 <!-- FILTRE DE RECHERCHE TECHNIQUE ET EMPREINTES MULTIPLES -->
                 <div class="filter-group full-width">
-                    <label for="tech-signature-input">Empreintes techniques / Fichiers / Topics</label>
+                    <label for="tech-signature-input">Empreintes techniques / Fichiers / Mots-clés</label>
                     <div class="input-group">
                         <select id="tech-operator-select" style="width: auto;">
                             <option value="AND" selected>ET (Obligatoire)</option>
                             <option value="OR">OU (Optionnel)</option>
                             <option value="NOT">EXCLURE (NOT)</option>
                         </select>
-                        <input type="text" id="tech-signature-input" placeholder="ex: filename:package.json, path:docs, topic:react...">
+                        <input type="text" id="tech-signature-input" placeholder="ex: filename:package.json, path:docs...">
                         <button type="button" id="add-signature-btn" class="btn-secondary">Ajouter</button>
                     </div>
 
@@ -93,7 +151,7 @@ custom_js:
 
                 <!-- FILTRE LANGAGE MULTI-OPERATEUR -->
                 <div class="filter-group full-width">
-                    <label for="lang-mode-select">Filtre Langage (Opérateurs AND / OR / NOT)</label>
+                    <label for="lang-mode-select">Filtre Langage (Opérateurs AND / OR)</label>
                     <select id="lang-mode-select">
                         <option value="single" selected>Un seul langage (Standard)</option>
                         <option value="multi">Avancé (Combinaison multi-langages)</option>
@@ -110,9 +168,8 @@ custom_js:
                         <div id="lang-mode-multi" class="hidden">
                             <div class="input-group">
                                 <select id="lang-operator-select" style="width: auto;">
-                                    <option value="AND" selected>ET (Obligatoire)</option>
-                                    <option value="OR">OU (Optionnel)</option>
-                                    <option value="NOT">EXCLURE (NOT)</option>
+                                    <option value="AND" selected>ET (+)</option>
+                                    <option value="OR">OU (,)</option>
                                 </select>
                                 <input type="text" id="lang-multi-input" list="languages-list" placeholder="Ajouter un langage...">
                                 <button type="button" id="add-lang-btn" class="btn-secondary">Ajouter</button>
@@ -122,11 +179,10 @@ custom_js:
 
                         <!-- Mode Raw -->
                         <div id="lang-mode-raw" class="hidden">
-                            <input type="text" id="pushed-lang-raw" placeholder="ex: language:go OR language:python NOT language:html">
+                            <input type="text" id="pushed-lang-raw" placeholder="ex: go,python">
                         </div>
 
                         <datalist id="languages-list">
-                            <option value="">-- Tous les langages --</option>
                             <option value="go"></option>
                             <option value="python"></option>
                             <option value="javascript"></option>
