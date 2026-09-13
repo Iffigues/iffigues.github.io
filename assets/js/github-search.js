@@ -1,4 +1,6 @@
 const API_BASE_URL = 'https://217-182-206-51.sslip.io/api/search';
+// const API_BASE_URL = 'http://217.182.206.51:8080/api/search';
+
 
 let currentQuery = '';
 let currentPage = 1;
