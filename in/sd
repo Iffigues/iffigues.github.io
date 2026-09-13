@@ -1,0 +1,11 @@
+# 1. Build de l'image
+docker build -t github-search-api .
+
+# 2. Lancement avec redémarrage automatique permanent
+docker run -d \
+  --name github-search-app \
+  --restart always \
+  -p 8080:8080 \
+  -e PORT=8080 \
+  -e GITHUB_TOKEN="ton_token_github_ici" \
+  github-search-api

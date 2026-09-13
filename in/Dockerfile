@@ -1,17 +1,32 @@
-ARG GO_VERSION=1
-FROM golang:${GO_VERSION}-bookworm as builder
+# Étape 1 : Compilation du binaire Go
+FROM golang:1.22-alpine AS builder
 
-WORKDIR /usr/src/app
-COPY go.mod go.sum ./
-RUN go mod download && go mod verify
+WORKDIR /app
+
+# Copie et téléchargement des dépendances
+COPY go.mod ./
+# COPY go.sum ./  # Décommente si tu as un fichier go.sum
+RUN go mod download
+
+# Copie du code source et compilation d'un binaire Linux statique
 COPY . .
-RUN go build -v -o /run-app .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o github-search-api .
 
+# Étape 2 : Image finale d'exécution minimale
+FROM alpine:3.19
 
-FROM debian:bookworm
+# Ajout des certificats CA indispensables pour les requêtes HTTPS vers l'API GitHub
+RUN apk --no-cache add ca-certificates tzdata
 
-# Installation des certificats SSL/TLS indispensables pour les requêtes HTTPS
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && rm -rf /var/lib/apt/lists/*
+WORKDIR /root/
 
-COPY --from=builder /run-app /usr/local/bin/
-CMD ["run-app"]
+# Copie du binaire compilé
+COPY --from=builder /app/github-search-api .
+
+# Port exposé par défaut
+EXPOSE 8080
+
+ENV PORT=8080
+
+# Exécution du service
+CMD ["./github-search-api"]
