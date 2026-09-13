@@ -8,7 +8,19 @@ tags: [golang, github-api, jekyll, frontend]
 
 Avoir un site hébergé sur **GitHub Pages**, c'est génial : c'est gratuit, rapide et parfaitement intégré avec Git. Cependant, trouver des projets ou des portfolios réels hébergés sous le domaine `.github.io` via l'interface standard de GitHub peut parfois s'avérer complexe.
 
-Pour résoudre ce problème, j'ai développé un **moteur de recherche dédié aux GitHub Pages**, combinant un backend performant en **Go** et un frontend dynamique sous **Jekyll**.
+Pour résoudre ce problème, j'ai développé un **[moteur de recherche dédié aux GitHub Pages]({{ '/recherche/' | relative_url }})**, combinant un backend performant en **Go** et un frontend dynamique sous **Jekyll**.
+
+---
+
+## 🌐 Retrouver l'esprit du Web des années 2000-2010
+
+Aujourd'hui, le Web est saturé de sites vitrines génériques, de contenus optimisés pour le SEO marketing et de pavés d'affiliation. La recherche classique remonte souvent les mêmes structures formatées, accompagnées de bannières de cookies et d'usines à gaz publicitaires.
+
+En ciblant spécifiquement le domaine `.github.io`, l'objectif principal de ce moteur est de faire réémerger **l'esprit artisanal du Web indépendant** :
+
+* **Un Web étudiant et passionné** : La grande majorité des projets GitHub Pages sont façonnés par des étudiants, des chercheurs ou des développeurs indépendants qui créent sans impératif commercial.
+* **Trouvailles atypiques et ludiques** : C'est le terrain d'exploration idéal pour dénicher des mini-jeux codés sur un coin de table, des blogs personnels sans aucun pistage, des démos graphiques rétro ou des portfolios aux designs complètement hors normes.
+* **L'esprit "GeoCities" moderne** : Tout comme au début des années 2000, la priorité est donnée au bidouillage, à la curiosité et au partage d'idées brutes, loin de la culture du clic et de la rentabilité.
 
 ---
 
@@ -17,7 +29,7 @@ Pour résoudre ce problème, j'ai développé un **moteur de recherche dédié a
 Le projet se divise en deux parties principales :
 
 1. **Backend (API en Go)** : Reçoit les requêtes de recherche, interroge l'API GitHub Search Repositories avec le filtre `has:pages`, puis **vérifie en direct l'accessibilité HTTP** (codes 200 OK via requêtes HEAD/GET) des URLs `https://<user>.github.io/<repo>/`.
-2. **Frontend (Jekyll / JavaScript native)** : Une interface épurée assurant le contrôle des critères de recherche, la gestion des balises/tags dynamiques et la pagination des résultats.
+2. **Frontend (Jekyll / JavaScript natif)** : Une interface épurée assurant le contrôle des critères de recherche, la gestion des balises/tags dynamiques et la pagination des résultats.
 
 ---
 
@@ -44,19 +56,19 @@ Lors de l'interrogation d'APIs externes et de la vérification de l'existence de
 
 ```go
 func createIPv4Client(timeout time.Duration) *http.Client {
-	dialer := &net.Dialer{
-		Timeout:   timeout,
-		KeepAlive: 30 * time.Second,
-	}
+    dialer := &net.Dialer{
+        Timeout:   timeout,
+        KeepAlive: 30 * time.Second,
+    }
 
-	transport := &http.Transport{
-		DialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
-			return dialer.DialContext(ctx, "tcp4", addr) // Force IPv4
-		},
-	}
+    transport := &http.Transport{
+        DialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
+            return dialer.DialContext(ctx, "tcp4", addr) // Force IPv4
+        },
+    }
 
-	return &http.Client{
-		Timeout:   timeout,
-		Transport: transport,
-	}
+    return &http.Client{
+        Timeout:   timeout,
+        Transport: transport,
+    }
 }
