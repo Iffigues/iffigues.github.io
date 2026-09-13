@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://in-long-aurora-7849.fly.dev/api/search';
+const API_BASE_URL = 'http://217.182.206.51:8080/api/search';
 
 let currentQuery = '';
 let currentPage = 1;
