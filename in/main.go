@@ -8,7 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
+	"log/slog"
 	"net"
 	"net/http"
 	"net/url"
@@ -102,12 +102,17 @@ func (c *MemoryCache) startCleanup(interval time.Duration) {
 	for range ticker.C {
 		c.mu.Lock()
 		now := time.Now()
+		deletedCount := 0
 		for k, v := range c.items {
 			if now.After(v.expiredAt) {
 				delete(c.items, k)
+				deletedCount++
 			}
 		}
 		c.mu.Unlock()
+		if deletedCount > 0 {
+			slog.Debug("Nettoyage du cache de recherche", slog.Int("items_purged", deletedCount))
+		}
 	}
 }
 
@@ -156,12 +161,17 @@ func (c *URLStatusCache) startCleanup(interval time.Duration) {
 	for range ticker.C {
 		c.mu.Lock()
 		now := time.Now()
+		deletedCount := 0
 		for k, v := range c.items {
 			if now.After(v.expiredAt) {
 				delete(c.items, k)
+				deletedCount++
 			}
 		}
 		c.mu.Unlock()
+		if deletedCount > 0 {
+			slog.Debug("Nettoyage du cache d'URLs", slog.Int("urls_purged", deletedCount))
+		}
 	}
 }
 
@@ -190,6 +200,7 @@ func (cb *CircuitBreaker) Allow() bool {
 			return false
 		}
 		cb.failures = 0
+		slog.Info("Circuit Breaker réarmé (fermé)")
 	}
 	return true
 }
@@ -199,9 +210,17 @@ func (cb *CircuitBreaker) RecordFailure() {
 	defer cb.mu.Unlock()
 
 	cb.failures++
+	slog.Warn("Échec enregistré dans le Circuit Breaker",
+		slog.Int("failures", cb.failures),
+		slog.Int("threshold", cb.threshold),
+	)
+
 	if cb.failures >= cb.threshold {
 		cb.openUntil = time.Now().Add(cb.cooldownTime)
-		log.Printf("⚠️ Circuit Breaker OUVERT : suspension des requêtes GitHub pour %v", cb.cooldownTime)
+		slog.Error("Circuit Breaker déclenché : suspension des requêtes GitHub",
+			slog.Duration("cooldown", cb.cooldownTime),
+			slog.Time("open_until", cb.openUntil),
+		)
 	}
 }
 
@@ -209,6 +228,9 @@ func (cb *CircuitBreaker) RecordSuccess() {
 	cb.mu.Lock()
 	defer cb.mu.Unlock()
 
+	if cb.failures > 0 {
+		slog.Info("Réinitialisation des échecs du Circuit Breaker après succès")
+	}
 	cb.failures = 0
 }
 
@@ -232,6 +254,12 @@ var (
 )
 
 func main() {
+	// Configuration du logger structuré en JSON
+	logger := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
+		Level: slog.LevelInfo,
+	}))
+	slog.SetDefault(logger)
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
@@ -243,9 +271,10 @@ func main() {
 	}
 
 	go func() {
-		log.Printf("Serveur démarré sur le port :%s", port)
+		slog.Info("Serveur HTTP démarré", slog.String("port", port))
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatalf("Erreur serveur : %v", err)
+			slog.Error("Erreur critique au démarrage du serveur", slog.Any("error", err))
+			os.Exit(1)
 		}
 	}()
 
@@ -253,14 +282,15 @@ func main() {
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
 	<-stop
 
-	log.Println("Arrêt progressif du serveur...")
+	slog.Info("Arrêt progressif du serveur (Graceful Shutdown)...")
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	if err := server.Shutdown(ctx); err != nil {
-		log.Fatalf("Erreur lors de la fermeture du serveur : %v", err)
+		slog.Error("Erreur lors de la fermeture du serveur", slog.Any("error", err))
+	} else {
+		slog.Info("Serveur arrêté proprement.")
 	}
-	log.Println("Serveur arrêté proprement.")
 }
 
 func corsMiddleware(next http.HandlerFunc) http.HandlerFunc {
@@ -279,9 +309,18 @@ func corsMiddleware(next http.HandlerFunc) http.HandlerFunc {
 }
 
 func handleSearch(w http.ResponseWriter, r *http.Request) {
-	log.Printf("--> [%s] %s %s (depuis %s)", r.Method, r.URL.Path, r.URL.RawQuery, r.RemoteAddr)
+	start := time.Now()
+	remoteAddr := r.RemoteAddr
+
+	slog.Info("Requête entrante",
+		slog.String("method", r.Method),
+		slog.String("path", r.URL.Path),
+		slog.String("raw_query", r.URL.RawQuery),
+		slog.String("client_ip", remoteAddr),
+	)
 
 	if r.Method != http.MethodGet {
+		slog.Warn("Méthode HTTP refusée", slog.String("method", r.Method))
 		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
 		return
 	}
@@ -289,11 +328,13 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 	queryParams := r.URL.Query()
 	baseQuery := strings.TrimSpace(queryParams.Get("q"))
 	if baseQuery == "" {
+		slog.Warn("Paramètre 'q' absent de la requête")
 		http.Error(w, "Le paramètre 'q' est requis", http.StatusBadRequest)
 		return
 	}
 
 	if !cb.Allow() {
+		slog.Warn("Requête rejetée : Circuit Breaker OUVERT")
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Retry-After", "60")
 		w.WriteHeader(http.StatusServiceUnavailable)
@@ -305,12 +346,17 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 
 	cacheKey := generateCacheKey(r)
 	if item, found := searchCache.Get(cacheKey); found && time.Now().Before(item.expiredAt) {
-		log.Printf("    ↳ [CACHE HIT LOCAL] Clé: %s", cacheKey)
+		slog.Info("Cache HIT local",
+			slog.String("cache_key", cacheKey),
+			slog.Duration("latency", time.Since(start)),
+		)
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("X-Cache", "HIT-LOCAL")
 		w.Write(item.data)
 		return
 	}
+
+	slog.Info("Cache MISS local, demande d'exécution", slog.String("cache_key", cacheKey))
 
 	v, err, shared := requestGroup.Do(cacheKey, func() (interface{}, error) {
 		return executeSearch(r, cacheKey)
@@ -319,11 +365,20 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		var invalidErr *InvalidQueryError
 		if errors.As(err, &invalidErr) {
-			http.Error(w, invalidErr.Error(), http.StatusBadRequest)
+			slog.Warn("Recherche invalide/rejetée par GitHub (400)",
+				slog.String("reason", invalidErr.Error()),
+				slog.Duration("latency", time.Since(start)),
+			)
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]string{
+				"error": invalidErr.Error(),
+			})
 			return
 		}
 
 		if strings.Contains(err.Error(), "RATE_LIMIT") {
+			slog.Error("Rate limit GitHub atteint (503)", slog.Duration("latency", time.Since(start)))
 			w.Header().Set("Content-Type", "application/json")
 			w.Header().Set("Retry-After", "60")
 			w.WriteHeader(http.StatusServiceUnavailable)
@@ -333,18 +388,32 @@ func handleSearch(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		http.Error(w, err.Error(), http.StatusBadGateway)
+		slog.Error("Erreur lors de l'exécution de la recherche (502)",
+			slog.Any("error", err),
+			slog.Duration("latency", time.Since(start)),
+		)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadGateway)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error": fmt.Sprintf("Erreur amont : %v", err),
+		})
 		return
 	}
 
 	responseData := v.([]byte)
+	cacheStatus := "MISS"
+	if shared {
+		cacheStatus = "HIT-SINGLEFLIGHT"
+	}
+
+	slog.Info("Requête traitée avec succès",
+		slog.String("cache_status", cacheStatus),
+		slog.Duration("latency", time.Since(start)),
+		slog.Int("response_bytes", len(responseData)),
+	)
 
 	w.Header().Set("Content-Type", "application/json")
-	if shared {
-		w.Header().Set("X-Cache", "HIT-SINGLEFLIGHT")
-	} else {
-		w.Header().Set("X-Cache", "MISS")
-	}
+	w.Header().Set("X-Cache", cacheStatus)
 	w.Write(responseData)
 }
 
@@ -448,7 +517,13 @@ func executeSearch(r *http.Request, cacheKey string) ([]byte, error) {
 
 	ghURL.RawQuery = ghParams.Encode()
 
-	// Propagation du context d'origine r.Context()
+	slog.Info("Préparation de l'appel API GitHub",
+		slog.String("full_query", fullQuery),
+		slog.Int("page", page),
+		slog.Int("per_page", perPage),
+		slog.String("target_url", ghURL.String()),
+	)
+
 	req, err := http.NewRequestWithContext(r.Context(), http.MethodGet, ghURL.String(), nil)
 	if err != nil {
 		return nil, err
@@ -464,58 +539,78 @@ func executeSearch(r *http.Request, cacheKey string) ([]byte, error) {
 	cachedItem, hasCache := searchCache.Get(cacheKey)
 	if hasCache && cachedItem.etag != "" {
 		req.Header.Set("If-None-Match", cachedItem.etag)
+		slog.Debug("Envoi de l'ETag à GitHub", slog.String("etag", cachedItem.etag))
 	}
 
+	ghStart := time.Now()
 	resp, err := httpClient.Do(req)
+	ghDuration := time.Since(ghStart)
+
 	if err != nil {
 		cb.RecordFailure()
+		slog.Error("Échec de connexion vers l'API GitHub",
+			slog.Any("error", err),
+			slog.Duration("duration", ghDuration),
+		)
 		return nil, fmt.Errorf("Erreur de connexion à GitHub: %w", err)
 	}
 	defer resp.Body.Close()
 
+	slog.Info("Réponse reçue de GitHub API",
+		slog.Int("status_code", resp.StatusCode),
+		slog.Duration("duration", ghDuration),
+	)
+
 	if resp.StatusCode == http.StatusNotModified && hasCache {
-		log.Printf("    ↳ [GITHUB 304 NOT MODIFIED] Re-validation de la clé: %s", cacheKey)
+		slog.Info("GitHub 304 Not Modified : revalidation du cache local réussi", slog.String("cache_key", cacheKey))
 		cb.RecordSuccess()
 		searchCache.Set(cacheKey, cachedItem.data, cachedItem.etag, 15*time.Minute)
 		return cachedItem.data, nil
 	}
 
-	// Traitement de l'erreur 422 (Unprocessable Entity - Requête invalide)
 	if resp.StatusCode == http.StatusUnprocessableEntity {
 		var ghErr GitHubErrorResponse
-		limitedReader := io.LimitReader(resp.Body, 1*1024*1024) // Limite DoS 1 Mo
+		limitedReader := io.LimitReader(resp.Body, 1*1024*1024)
 		if err := json.NewDecoder(limitedReader).Decode(&ghErr); err == nil && len(ghErr.Errors) > 0 {
-			return nil, &InvalidQueryError{Message: fmt.Sprintf("Requête GitHub invalide : %s", ghErr.Errors[0].Message)}
+			errMsg := fmt.Sprintf("Requête GitHub invalide : %s", ghErr.Errors[0].Message)
+			slog.Warn("GitHub a rejeté la requête (422)", slog.String("github_error", ghErr.Errors[0].Message))
+			return nil, &InvalidQueryError{Message: errMsg}
 		}
+		slog.Warn("GitHub a rejeté la requête (422) avec un corps non standard")
 		return nil, &InvalidQueryError{Message: "Requête de recherche GitHub malformée."}
 	}
 
 	if resp.StatusCode == http.StatusForbidden || resp.StatusCode == http.StatusTooManyRequests {
 		cb.RecordFailure()
+		slog.Error("Limite d'API GitHub dépassée ou requêtes bloquées", slog.Int("status_code", resp.StatusCode))
 		return nil, fmt.Errorf("RATE_LIMIT")
 	}
 
 	if resp.StatusCode != http.StatusOK {
 		cb.RecordFailure()
+		slog.Error("Erreur inattendue de l'API GitHub", slog.Int("status_code", resp.StatusCode))
 		return nil, fmt.Errorf("Erreur API GitHub (HTTP %d)", resp.StatusCode)
 	}
 
 	cb.RecordSuccess()
 
-	// Protection DoS : Lecture limitée à 1 Mo max
 	limitedReader := io.LimitReader(resp.Body, 1*1024*1024)
-
 	var ghResp GitHubSearchResponse
 	if err := json.NewDecoder(limitedReader).Decode(&ghResp); err != nil {
+		slog.Error("Échec de découpage/décodage JSON de GitHub", slog.Any("error", err))
 		return nil, err
 	}
+
+	slog.Info("Résultats bruts reçus de GitHub",
+		slog.Int("total_count", ghResp.TotalCount),
+		slog.Int("items_in_page", len(ghResp.Items)),
+	)
 
 	urlsToTest := make([]string, len(ghResp.Items))
 	for i, item := range ghResp.Items {
 		urlsToTest[i] = fmt.Sprintf("https://%s.github.io/%s/", item.Owner.Login, item.Name)
 	}
 
-	// Propagation du context utilisateur vers la vérification des URLs
 	validURLs := filterLiveURLs(r.Context(), urlsToTest)
 
 	totalCount := ghResp.TotalCount
@@ -550,26 +645,34 @@ func executeSearch(r *http.Request, cacheKey string) ([]byte, error) {
 
 	responseData, err := json.Marshal(responsePayload)
 	if err != nil {
+		slog.Error("Échec de la sérialisation de la réponse JSON finale", slog.Any("error", err))
 		return nil, err
 	}
 
 	newETag := resp.Header.Get("ETag")
 	searchCache.Set(cacheKey, responseData, newETag, 15*time.Minute)
+	slog.Debug("Réponse enregistrée dans le cache local",
+		slog.String("cache_key", cacheKey),
+		slog.String("etag", newETag),
+	)
 
 	return responseData, nil
 }
 
 func filterLiveURLs(ctx context.Context, urls []string) []string {
+	start := time.Now()
 	var wg sync.WaitGroup
 	results := make(chan string, len(urls))
+
+	slog.Info("Début de la vérification des URLs Pages", slog.Int("total_urls", len(urls)))
 
 	for _, u := range urls {
 		wg.Add(1)
 		go func(targetURL string) {
 			defer wg.Done()
 
-			// Vérification préliminaire du cache négatif
 			if isLive, found := urlCache.Get(targetURL); found {
+				slog.Debug("Cache HIT URL status", slog.String("url", targetURL), slog.Bool("is_live", isLive))
 				if isLive {
 					results <- targetURL
 				}
@@ -578,15 +681,13 @@ func filterLiveURLs(ctx context.Context, urls []string) []string {
 
 			select {
 			case <-ctx.Done():
-				// Annulation si le client a fermé la connexion HTTP
+				slog.Warn("Vérification URL interrompue par l'annulation du client", slog.String("url", targetURL))
 				return
 			case globalConcurrencySem <- struct{}{}:
 				defer func() { <-globalConcurrencySem }()
 			}
 
 			isLive := isHTTP200(ctx, targetURL)
-
-			// Mise en cache du statut (200 OK ou 404/Error) pour 5 min
 			urlCache.Set(targetURL, isLive, 5*time.Minute)
 
 			if isLive {
@@ -602,6 +703,13 @@ func filterLiveURLs(ctx context.Context, urls []string) []string {
 	for u := range results {
 		valid = append(valid, u)
 	}
+
+	slog.Info("Vérification des URLs terminée",
+		slog.Int("valid_urls_found", len(valid)),
+		slog.Int("tested_urls", len(urls)),
+		slog.Duration("duration", time.Since(start)),
+	)
+
 	return valid
 }
 
@@ -611,6 +719,7 @@ func isHTTP200(parentCtx context.Context, targetURL string) bool {
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, targetURL, nil)
 	if err != nil {
+		slog.Debug("Échec de création de la requête URL", slog.String("url", targetURL), slog.Any("error", err))
 		return false
 	}
 
@@ -619,14 +728,21 @@ func isHTTP200(parentCtx context.Context, targetURL string) bool {
 
 	resp, err := httpClient.Do(req)
 	if err != nil {
+		slog.Debug("URL inatteignable ou hors délai (timeout)", slog.String("url", targetURL), slog.Any("error", err))
 		return false
 	}
 	defer resp.Body.Close()
 
-	// Protection DoS : Décharge au maximum 1 Ko si le serveur ignore l'en-tête Range
 	io.CopyN(io.Discard, resp.Body, 1024)
 
-	return resp.StatusCode == http.StatusOK || resp.StatusCode == http.StatusPartialContent
+	isLive := resp.StatusCode == http.StatusOK || resp.StatusCode == http.StatusPartialContent
+	slog.Debug("Résultat du test URL",
+		slog.String("url", targetURL),
+		slog.Int("status_code", resp.StatusCode),
+		slog.Bool("is_live", isLive),
+	)
+
+	return isLive
 }
 
 func generateCacheKey(r *http.Request) string {
