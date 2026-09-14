@@ -570,7 +570,7 @@ func executeSearch(r *http.Request, cacheKey string) ([]byte, error) {
 
 	if resp.StatusCode == http.StatusUnprocessableEntity {
 		var ghErr GitHubErrorResponse
-		limitedReader := io.LimitReader(resp.Body, 1*1024*1024)
+		limitedReader := io.LimitReader(resp.Body, 5*1024*1024)
 		if err := json.NewDecoder(limitedReader).Decode(&ghErr); err == nil && len(ghErr.Errors) > 0 {
 			errMsg := fmt.Sprintf("Requête GitHub invalide : %s", ghErr.Errors[0].Message)
 			slog.Warn("GitHub a rejeté la requête (422)", slog.String("github_error", ghErr.Errors[0].Message))
