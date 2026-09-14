@@ -594,7 +594,7 @@ func executeSearch(r *http.Request, cacheKey string) ([]byte, error) {
 
 	cb.RecordSuccess()
 
-	limitedReader := io.LimitReader(resp.Body, 1*1024*1024)
+	limitedReader := io.LimitReader(resp.Body, 10*1024*1024)
 	var ghResp GitHubSearchResponse
 	if err := json.NewDecoder(limitedReader).Decode(&ghResp); err != nil {
 		slog.Error("Échec de découpage/décodage JSON de GitHub", slog.Any("error", err))
