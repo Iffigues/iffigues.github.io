@@ -1,8 +1,5 @@
-module git
+module github-search-api
 
-go 1.26.3
+go 1.22
 
-require (
-	golang.org/x/net v0.59.0
-	golang.org/x/sync v0.23.0
-)
+require golang.org/x/sync v0.6.0

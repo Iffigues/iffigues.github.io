@@ -1,32 +1,34 @@
-# Étape 1 : Compilation du binaire Go
-FROM golang:alpine AS builder
+# Étape 1 : Compilation du binaire
+FROM golang:1.22-alpine AS builder
 
 WORKDIR /app
 
-# Copie et téléchargement des dépendances
-COPY go.mod ./
-# COPY go.sum ./  # Décommente si tu as un fichier go.sum
+# Invalidation de cache optimale pour les dépendances
+COPY go.mod go.sum* ./
 RUN go mod download
 
-# Copie du code source et compilation d'un binaire Linux statique
+# Copie de l'ensemble du code source
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o github-search-api .
 
-# Étape 2 : Image finale d'exécution minimale
-FROM alpine:3.19
+# Compilation du binaire statique ciblant le point d'entrée cmd/server
+RUN CGO_ENABLED=0 GOOS=linux go build \
+    -ldflags="-s -w" \
+    -o /app/github-search-api ./cmd/server
 
-# Ajout des certificats CA indispensables pour les requêtes HTTPS vers l'API GitHub
-RUN apk --no-cache add ca-certificates tzdata
+# Étape 2 : Image d'exécution minimale et sécurisée (Distroless)
+FROM gcr.io/distroless/static-debian12:nonroot
 
-WORKDIR /root/
+WORKDIR /
 
-# Copie du binaire compilé
-COPY --from=builder /app/github-search-api .
+# Copie du binaire compilé depuis l'étape précédente
+COPY --from=builder /app/github-search-api /github-search-api
 
-# Port exposé par défaut
+# Exposition du port HTTP
 EXPOSE 8080
 
 ENV PORT=8080
 
-# Exécution du service
-CMD ["./github-search-api"]
+# Utilisation de l'utilisateur non-root par défaut
+USER nonroot:nonroot
+
+ENTRYPOINT ["/github-search-api"]
