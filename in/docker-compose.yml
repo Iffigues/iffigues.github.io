@@ -9,7 +9,7 @@ services:
     container_name: github-search-app
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080" # <-- Modification ici pour lier uniquement à localhost
     environment:
       - PORT=8080
       - GITHUB_TOKEN=${GITHUB_TOKEN:-}
