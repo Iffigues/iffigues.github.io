@@ -1,8 +1,10 @@
 ---
 layout: default
 title: JO
-custom_css: /assets/css/jo.css
+custom_css:
+  - /assets/css/jo.css
 custom_js:
+  - "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"
   - /assets/js/pdf.js
   - /assets/js/toggle.js
 ---

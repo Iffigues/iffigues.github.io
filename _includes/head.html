@@ -1,12 +1,19 @@
 <head>
-<meta charset="UTF-8" />
-  {% assign page_title = page.title | default: site.title %}
-
-  <!-- Balise <title> principale (pour l'onglet du navigateur et Google) -->
-  <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% if site.tagline %} - {{ site.tagline }}{% endif %}{% endif %}</title>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Favicons (Fichiers .webp du dépôt) -->
+  <!-- Titre principal unique -->
+  <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% if site.tagline %} - {{ site.tagline }}{% endif %}{% endif %}</title>
+
+  <!-- Description SEO & Canonique -->
+  {% assign page_desc = page.description | default: site.description %}
+  {% if page_desc %}
+    <meta name="description" content="{{ page_desc | strip_html | strip_newlines | truncate: 160 }}">
+  {% endif %}
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+  <meta name="robots" content="index, follow">
+
+  <!-- Favicons -->
   <link rel="icon" type="image/webp" sizes="32x32" href="{{ '/assets/img/favicon/favicon-32x32.webp' | relative_url }}">
   <link rel="icon" type="image/webp" sizes="16x16" href="{{ '/assets/img/favicon/favicon-16x16.webp' | relative_url }}">
   <link rel="icon" type="image/webp" sizes="96x96" href="{{ '/assets/img/favicon/favicon-96x96.webp' | relative_url }}">
@@ -15,26 +22,32 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="google-site-verification" content="kAObNxtDcufLtvAlNlEQZnO9L7zJkxA8-aBOaQhZiNM" />
 
-  <!-- SEO & OpenGraph (Gestion dynamique Jekyll) -->
-  <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }} - Développeur{% endif %}</title>
-  <meta name="description" content="{{ page.description | default: site.description }}">
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
-  <meta name="robots" content="index, follow">
-
+  <!-- OpenGraph & Twitter Cards par défaut -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ page.url | absolute_url }}">
   <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
-  <meta property="og:description" content="{{ page.description | default: site.description }}">
-
+  <meta property="og:description" content="{{ page_desc | strip_html | strip_newlines | truncate: 160 }}">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
-  <meta name="twitter:description" content="{{ page.description | default: site.description }}">
+  <meta name="twitter:description" content="{{ page_desc | strip_html | strip_newlines | truncate: 160 }}">
 
+  <!-- Meta personnalisées standards (custom_meta) -->
   {% if page.custom_meta %}
-  {% for meta in page.custom_meta %}
-    <meta name="{{ meta.name }}" content="{{ meta.content }}">
-  {% endfor %}
+    {% for meta in page.custom_meta %}
+      <meta name="{{ meta.name }}" content="{{ meta.content }}">
+    {% endfor %}
+  {% endif %}
+
+  <!-- Surcharges OpenGraph personnalisées (custom_og) -->
+  {% if page.custom_og %}
+    {% for og in page.custom_og %}
+      {% if og.property %}
+        <meta property="{{ og.property }}" content="{% if og.content contains '://' %}{{ og.content }}{% else %}{{ og.content | absolute_url }}{% endif %}">
+      {% elsif og.name %}
+        <meta name="{{ og.name }}" content="{{ og.content }}">
+      {% endif %}
+    {% endfor %}
   {% endif %}
 
   <!-- Données structurées Schema.org -->
@@ -52,48 +65,37 @@
   }
   </script>
 
-  <!-- Feuilles de style -->
+  <!-- Feuilles de style de base -->
   <link rel="stylesheet" href="{{ '/assets/css/base.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/layout.css' | relative_url }}">
 
-
-
-{% if page.custom_og %}
-  {% for og in page.custom_og %}
-    {% if og.property %}
-      <meta property="{{ og.property }}" content="{% if og.content contains '://' or og.content relative_url %}{{ og.content | absolute_url }}{% else %}{{ og.content }}{% endif %}">
-    {% elsif og.name %}
-      <meta name="{{ og.name }}" content="{{ og.content }}">
+  <!-- Feuilles de style spécifiques (Chaine ou Liste) -->
+  {% assign css_list = page.custom_css | default: layout.custom_css %}
+  {% if css_list %}
+    {% if css_list.first %}
+      {% for css_file in css_list %}
+        <link rel="stylesheet" href="{{ css_file | relative_url }}">
+      {% endfor %}
+    {% else %}
+      <link rel="stylesheet" href="{{ css_list | relative_url }}">
     {% endif %}
-  {% endfor %}
-{% endif %}
-
-{% assign css_list = page.custom_css | default: layout.custom_css %}
-{% if css_list %}
-  {% if css_list.first %}
-    {% for css_file in css_list %}
-      <link rel="stylesheet" href="{{ css_file | relative_url }}">
-    {% endfor %}
-  {% else %}
-    <link rel="stylesheet" href="{{ css_list | relative_url }}">
   {% endif %}
-{% endif %}
 
-  <!-- Scripts différés (Non bloquants pour l'affichage) -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script defer src="{{ '/assets/js/pdf/pdf.js' | relative_url }}"></script>
-  <script defer src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
-
-
+  <!-- Variable globale pour scripts -->
   <script>
-  window.siteBaseUrl = "{{ '' | relative_url }}";
-</script>
+    window.siteBaseUrl = "{{ '' | relative_url }}";
+  </script>
 
-{% if page.custom_js %}
-  {% for script in page.custom_js %}
-    <script defer src="{{ script | relative_url }}"></script>
-  {% endfor %}
-{% endif %}
+  <!-- Scripts globaux du site -->
+  <script defer src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script defer src="{{ '/assets/js/api/api.js' | relative_url }}"></script>
+
+  <!-- Scripts spécifiques à la page (custom_js) -->
+  {% if page.custom_js %}
+    {% for script in page.custom_js %}
+      <script defer src="{% if script contains '://' %}{{ script }}{% else %}{{ script | relative_url }}{% endif %}"></script>
+    {% endfor %}
+  {% endif %}
 
   <!-- Google Analytics (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XFQBS31SJC"></script>
@@ -103,5 +105,4 @@
     gtag('js', new Date());
     gtag('config', 'G-XFQBS31SJC');
   </script>
-<script src="{{ '/assets/js/api/api.js' | relative_url }}"></script>
 </head>
