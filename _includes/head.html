@@ -2,16 +2,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Titre principal unique -->
-  <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% if site.tagline %} - {{ site.tagline }}{% endif %}{% endif %}</title>
-
-  <!-- Description SEO & Canonique -->
-  {% assign page_desc = page.description | default: site.description %}
-  {% if page_desc %}
-    <meta name="description" content="{{ page_desc | strip_html | strip_newlines | truncate: 160 }}">
-  {% endif %}
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
-  <meta name="robots" content="index, follow">
+  <!-- Génération automatique des titres, meta description, OpenGraph, Twitter Cards et Schema.org -->
+  {% seo %}
 
   <!-- Favicons -->
   <link rel="icon" type="image/webp" sizes="32x32" href="{{ '/assets/img/favicon/favicon-32x32.webp' | relative_url }}">
@@ -22,48 +14,12 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="google-site-verification" content="kAObNxtDcufLtvAlNlEQZnO9L7zJkxA8-aBOaQhZiNM" />
 
-  <!-- OpenGraph & Twitter Cards par défaut -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ page.url | absolute_url }}">
-  <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
-  <meta property="og:description" content="{{ page_desc | strip_html | strip_newlines | truncate: 160 }}">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
-  <meta name="twitter:description" content="{{ page_desc | strip_html | strip_newlines | truncate: 160 }}">
-
   <!-- Meta personnalisées standards (custom_meta) -->
   {% if page.custom_meta %}
     {% for meta in page.custom_meta %}
       <meta name="{{ meta.name }}" content="{{ meta.content }}">
     {% endfor %}
   {% endif %}
-
-  <!-- Surcharges OpenGraph personnalisées (custom_og) -->
-  {% if page.custom_og %}
-    {% for og in page.custom_og %}
-      {% if og.property %}
-        <meta property="{{ og.property }}" content="{% if og.content contains '://' %}{{ og.content }}{% else %}{{ og.content | absolute_url }}{% endif %}">
-      {% elsif og.name %}
-        <meta name="{{ og.name }}" content="{{ og.content }}">
-      {% endif %}
-    {% endfor %}
-  {% endif %}
-
-  <!-- Données structurées Schema.org -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "{{ site.title }}",
-    "url": "{{ site.url }}",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "{{ site.url }}/search?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
 
   <!-- Feuilles de style de base -->
   <link rel="stylesheet" href="{{ '/assets/css/base.css' | relative_url }}">
@@ -90,7 +46,7 @@
   <script defer src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
   <script defer src="{{ '/assets/js/api/api.js' | relative_url }}"></script>
 
-  <!-- Scripts spécifiques à la page (custom_js) -->
+  <!-- Scripts spécifiques à la page (custom_js local ou CDN) -->
   {% if page.custom_js %}
     {% for script in page.custom_js %}
       <script defer src="{% if script contains '://' %}{{ script }}{% else %}{{ script | relative_url }}{% endif %}"></script>
