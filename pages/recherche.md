@@ -1,13 +1,38 @@
 ---
 layout: default
-title: Recherche GitHub Pages
+title: Moteur de recherche GitHub Pages
+description: "Outil en ligne pour rechercher et explorer les sites web, blogs et documentations hébergés sur GitHub Pages."
+
+# Fichiers CSS et JS spécifiques à la page
 custom_css:
   - /assets/css/github-search.css
 custom_js:
   - /assets/js/github-search.js
+
+# Balises meta standards (mots-clés, robots, auteur)
+custom_meta:
+  - name: "keywords"
+    content: "github pages, recherche, moteur de recherche, jekyll, sites statiques, github.io"
+  - name: "robots"
+    content: "index, follow"
+  - name: "author"
+    content: "Boris Denoyelle"
+
+# Métadonnées pour le partage social (Open Graph / Twitter / Discord)
+custom_og:
+  - property: "og:type"
+    content: "website"
+  - property: "og:title"
+    content: "Moteur de recherche pour sites GitHub Pages"
+  - property: "og:description"
+    content: "Trouvez et explorez facilement les sites et blogs hébergés sur GitHub Pages."
+  - property: "og:image"
+    content: "/assets/img/og-github-search.png"
+  - name: "twitter:card"
+    content: "summary_large_image"
 ---
 
-<h1>Recherche de GitHub Pages</h1>
+<title>Moteur de recherche de sites GitHub Pages | Iffigues</title>
 
 <div class="search-container">
     <form id="search-form">
@@ -257,6 +282,7 @@ custom_js:
             </div>
         </div>
     </form>
+
 </div>
 
 <div id="status"></div>
@@ -275,4 +301,5 @@ custom_js:
         <span class="page-info" id="max-page-info">sur 1</span>
         <button type="submit" id="jump-btn" class="btn-primary">Aller</button>
     </form>
+
 </div>
