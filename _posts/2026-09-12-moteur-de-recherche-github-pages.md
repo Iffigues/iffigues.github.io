@@ -8,7 +8,7 @@ tags: [golang, github-api, jekyll, frontend]
 
 Avoir un site hébergé sur **GitHub Pages**, c'est génial : c'est gratuit, rapide et parfaitement intégré avec Git. Cependant, trouver des projets ou des portfolios réels hébergés sous le domaine `.github.io` via l'interface standard de GitHub peut parfois s'avérer complexe.
 
-Pour résoudre ce problème, j'ai développé un **[moteur de recherche dédié aux GitHub Pages]({{ '/recherche/' | relative_url }})**, combinant un backend performant en **Go** et un frontend dynamique sous **Jekyll**.
+Pour résoudre ce problème, j'ai développé un **[moteur de recherche dédié aux GitHub Pages]({{ '/github-pages-search/' | relative_url }})**, combinant un backend performant en **Go** et un frontend dynamique sous **Jekyll**.
 
 ---
 
@@ -18,9 +18,9 @@ Aujourd'hui, le Web est saturé de sites vitrines génériques, de contenus opti
 
 En ciblant spécifiquement le domaine `.github.io`, l'objectif principal de ce moteur est de faire réémerger **l'esprit artisanal du Web indépendant** :
 
-* **Un Web étudiant et passionné** : La grande majorité des projets GitHub Pages sont façonnés par des étudiants, des chercheurs ou des développeurs indépendants qui créent sans impératif commercial.
-* **Trouvailles atypiques et ludiques** : C'est le terrain d'exploration idéal pour dénicher des mini-jeux codés sur un coin de table, des blogs personnels sans aucun pistage, des démos graphiques rétro ou des portfolios aux designs complètement hors normes.
-* **L'esprit "GeoCities" moderne** : Tout comme au début des années 2000, la priorité est donnée au bidouillage, à la curiosité et au partage d'idées brutes, loin de la culture du clic et de la rentabilité.
+- **Un Web étudiant et passionné** : La grande majorité des projets GitHub Pages sont façonnés par des étudiants, des chercheurs ou des développeurs indépendants qui créent sans impératif commercial.
+- **Trouvailles atypiques et ludiques** : C'est le terrain d'exploration idéal pour dénicher des mini-jeux codés sur un coin de table, des blogs personnels sans aucun pistage, des démos graphiques rétro ou des portfolios aux designs complètement hors normes.
+- **L'esprit "GeoCities" moderne** : Tout comme au début des années 2000, la priorité est donnée au bidouillage, à la curiosité et au partage d'idées brutes, loin de la culture du clic et de la rentabilité.
 
 ---
 
@@ -37,21 +37,22 @@ Le projet se divise en deux parties principales :
 
 Le moteur ne se contente pas d'une recherche par mot-clé basique. Il permet d'affiner précisément la découverte des projets grâce à **11 filtres ciblés** :
 
-* **Recherche textuelle & Empreintes techniques** : Combinaison de termes libres et d'empreintes spécifiques (`filename:package.json`, `path:docs`, etc.) avec opérateurs booléens (`ET`, `OU`, `EXCLURE`).
-* **Filtrage par Langage** : Prise en charge multi-langages (ex: `go`, `python`, `typescript`) combinables en mode `AND` (`+`) ou `OR` (`,`).
-* **Sujets & Propriétaires** : Filtrage direct par `topic`, nom d'utilisateur (`user`) ou organisation (`org`).
-* **Critères du Dépôt** :
-  * Sélection du type de **Licence** (MIT, Apache 2.0, GPL v3...).
-  * Gestion des **Forks** (les inclure, les exclure ou cibler uniquement les forks).
-  * Inclusion ou exclusion des dépôts **archivés**.
-  * Filtrage par **Taille du dépôt** (en Ko) et **Followers** de l'auteur.
-* **Étoiles & Dates de MàJ** : Sélection par minimum ou intervalle d'étoiles (`stars`), ainsi que par date du dernier `push` (date précise, intervalle ou raccourcis temporels comme les 30 derniers jours).
+- **Recherche textuelle & Empreintes techniques** : Combinaison de termes libres et d'empreintes spécifiques (`filename:package.json`, `path:docs`, etc.) avec opérateurs booléens (`ET`, `OU`, `EXCLURE`).
+- **Filtrage par Langage** : Prise en charge multi-langages (ex: `go`, `python`, `typescript`) combinables en mode `AND` (`+`) ou `OR` (`,`).
+- **Sujets & Propriétaires** : Filtrage direct par `topic`, nom d'utilisateur (`user`) ou organisation (`org`).
+- **Critères du Dépôt** :
+  - Sélection du type de **Licence** (MIT, Apache 2.0, GPL v3...).
+  - Gestion des **Forks** (les inclure, les exclure ou cibler uniquement les forks).
+  - Inclusion ou exclusion des dépôts **archivés**.
+  - Filtrage par **Taille du dépôt** (en Ko) et **Followers** de l'auteur.
+- **Étoiles & Dates de MàJ** : Sélection par minimum ou intervalle d'étoiles (`stars`), ainsi que par date du dernier `push` (date précise, intervalle ou raccourcis temporels comme les 30 derniers jours).
 
 ---
 
 ## ⚙️ Les défis techniques relevés
 
 ### 1. Force du protocole IPv4 dans le backend Go
+
 Lors de l'interrogation d'APIs externes et de la vérification de l'existence des sites web, la résolution IPv6 peut parfois ralentir les requêtes selon les réseaux d'hébergement. Le client HTTP backend a donc été configuré pour forcer les résolutions en **IPv4 / `tcp4`**, garantissant un temps de réponse rapide lors des contrôles de disponibilité.
 
 ```go
@@ -72,3 +73,4 @@ func createIPv4Client(timeout time.Duration) *http.Client {
         Transport: transport,
     }
 }
+```
