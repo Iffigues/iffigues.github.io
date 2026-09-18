@@ -42,10 +42,6 @@
     window.siteBaseUrl = "{{ '' | relative_url }}";
   </script>
 
-  <!-- Scripts globaux du site -->
-  <script defer src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
-  <script defer src="{{ '/assets/js/api/api.js' | relative_url }}"></script>
-
   <!-- Scripts spécifiques à la page (custom_js local ou CDN) -->
   {% if page.custom_js %}
     {% for script in page.custom_js %}
