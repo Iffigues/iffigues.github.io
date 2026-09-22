@@ -2,7 +2,7 @@
 layout: default
 title: Volontaire - Visite Papale
 custom_css:
-  - /assets/css/jo.css
+  - /assets/css/pape.css
 custom_js:
   - "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"
   - /assets/js/pdf.js
