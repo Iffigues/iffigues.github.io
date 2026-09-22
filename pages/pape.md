@@ -21,7 +21,7 @@ custom_js:
     <div id="comment" class="content-card">
         <!-- 🖼️ Image 1 : Bandeau rectangulaire supérieur -->
         <div class="pape-banner-container">
-            <img src="{{ '/assets/data/pape/img/headerPape.webp' | relative_url }}" alt="Visite Papale 2026" class="pape-banner-img">
+            <img src="{{ '/assets/data/eglise/img/f.webp' | relative_url }}" alt="Visite Papale 2026" class="pape-banner-img">
         </div>
 
         <div class="story-layout vertical-layout">
