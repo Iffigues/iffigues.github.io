@@ -48,7 +48,7 @@ custom_js:
         </div>
 
         {% assign pdf_list = "a,b" | split: "," %}
-        {% assign pdf_names = "contremarque,affectation" | split: "," %}
+        {% assign pdf_names = "c,a" | split: "," %}
 
         {% for key in pdf_list %}
         {% assign index = forloop.index0 %}
