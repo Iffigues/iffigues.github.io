@@ -19,11 +19,12 @@ custom_js:
     </header>
 
     <div id="comment" class="content-card">
-        <div class="story-layout">
-            <div class="image-container">
-                <img src="{{ '/assets/data/pape/img/volontairePape.webp' | relative_url }}" alt="Volontaire Pape Léon XIV" class="profile-img">
-                <p class="img-caption">Accueil et logistique — Paris 2026</p>
-            </div>
+        <!-- 🖼️ Image 1 : Bandeau rectangulaire supérieur -->
+        <div class="pape-banner-container">
+            <img src="{{ '/assets/data/pape/img/headerPape.webp' | relative_url }}" alt="Visite Papale 2026" class="pape-banner-img">
+        </div>
+
+        <div class="story-layout vertical-layout">
             <div class="text-content">
                 <section id="parcours-jo" class="parcours">
                     <h2>🕊️ Accueil & Déambulation</h2>
@@ -37,6 +38,12 @@ custom_js:
                         <li><strong>Samedi 26 Septembre (07h00 - 18h00) :</strong> Assistance logistique au point Eucharistie / Communion (Zone E Nord - Tente N°11).</li>
                     </ul>
                 </section>
+            </div>
+
+            <!-- 🖼️ Image 2 : Image d'illustration inférieure -->
+            <div class="image-container bottom-image-container">
+                <img src="{{ '/assets/data/pape/img/volontairePape.webp' | relative_url }}" alt="Volontaire Pape Léon XIV" class="pape-bottom-img">
+                <p class="img-caption">Accueil et logistique — Paris 2026</p>
             </div>
         </div>
     </div>
