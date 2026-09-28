@@ -92,6 +92,14 @@ custom_css:
         </div>
       </a>
 
+     <a href="{{ '/jekyll/update/2026-09-28-pape.html' | relative_url }}" class="article-card">
+        <div class="article-info">
+          <h4>Je suis Volontaire.</h4>
+          <p>Je suis Volontaire.</p>
+          <span class="read-more">Lire l'article →</span>
+        </div>
+      </a>
+
     </div>
 
   </div>
