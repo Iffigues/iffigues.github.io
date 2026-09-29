@@ -47,8 +47,21 @@ func (s *Service) ExecuteSearch(r *http.Request, cacheKey string) ([]byte, error
 	baseQuery := strings.TrimSpace(queryParams.Get("q"))
 
 	var qParts []string
-	qParts = append(qParts, baseQuery, "has:pages")
 
+	// 1. Mot-clé principal (s'il existe)
+	if baseQuery != "" {
+		qParts = append(qParts, baseQuery)
+	}
+
+	// 2. Filtre obligatoire pour restreindre aux projets GitHub Pages
+	qParts = append(qParts, "has:pages")
+
+	// 3. Périmètre de recherche dans le texte (in:name,description,readme)
+	if inParam := strings.TrimSpace(queryParams.Get("in")); inParam != "" {
+		qParts = append(qParts, fmt.Sprintf("in:%s", inParam))
+	}
+
+	// 4. Traitement dynamique des langages (AND / OR)
 	if rawLang := strings.TrimSpace(queryParams.Get("language")); rawLang != "" {
 		var op string
 		var langs []string
@@ -75,13 +88,20 @@ func (s *Service) ExecuteSearch(r *http.Request, cacheKey string) ([]byte, error
 		}
 	}
 
+	// 5. Filtre Étoiles (stars)
 	if starsFilter := parseStarsParam(queryParams.Get("stars")); starsFilter != "" {
 		qParts = append(qParts, starsFilter)
 	}
 
+	// 6. Dates (pushed & created)
 	if pushed := strings.TrimSpace(queryParams.Get("pushed")); pushed != "" {
 		qParts = append(qParts, fmt.Sprintf("pushed:%s", pushed))
 	}
+	if created := strings.TrimSpace(queryParams.Get("created")); created != "" {
+		qParts = append(qParts, fmt.Sprintf("created:%s", created))
+	}
+
+	// 7. Filtres ciblés (propriétaires, sujets, statut du dépôt)
 	if topic := strings.TrimSpace(queryParams.Get("topic")); topic != "" {
 		qParts = append(qParts, fmt.Sprintf("topic:%s", topic))
 	}
@@ -100,11 +120,16 @@ func (s *Service) ExecuteSearch(r *http.Request, cacheKey string) ([]byte, error
 	if archived := strings.TrimSpace(queryParams.Get("archived")); archived != "" {
 		qParts = append(qParts, fmt.Sprintf("archived:%s", archived))
 	}
+
+	// 8. Métriques numériques (taille, followers, forks)
 	if size := strings.TrimSpace(queryParams.Get("size")); size != "" {
 		qParts = append(qParts, fmt.Sprintf("size:%s", size))
 	}
 	if followers := strings.TrimSpace(queryParams.Get("followers")); followers != "" {
 		qParts = append(qParts, fmt.Sprintf("followers:%s", followers))
+	}
+	if forks := strings.TrimSpace(queryParams.Get("forks")); forks != "" {
+		qParts = append(qParts, fmt.Sprintf("forks:%s", forks))
 	}
 
 	fullQuery := strings.Join(qParts, " ")
@@ -179,7 +204,7 @@ func (s *Service) ExecuteSearch(r *http.Request, cacheKey string) ([]byte, error
 	)
 
 	if resp.StatusCode == http.StatusNotModified && hasCache {
-		slog.Info("GitHub 304 Not Modified : revalidation du cache local réussi", slog.String("cache_key", cacheKey))
+		slog.Info("GitHub 304 Not Modified : revalidation du cache local réussie", slog.String("cache_key", cacheKey))
 		s.cb.RecordSuccess()
 		s.searchCache.Set(cacheKey, cachedItem.Data, cachedItem.Etag, 15*time.Minute)
 		return cachedItem.Data, nil
@@ -258,6 +283,7 @@ func (s *Service) ExecuteSearch(r *http.Request, cacheKey string) ([]byte, error
 		NextPage:     nextPage,
 		PrevPage:     prevPage,
 		PagesURLs:    validURLs,
+		Items:        ghResp.Items,
 	}
 
 	responseData, err := json.Marshal(responsePayload)

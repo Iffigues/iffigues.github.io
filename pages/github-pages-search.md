@@ -3,13 +3,11 @@ layout: default
 title: Moteur de recherche GitHub Pages
 description: "Outil en ligne pour rechercher et explorer les sites web, blogs et documentations hébergés sur GitHub Pages."
 
-# Fichiers CSS et JS spécifiques à la page
 custom_css:
   - /assets/css/github-search.css
 custom_js:
   - /assets/js/github-search.js
 
-# Balises meta standards (mots-clés, robots, auteur)
 custom_meta:
   - name: "keywords"
     content: "github pages, recherche, moteur de recherche, jekyll, sites statiques, github.io"
@@ -18,7 +16,6 @@ custom_meta:
   - name: "author"
     content: "Boris Denoyelle"
 
-# Métadonnées pour le partage social (Open Graph / Twitter / Discord)
 custom_og:
   - property: "og:type"
     content: "website"
@@ -32,12 +29,11 @@ custom_og:
     content: "summary_large_image"
 ---
 
-<title>Moteur de recherche de sites GitHub Pages | Iffigues</title>
-
 <div class="search-container">
     <form id="search-form">
+        <!-- BARRE DE RECHERCHE PRINCIPALE -->
         <div class="search-box">
-            <input type="text" id="query-input" placeholder="Ex: school, portfolio, game..." required>
+            <input type="text" id="query-input" placeholder="Mots-clés (ex: portfolio, blog, docs...)" />
             <button type="submit" id="search-btn" class="btn-primary">Chercher</button>
         </div>
 
@@ -47,20 +43,22 @@ custom_og:
 
         <div id="collapsible-filters" class="collapsible-filters">
             <div class="filters-grid">
+
+                <!-- TRI ET PAGINATION -->
                 <div class="filter-group">
                     <label for="sort-select">Trier par</label>
                     <select id="sort-select">
-                        <option value="" selected>Aucun tri (Pertinence)</option>
+                        <option value="" selected>Pertinence (Défaut)</option>
                         <option value="stars">Étoiles</option>
                         <option value="forks">Forks</option>
-                        <option value="updated">Dernière MàJ</option>
+                        <option value="updated">Dernière mise à jour</option>
                     </select>
                 </div>
 
                 <div class="filter-group">
                     <label for="order-select">Ordre</label>
                     <select id="order-select" disabled>
-                        <option value="desc">Décroissant</option>
+                        <option value="desc" selected>Décroissant</option>
                         <option value="asc">Croissant</option>
                     </select>
                 </div>
@@ -74,25 +72,35 @@ custom_og:
                     </select>
                 </div>
 
+                <!-- PÉRIMÈTRE DE RECHERCHE (IN:) -->
+                <div class="filter-group">
+                    <label>Chercher dans (in:)</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" class="in-field-checkbox" value="name" checked> Nom</label>
+                        <label><input type="checkbox" class="in-field-checkbox" value="description" checked> Description</label>
+                        <label><input type="checkbox" class="in-field-checkbox" value="readme"> README</label>
+                    </div>
+                </div>
+
                 <!-- PROPRIÉTAIRES ET SUJETS -->
                 <div class="filter-group">
-                    <label for="topic-input">Topic / Sujet</label>
+                    <label for="topic-input">Topic / Sujet (topic:)</label>
                     <input type="text" id="topic-input" placeholder="ex: jekyll, react, game">
                 </div>
 
                 <div class="filter-group">
-                    <label for="user-input">Utilisateur</label>
+                    <label for="user-input">Utilisateur (user:)</label>
                     <input type="text" id="user-input" placeholder="ex: octocat">
                 </div>
 
                 <div class="filter-group">
-                    <label for="org-input">Organisation</label>
+                    <label for="org-input">Organisation (org:)</label>
                     <input type="text" id="org-input" placeholder="ex: github">
                 </div>
 
                 <!-- PROPRIÉTÉS DU DÉPÔT -->
                 <div class="filter-group">
-                    <label for="license-select">Licence</label>
+                    <label for="license-select">Licence (license:)</label>
                     <select id="license-select">
                         <option value="" selected>Toutes les licences</option>
                         <option value="mit">MIT</option>
@@ -104,7 +112,7 @@ custom_og:
                 </div>
 
                 <div class="filter-group">
-                    <label for="fork-select">Dépôts Forkés</label>
+                    <label for="fork-select">Dépôts Forkés (fork:)</label>
                     <select id="fork-select">
                         <option value="" selected>Exclure les forks (Défaut)</option>
                         <option value="true">Inclure les forks</option>
@@ -113,7 +121,7 @@ custom_og:
                 </div>
 
                 <div class="filter-group">
-                    <label for="archived-select">Dépôts Archivés</label>
+                    <label for="archived-select">Dépôts Archivés (archived:)</label>
                     <select id="archived-select">
                         <option value="" selected>Tous</option>
                         <option value="false">Exclure les archivés</option>
@@ -123,18 +131,23 @@ custom_og:
 
                 <!-- MÉTRIQUES SUPPLÉMENTAIRES -->
                 <div class="filter-group">
-                    <label for="size-input">Taille (Ko)</label>
+                    <label for="forks-count-input">Nombre de Forks (forks:)</label>
+                    <input type="text" id="forks-count-input" placeholder="ex: >10, 5..50">
+                </div>
+
+                <div class="filter-group">
+                    <label for="size-input">Taille en Ko (size:)</label>
                     <input type="text" id="size-input" placeholder="ex: >1000, 100..5000">
                 </div>
 
                 <div class="filter-group">
-                    <label for="followers-input">Followers de l'auteur</label>
+                    <label for="followers-input">Followers auteur (followers:)</label>
                     <input type="text" id="followers-input" placeholder="ex: >50">
                 </div>
 
                 <!-- FILTRE ÉTOILES -->
                 <div class="filter-group">
-                    <label for="stars-mode-select">Filtre d'étoiles (Stars)</label>
+                    <label for="stars-mode-select">Filtre d'étoiles (stars:)</label>
                     <select id="stars-mode-select">
                         <option value="none" selected>Pas de filtre</option>
                         <option value="min">Minimum (>=)</option>
@@ -157,39 +170,35 @@ custom_og:
                     </div>
                 </div>
 
-                <!-- FILTRE DE RECHERCHE TECHNIQUE ET EMPREINTES MULTIPLES -->
+                <!-- EMPREINTES TECHNIQUES ET FICHIERS MULTIPLES -->
                 <div class="filter-group full-width">
-                    <label for="tech-signature-input">Empreintes techniques / Fichiers / Mots-clés</label>
+                    <label for="tech-signature-input">Empreintes techniques / Qualificateurs bruts (ex: path:, filename:)</label>
                     <div class="input-group">
                         <select id="tech-operator-select" style="width: auto;">
                             <option value="AND" selected>ET (Obligatoire)</option>
                             <option value="OR">OU (Optionnel)</option>
                             <option value="NOT">EXCLURE (NOT)</option>
                         </select>
-                        <input type="text" id="tech-signature-input" placeholder="ex: filename:package.json, path:docs...">
+                        <input type="text" id="tech-signature-input" placeholder="ex: filename:package.json, path:docs">
                         <button type="button" id="add-signature-btn" class="btn-secondary">Ajouter</button>
                     </div>
-
-                    <!-- Zone d'affichage des signatures ajoutées -->
                     <div id="signatures-tags-list" class="lang-tags-container"></div>
                 </div>
 
-                <!-- FILTRE LANGAGE MULTI-OPERATEUR -->
+                <!-- FILTRE LANGAGE -->
                 <div class="filter-group full-width">
-                    <label for="lang-mode-select">Filtre Langage (Opérateurs AND / OR)</label>
+                    <label for="lang-mode-select">Filtre Langage (language:)</label>
                     <select id="lang-mode-select">
-                        <option value="single" selected>Un seul langage (Standard)</option>
-                        <option value="multi">Avancé (Combinaison multi-langages)</option>
+                        <option value="single" selected>Un seul langage</option>
+                        <option value="multi">Avancé (Multi-langages)</option>
                         <option value="raw">Saisie libre brute</option>
                     </select>
 
                     <div id="lang-controls-container" class="sub-container">
-                        <!-- Mode Single -->
                         <div id="lang-mode-single">
                             <input type="text" id="lang-single-input" list="languages-list" placeholder="ex: go, python, typescript...">
                         </div>
 
-                        <!-- Mode Multi / Opérateurs -->
                         <div id="lang-mode-multi" class="hidden">
                             <div class="input-group">
                                 <select id="lang-operator-select" style="width: auto;">
@@ -202,7 +211,6 @@ custom_og:
                             <div id="lang-tags-list" class="lang-tags-container"></div>
                         </div>
 
-                        <!-- Mode Raw -->
                         <div id="lang-mode-raw" class="hidden">
                             <input type="text" id="pushed-lang-raw" placeholder="ex: go,python">
                         </div>
@@ -212,41 +220,39 @@ custom_og:
                             <option value="python"></option>
                             <option value="javascript"></option>
                             <option value="typescript"></option>
-                            <option value="php"></option>
                             <option value="html"></option>
                             <option value="css"></option>
                             <option value="rust"></option>
-                            <option value="c"></option>
-                            <option value="cpp"></option>
-                            <option value="csharp"></option>
-                            <option value="java"></option>
-                            <option value="shell"></option>
                             <option value="ruby"></option>
-                            <option value="dart"></option>
-                            <option value="zig"></option>
                         </datalist>
                     </div>
                 </div>
 
-                <!-- FILTRE DATE -->
+                <!-- FILTRE DATE CRÉATION (CREATED) -->
                 <div class="filter-group full-width">
-                    <label for="pushed-mode-select">Filtre de date (Dernier push)</label>
+                    <label for="created-date-input">Filtre Date de Création (created:)</label>
+                    <input type="text" id="created-date-input" placeholder="ex: >=2024-01-01 ou 2023-01-01..2023-12-31">
+                </div>
+
+                <!-- FILTRE DATE DERNIER PUSH (PUSHED) -->
+                <div class="filter-group full-width">
+                    <label for="pushed-mode-select">Filtre Date de Dernier Push (pushed:)</label>
                     <select id="pushed-mode-select">
-                        <option value="none" selected>Aucun filtre de date</option>
+                        <option value="none" selected>Aucun filtre</option>
                         <option value="single">Date précise & Opérateur</option>
-                        <option value="range">Intervalle personnalisé (Du ... Au ...)</option>
-                        <option value="relative">Raccourcis temporels (ex: 7 derniers jours)</option>
-                        <option value="raw">Saisie libre brute (Syntaxe GitHub native)</option>
+                        <option value="range">Intervalle (Du ... Au ...)</option>
+                        <option value="relative">Raccourcis temporels</option>
+                        <option value="raw">Saisie libre brute</option>
                     </select>
 
                     <div id="date-controls-container" class="sub-container hidden">
                         <div id="mode-single" class="input-group hidden">
                             <select id="pushed-op-select">
-                                <option value=">=" selected>&gt;= (À partir de)</option>
-                                <option value=">">&gt; (Strictement après)</option>
-                                <option value="<=">&lt;= (Jusqu'à)</option>
-                                <option value="<">&lt; (Strictement avant)</option>
-                                <option value="=">= (Exactement ce jour)</option>
+                                <option value=">=" selected>&gt;=</option>
+                                <option value=">">&gt;</option>
+                                <option value="<=">&lt;=</option>
+                                <option value="<">&lt;</option>
+                                <option value="=">=</option>
                             </select>
                             <input type="date" id="pushed-date-input">
                         </div>
@@ -275,10 +281,11 @@ custom_og:
                         </div>
 
                         <div id="mode-raw" class="hidden">
-                            <input type="text" id="pushed-raw-input" placeholder="ex: 2024-01-01..2024-06-30 ou >=2024-01-01">
+                            <input type="text" id="pushed-raw-input" placeholder="ex: >=2024-01-01">
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </form>
@@ -286,7 +293,6 @@ custom_og:
 </div>
 
 <div id="status"></div>
-
 <ul class="results-list" id="results"></ul>
 
 <div class="pagination hidden" id="pagination">
