@@ -17,6 +17,7 @@ import (
 
 	"github-search-api/pkg/cache"
 	"github-search-api/pkg/circuitbreaker"
+	"github-search-api/pkg/metrics"
 	"github-search-api/pkg/models"
 )
 
@@ -182,6 +183,11 @@ func (s *Service) ExecuteSearch(r *http.Request, cacheKey string) ([]byte, error
 	}
 
 	cachedItem, hasCache := s.searchCache.Get(cacheKey)
+	if hasCache {
+		metrics.CacheHitsTotal.WithLabelValues("search_cache", "hit").Inc()
+	} else {
+		metrics.CacheHitsTotal.WithLabelValues("search_cache", "miss").Inc()
+	}
 	if hasCache && cachedItem.Etag != "" {
 		req.Header.Set("If-None-Match", cachedItem.Etag)
 		slog.Debug("Envoi de l'ETag à GitHub", slog.String("etag", cachedItem.Etag))
@@ -190,6 +196,13 @@ func (s *Service) ExecuteSearch(r *http.Request, cacheKey string) ([]byte, error
 	ghStart := time.Now()
 	resp, err := s.httpClient.Do(req)
 	ghDuration := time.Since(ghStart)
+
+	metrics.GitHubAPIDuration.Observe(ghDuration.Seconds())
+
+	if err == nil {
+		// Prometheus: enregistrement du code retour
+		metrics.GitHubAPIResponsesTotal.WithLabelValues(strconv.Itoa(resp.StatusCode)).Inc()
+	}
 
 	if err != nil {
 		s.cb.RecordFailure()
@@ -337,6 +350,12 @@ func (s *Service) filterLiveURLs(ctx context.Context, urls []string) []string {
 			defer wg.Done()
 
 			if isLive, found := s.urlCache.Get(targetURL); found {
+				if isLive {
+					metrics.URLCheckResultsTotal.WithLabelValues("live").Inc()
+					results <- targetURL
+				} else {
+					metrics.URLCheckResultsTotal.WithLabelValues("dead").Inc()
+				}
 				slog.Debug("Cache HIT URL status", slog.String("url", targetURL), slog.Bool("is_live", isLive))
 				if isLive {
 					results <- targetURL

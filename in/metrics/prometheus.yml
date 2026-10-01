@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 10s # Fréquence de collecte des métriques
+
+scrape_configs:
+  - job_name: 'github_search_api'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['api:8080'] # Nom du service Docker de l'API Go

@@ -9,6 +9,8 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+
 	"github-search-api/pkg/api"
 	"github-search-api/pkg/cache"
 	"github-search-api/pkg/circuitbreaker"
@@ -35,9 +37,12 @@ func main() {
 	}
 
 	// -------------------------------------------------------------
-	// ICI : Instanciation du Mux et enregistrement de la route
+	// Instanciation du Mux et enregistrement des routes
 	// -------------------------------------------------------------
 	mux := http.NewServeMux()
+
+	// Route Prometheus pour l'exposition des métriques
+	mux.Handle("/metrics", promhttp.Handler())
 
 	// Route d'API protégée par le middleware CORS
 	mux.HandleFunc("/api/search", api.CorsMiddleware(handler.HandleSearch))
