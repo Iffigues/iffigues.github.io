@@ -1,13 +1,13 @@
 #!/bin/bash
 
-domains=(votre-domaine.com)     # Remplace par ton vrai nom de domaine
-email="ton-email@exemple.com"  # Remplace par ton e-mail pour Let's Encrypt
+domains=(217-182-206-51.sslip.io)
+email="boris.denoyelle@gmail.com" # Ton email pour recevoir les notifications Let's Encrypt
 rsa_key_size=4096
 
-echo "### Démarrage temporaire de Nginx pour valider le challenge ACME..."
-docker compose up --no-deps -d nginx
+echo "### Démarrage de Nginx..."
+docker compose up -d nginx
 
-echo "### Demande du certificat initial auprès de Let's Encrypt..."
+echo "### Demande du certificat pour 217-182-206-51.sslip.io..."
 domain_args=""
 for domain in "${domains[@]}"; do
   domain_args="$domain_args -d $domain"
@@ -19,6 +19,7 @@ docker compose run --rm --entrypoint "\
     --email $email \
     --rsa-key-size $rsa_key_size \
     --agree-tos \
+    --no-eff-email \
     --force-renewal" certbot
 
 echo "### Rechargement de Nginx avec le nouveau certificat..."

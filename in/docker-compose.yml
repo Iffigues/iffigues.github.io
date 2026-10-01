@@ -26,7 +26,7 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
-      - '--web.external-url=https://votre-domaine.com/prometheus/'
+      - '--web.external-url=https://217-182-206-51.sslip.io/prometheus/'
     security_opt:
       - no-new-privileges:true
     networks:
