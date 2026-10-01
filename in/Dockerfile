@@ -3,12 +3,12 @@ FROM golang:1.22-alpine AS builder
 
 WORKDIR /app
 
-# Invalidation de cache optimale pour les dépendances
+# Copie des fichiers de module et du code source
 COPY go.mod go.sum* ./
-RUN go mod download
-
-# Copie de l'ensemble du code source
 COPY . .
+
+# Résolution et téléchargement automatique des dépendances manquantes (Prometheus)
+RUN go get github.com/prometheus/client_golang/prometheus/promhttp && go mod tidy
 
 # Compilation du binaire statique ciblant le point d'entrée cmd/server
 RUN CGO_ENABLED=0 GOOS=linux go build \
