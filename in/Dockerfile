@@ -1,5 +1,5 @@
-# Étape 1 : Compilation du binaire
-FROM golang:1.22-alpine AS builder
+# Étape 1 : Compilation du binaire avec Go 1.25
+FROM golang:1.25-alpine AS builder
 
 WORKDIR /app
 
@@ -7,7 +7,7 @@ WORKDIR /app
 COPY go.mod go.sum* ./
 COPY . .
 
-# Résolution et téléchargement automatique des dépendances manquantes (Prometheus)
+# Résolution et téléchargement des dépendances
 RUN go get github.com/prometheus/client_golang/prometheus/promhttp && go mod tidy
 
 # Compilation du binaire statique ciblant le point d'entrée cmd/server
@@ -20,7 +20,7 @@ FROM gcr.io/distroless/static-debian12:nonroot
 
 WORKDIR /
 
-# Copie du binaire compilé depuis l'étape précédente
+# Copie du binaire compilé
 COPY --from=builder /app/github-search-api /github-search-api
 
 # Exposition du port HTTP
@@ -28,7 +28,6 @@ EXPOSE 8080
 
 ENV PORT=8080
 
-# Utilisation de l'utilisateur non-root par défaut
 USER nonroot:nonroot
 
 ENTRYPOINT ["/github-search-api"]
