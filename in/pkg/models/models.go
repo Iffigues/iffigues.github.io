@@ -29,6 +29,7 @@ type GitHubRepo struct {
 	CreatedAt       time.Time `json:"created_at"`
 	UpdatedAt       time.Time `json:"updated_at"`
 	PushedAt        time.Time `json:"pushed_at"`
+	Location        string    `json:"location"`
 }
 
 type Owner struct {

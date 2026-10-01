@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sizeInput = document.getElementById('size-input');
     const followersInput = document.getElementById('followers-input');
     const createdDateInput = document.getElementById('created-date-input');
+    const locationInput = document.getElementById('location-input');      
 
     // Signatures / Empreintes
     const techSignatureInput = document.getElementById('tech-signature-input');
@@ -304,6 +305,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const createdDate = createdDateInput.value.trim();
         if (createdDate) finalQueryParts.push(`created:${createdDate}`);
+
+        const location = locationInput.value.trim();
+        if (location) finalQueryParts.push(`location:${location}`);
 
         const forksCount = forksCountInput.value.trim();
         if (forksCount) finalQueryParts.push(`forks:${forksCount}`);

@@ -98,6 +98,11 @@ custom_og:
                     <input type="text" id="org-input" placeholder="ex: github">
                 </div>
 
+                <div class="filter-group">
+                    <label for="org-input">Location (loc:)</label>
+                    <input type="text" id="location-input" placeholder="ex: dallas">
+                </div>
+
                 <!-- PROPRIÉTÉS DU DÉPÔT -->
                 <div class="filter-group">
                     <label for="license-select">Licence (license:)</label>

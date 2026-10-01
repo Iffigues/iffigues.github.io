@@ -120,6 +120,9 @@ func (s *Service) ExecuteSearch(r *http.Request, cacheKey string) ([]byte, error
 	if archived := strings.TrimSpace(queryParams.Get("archived")); archived != "" {
 		qParts = append(qParts, fmt.Sprintf("archived:%s", archived))
 	}
+	if location := strings.TrimSpace(queryParams.Get("location")); location != "" {
+		qParts = append(qParts, fmt.Sprintf("location:%s", location))
+	}
 
 	// 8. Métriques numériques (taille, followers, forks)
 	if size := strings.TrimSpace(queryParams.Get("size")); size != "" {
