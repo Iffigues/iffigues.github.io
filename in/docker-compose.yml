@@ -34,7 +34,6 @@ services:
     ports:
       - "127.0.0.1:9090:9090"
     volumes:
-      # Chemin mis à jour vers ton fichier dans metrics/
       - ./metrics/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
     command:
