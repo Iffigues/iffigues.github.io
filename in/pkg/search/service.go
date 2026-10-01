@@ -251,13 +251,31 @@ func (s *Service) ExecuteSearch(r *http.Request, cacheKey string) ([]byte, error
 		slog.Int("items_in_page", len(ghResp.Items)),
 	)
 
+	// 1. Déduction des URLs github.io
 	urlsToTest := make([]string, len(ghResp.Items))
 	for i, item := range ghResp.Items {
 		urlsToTest[i] = fmt.Sprintf("https://%s.github.io/%s/", item.Owner.Login, item.Name)
 	}
 
+	// 2. Test concurrent de la disponibilité des sites
 	validURLs := s.filterLiveURLs(r.Context(), urlsToTest)
 
+	// 3. Indexation des URLs valides pour un filtrage O(1)
+	validMap := make(map[string]bool, len(validURLs))
+	for _, u := range validURLs {
+		validMap[u] = true
+	}
+
+	// 4. Filtrage strict : conservation uniquement des dépôts avec un github.io actif
+	var filteredItems []models.GitHubRepo
+	for _, item := range ghResp.Items {
+		targetURL := fmt.Sprintf("https://%s.github.io/%s/", item.Owner.Login, item.Name)
+		if validMap[targetURL] {
+			filteredItems = append(filteredItems, item)
+		}
+	}
+
+	// 5. Calcul de la pagination
 	totalCount := ghResp.TotalCount
 	if totalCount > 1000 {
 		totalCount = 1000
@@ -278,15 +296,16 @@ func (s *Service) ExecuteSearch(r *http.Request, cacheKey string) ([]byte, error
 		prevPage = &p
 	}
 
+	// 6. Envoi de filteredItems au lieu de la liste brute
 	responsePayload := models.APIResponse{
-		TotalResults: ghResp.TotalCount,
+		TotalResults: len(filteredItems),
 		TotalPages:   totalPages,
 		CurrentPage:  page,
 		PerPage:      perPage,
 		NextPage:     nextPage,
 		PrevPage:     prevPage,
 		PagesURLs:    validURLs,
-		Items:        ghResp.Items,
+		Items:        filteredItems,
 	}
 
 	responseData, err := json.Marshal(responsePayload)
