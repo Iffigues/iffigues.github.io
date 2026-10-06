@@ -399,3 +399,18 @@ button.btn-primary:disabled {
   }
 
 }
+
+/* Style par défaut des liens dans la liste des résultats */
+#results .result-item a {
+    color: #0969da;            /* Bleu style GitHub par défaut */
+    text-decoration: none;
+}
+
+#results .result-item a:hover {
+    text-decoration: underline;
+}
+
+/* Style des liens DÉJÀ VISITÉS / OUVERTS */
+#results .result-item a:visited {
+    color: #8250df;            /* Violet style GitHub (ou choisis ta propre couleur) */
+}
