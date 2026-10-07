@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusDiv = document.getElementById('status');
     const resultsUl = document.getElementById('results');
 
+    // Formulaire de saut de page
+    const jumpForm = document.getElementById('jump-form');
+
     // Toggle Filtres
     const toggleFiltersBtn = document.getElementById('toggle-filters-btn');
     const collapsibleFilters = document.getElementById('collapsible-filters');
@@ -273,13 +276,26 @@ document.addEventListener('DOMContentLoaded', () => {
         orderSelect.disabled = (sortSelect.value === '');
     });
 
-    // Soumission de la recherche
+    // Soumission de la recherche principale
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         currentQuery = input.value.trim();
         currentPage = 1;
         fetchResults(currentQuery, 1);
     });
+
+    // Soumission du saut de page (JUMP FORM)
+    if (jumpForm) {
+        jumpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const pageInput = document.getElementById('page-input');
+            const pageNumber = parseInt(pageInput.value, 10);
+
+            if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= maxPages) {
+                fetchResults(currentQuery, pageNumber);
+            }
+        });
+    }
 
     async function fetchResults(query, page) {
         setLoading(true);
