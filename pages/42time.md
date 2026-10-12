@@ -5,7 +5,7 @@ custom_css:
   - /assets/css/42.css
   - /assets/css/42time.css
 custom_js:
-  - /assets/js/42time.js
+  - /assets/js/42/42time.js
 ---
 
 <div class="page-42-wrapper">

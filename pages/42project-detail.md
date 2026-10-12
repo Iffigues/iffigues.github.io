@@ -5,7 +5,7 @@ custom_css:
   - /assets/css/42.css
   - /assets/css/42profile.css
 custom_js:
-  - /assets/js/42project-detail.js
+  - /assets/js/42/42project-detail.js
 ---
 
 <div class="page-42-wrapper">

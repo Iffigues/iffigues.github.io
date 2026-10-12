@@ -6,7 +6,7 @@ description: "Outil en ligne pour rechercher et explorer les sites web, blogs et
 custom_css:
   - /assets/css/github-search.css
 custom_js:
-  - /assets/js/github-search.js
+  - /assets/js//github-search/main.js
 
 custom_meta:
   - name: "keywords"

@@ -5,8 +5,8 @@ custom_css:
   - /assets/css/42.css
   - /assets/css/42profile.css
 custom_js:
-  - /assets/js/badge.js
-  - /assets/js/42profile.js
+  - /assets/js/42/badge.js
+  - /assets/js/42/42profile.js
 ---
 
 <div class="page-42-wrapper">

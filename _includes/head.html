@@ -43,11 +43,15 @@
   </script>
 
   <!-- Scripts spécifiques à la page (custom_js local ou CDN) -->
-  {% if page.custom_js %}
-    {% for script in page.custom_js %}
-      <script defer src="{% if script contains '://' %}{{ script }}{% else %}{{ script | relative_url }}{% endif %}"></script>
-    {% endfor %}
-  {% endif %}
+{% if page.custom_js %}
+  {% for js in page.custom_js %}
+    {% if js contains 'github-search' %}
+      <script type="module" src="{{ js | relative_url }}"></script>
+    {% else %}
+      <script src="{{ js | relative_url }}"></script>
+    {% endif %}
+  {% endfor %}
+{% endif %}
 
   <!-- Google Analytics (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XFQBS31SJC"></script>

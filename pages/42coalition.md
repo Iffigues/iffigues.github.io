@@ -5,7 +5,7 @@ custom_css:
   - /assets/css/42.css
   - /assets/css/42coalition.css
 custom_js:
-  - /assets/js/42coalition.js
+  - /assets/js/42/42coalition.js
 ---
 
 <div class="page-42-wrapper">
