@@ -1,0 +1,37 @@
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #fff;
+    font-family: system-ui, -apple-system, sans-serif;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-3px);
+    border-color: #00babc;
+}
+
+.project-code {
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: #00babc;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.project-title {
+    font-size: 1rem;
+    font-weight: 600;
+}
