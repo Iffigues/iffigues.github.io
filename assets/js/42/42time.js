@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Chargement des données JSON depuis le fichier du site
-  fetch('/assets/data/user_data.json')
+  fetch('/assets/data/42/user_data.json')
     .then(response => response.json())
     .then(data => {
       if (data && data.locations) {
