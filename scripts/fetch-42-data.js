@@ -3,11 +3,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const CLIENT_ID = process.env.FT_CLIENT_ID;
-const CLIENT_SECRET = process.env.FT_CLIENT_SECRET;
 const USER_LOGIN = process.env.FT_USER_LOGIN || 'bordenoy';
+const TOKEN = process.env.FT_TOKEN;
 
-// User-Agent personnalisé pour éviter les blocages de sécurité/Cloudflare
+// User-Agent personnalisé pour les requêtes API v2
 const DEFAULT_HEADERS = {
     'User-Agent': 'Mozilla/5.0 (compatible; GitHubActions-42DataFetcher/1.0)'
 };
@@ -50,31 +49,6 @@ function stripFetchedAt(value) {
 
 function stableStringify(value) {
     return `${JSON.stringify(sortKeys(value), null, 2).replace(/\r\n/g, '\n')}\n`;
-}
-
-async function getAccessToken() {
-    const params = new URLSearchParams();
-    params.append('grant_type', 'client_credentials');
-    params.append('client_id', CLIENT_ID.trim());
-    params.append('client_secret', CLIENT_SECRET.trim());
-
-    const response = await fetch('https://api.intra.42.fr/oauth/token', {
-        method: 'POST',
-        headers: {
-            ...DEFAULT_HEADERS,
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Accept': 'application/json'
-        },
-        body: params
-    });
-
-    if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Échec OAuth2 : ${response.statusText} (${response.status}) - ${errorText}`);
-    }
-
-    const data = await response.json();
-    return data.access_token;
 }
 
 // Support des endpoints utilisateur ET des URL complètes avec filtres
@@ -224,48 +198,47 @@ async function processAchievements(userProfile, token) {
 
 async function main() {
     try {
-        if (!CLIENT_ID || !CLIENT_SECRET) {
-            throw new Error('Variables FT_CLIENT_ID ou FT_CLIENT_SECRET manquantes.');
+        if (!TOKEN) {
+            throw new Error('Variable d\'environnement FT_TOKEN manquante.');
         }
 
-        console.log('🔑 Génération du token OAuth2...');
-        const token = await getAccessToken();
+        console.log('🔑 Utilisation du token OAuth2 récupéré via GitHub Actions.');
 
         console.log(`📡 [1/7] Profil utilisateur (${USER_LOGIN})...`);
-        const userProfile = await fetchUserProfile(token);
+        const userProfile = await fetchUserProfile(TOKEN);
 
         // Téléchargement et mise à jour des chemins d'images des achievements
-        await processAchievements(userProfile, token);
+        await processAchievements(userProfile, TOKEN);
 
         console.log(`⏱️ [2/7] Historique logtime (locations)...`);
-        const locations = await fetchAllPages('locations', token);
+        const locations = await fetchAllPages('locations', TOKEN);
 
         console.log(`📝 [3/7] Évaluations (scale_teams)...`);
-        const scaleTeams = await fetchAllPages('scale_teams', token);
+        const scaleTeams = await fetchAllPages('scale_teams', TOKEN);
 
         console.log(`📅 [4/7] Événements (events_users)...`);
-        const eventsUsers = await fetchAllPages('events_users', token);
+        const eventsUsers = await fetchAllPages('events_users', TOKEN);
 
         console.log(`🛡️ [5/7] Coalitions...`);
-        const coalitionsUsers = await fetchAllPages('coalitions_users', token);
-        const coalitions = await fetchAllPages('coalitions', token);
+        const coalitionsUsers = await fetchAllPages('coalitions_users', TOKEN);
+        const coalitions = await fetchAllPages('coalitions', TOKEN);
 
         console.log(`🤝 [6/7] Partenariats (partnerships_users)...`);
         let partnerships = [];
         try {
             const partnershipsUrl = `https://api.intra.42.fr/v2/partnerships_users?filter[user_id]=${userProfile.id}`;
-            partnerships = await fetchAllPages(partnershipsUrl, token);
+            partnerships = await fetchAllPages(partnershipsUrl, TOKEN);
         } catch (e) {
             console.warn(`⚠️ Impossible de récupérer les partenariats :`, e.message);
         }
 
         console.log(`🚀 [7/7] Projets & Récupération des descriptions (/v2/projects/:id)...`);
-        const projectsUsers = await fetchAllPages('projects_users', token);
+        const projectsUsers = await fetchAllPages('projects_users', TOKEN);
 
         const uniqueProjectIds = [...new Set(projectsUsers.map(p => p.project?.id).filter(Boolean))];
         console.log(`📖 Inspection de ${uniqueProjectIds.length} projets uniques sur l'API...`);
         
-        const descriptionsMap = await fetchProjectDescriptions(uniqueProjectIds, token);
+        const descriptionsMap = await fetchProjectDescriptions(uniqueProjectIds, TOKEN);
 
         const enrichedProjects = projectsUsers.map(p => {
             const pId = p.project?.id;
