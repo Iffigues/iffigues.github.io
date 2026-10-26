@@ -7,6 +7,11 @@ const CLIENT_ID = process.env.FT_CLIENT_ID;
 const CLIENT_SECRET = process.env.FT_CLIENT_SECRET;
 const USER_LOGIN = process.env.FT_USER_LOGIN || 'bordenoy';
 
+// User-Agent personnalisé pour éviter les blocages de sécurité/Cloudflare
+const DEFAULT_HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (compatible; GitHubActions-42DataFetcher/1.0)'
+};
+
 // Pause pour respecter le rate-limit de l'API 42 (2 requêtes/sec)
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -65,7 +70,7 @@ async function getAccessToken() {
 
     if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(`Échec OAuth2 : ${response.statusText} (${response.status}) - Détails: ${errorText}`);
+        throw new Error(`Échec OAuth2 : ${response.statusText} (${response.status}) - ${errorText}`);
     }
 
     const data = await response.json();
@@ -90,7 +95,10 @@ async function fetchAllPages(endpointOrUrl, token) {
         }
 
         const response = await fetch(url, {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: {
+                ...DEFAULT_HEADERS,
+                Authorization: `Bearer ${token}`
+            }
         });
 
         if (response.status === 429) {
@@ -127,7 +135,10 @@ async function fetchProjectDescriptions(projectIds, token) {
 
         try {
             const response = await fetch(url, {
-                headers: { Authorization: `Bearer ${token}` }
+                headers: {
+                    ...DEFAULT_HEADERS,
+                    Authorization: `Bearer ${token}`
+                }
             });
 
             if (response.status === 429) {
@@ -159,7 +170,10 @@ async function fetchProjectDescriptions(projectIds, token) {
 
 async function fetchUserProfile(token) {
     const response = await fetch(`https://api.intra.42.fr/v2/users/${USER_LOGIN}`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: {
+            ...DEFAULT_HEADERS,
+            Authorization: `Bearer ${token}`
+        }
     });
 
     if (!response.ok) throw new Error(`Échec de récupération du profil : ${response.statusText}`);
@@ -187,7 +201,10 @@ async function processAchievements(userProfile, token) {
 
         try {
             const response = await fetch(url, {
-                headers: { Authorization: `Bearer ${token}` }
+                headers: {
+                    ...DEFAULT_HEADERS,
+                    Authorization: `Bearer ${token}`
+                }
             });
 
             if (response.ok) {
