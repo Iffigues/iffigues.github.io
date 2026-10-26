@@ -20,18 +20,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     function getBadgeImageUrl(imagePath) {
         if (!imagePath) return '';
 
+        // Si le script Node.js a déjà stocké le chemin en local
+        if (imagePath.startsWith('assets/') || imagePath.startsWith('/assets/')) {
+            const cleanBase = (window.siteBaseUrl || '').replace(/\/$/, '');
+            const prefix = imagePath.startsWith('/') ? '' : '/';
+            return `${cleanBase}${prefix}${imagePath}`;
+        }
+
         if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
-            return imagePath.replace('https://cdn.intra.42.fr/uploads/', 'https://cdn.intra.42.fr/');
+            return imagePath;
         }
 
         let cleanPath = imagePath.startsWith('/') ? imagePath : '/' + imagePath;
-        if (cleanPath.startsWith('/uploads/')) {
-            cleanPath = cleanPath.replace('/uploads/', '/');
-        }
-
         return `${CDN_42_URL}${cleanPath}`;
     }
-
     try {
         const response = await fetch(jsonPath);
         if (!response.ok) {
