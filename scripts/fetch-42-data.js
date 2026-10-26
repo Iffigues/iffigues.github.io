@@ -160,6 +160,45 @@ async function fetchUserProfile(token) {
     return await response.json();
 }
 
+// Téléchargement local des images d'achievements
+async function processAchievements(userProfile, token) {
+    if (!userProfile.achievements || !Array.isArray(userProfile.achievements)) return;
+
+    const achievementsDir = path.join(process.cwd(), 'assets/images/42/achievements');
+    fs.mkdirSync(achievementsDir, { recursive: true });
+
+    console.log(`🏆 Téléchargement des images d'achievements (${userProfile.achievements.length})...`);
+
+    for (const achievement of userProfile.achievements) {
+        if (!achievement.image) continue;
+
+        const imgPath = achievement.image;
+        const filename = path.basename(imgPath);
+        const localFilePath = path.join(achievementsDir, filename);
+        const relativeJsonPath = `assets/images/42/achievements/${filename}`;
+
+        const url = imgPath.startsWith('http') ? imgPath : `https://api.intra.42.fr${imgPath}`;
+
+        try {
+            const response = await fetch(url, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            if (response.ok) {
+                const buffer = Buffer.from(await response.arrayBuffer());
+                fs.writeFileSync(localFilePath, buffer);
+                achievement.image = relativeJsonPath;
+            } else {
+                console.warn(`⚠️ Échec téléchargement image achievement ${filename}: ${response.statusText}`);
+            }
+        } catch (e) {
+            console.warn(`⚠️ Erreur téléchargement image achievement ${filename}:`, e.message);
+        }
+
+        await sleep(100);
+    }
+}
+
 async function main() {
     try {
         if (!CLIENT_ID || !CLIENT_SECRET) {
@@ -171,6 +210,9 @@ async function main() {
 
         console.log(`📡 [1/7] Profil utilisateur (${USER_LOGIN})...`);
         const userProfile = await fetchUserProfile(token);
+
+        // Téléchargement et mise à jour des chemins d'images des achievements
+        await processAchievements(userProfile, token);
 
         console.log(`⏱️ [2/7] Historique logtime (locations)...`);
         const locations = await fetchAllPages('locations', token);
