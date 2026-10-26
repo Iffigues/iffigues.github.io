@@ -48,18 +48,24 @@ function stableStringify(value) {
 }
 
 async function getAccessToken() {
+    const params = new URLSearchParams();
+    params.append('grant_type', 'client_credentials');
+    params.append('client_id', CLIENT_ID.trim());
+    params.append('client_secret', CLIENT_SECRET.trim());
+
     const response = await fetch('https://api.intra.42.fr/oauth/token', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-            grant_type: 'client_credentials',
-            client_id: CLIENT_ID,
-            client_secret: CLIENT_SECRET
-        })
+        headers: {
+            ...DEFAULT_HEADERS,
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+        },
+        body: params
     });
 
     if (!response.ok) {
-        throw new Error(`Échec OAuth2 : ${response.statusText}`);
+        const errorText = await response.text();
+        throw new Error(`Échec OAuth2 : ${response.statusText} (${response.status}) - Détails: ${errorText}`);
     }
 
     const data = await response.json();
