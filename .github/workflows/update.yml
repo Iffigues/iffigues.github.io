@@ -2,8 +2,6 @@ name: Fetch 42 User Data
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * *'
 
 jobs:
   fetch:
