@@ -2,6 +2,8 @@ name: Fetch 42 User Data
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # Exécution quotidienne automatique (optionnel)
 
 jobs:
   fetch:
@@ -24,10 +26,12 @@ jobs:
             -d "client_id=${{ secrets.FT_CLIENT_ID }}" \
             -d "client_secret=${{ secrets.FT_CLIENT_SECRET }}")
           
-          TOKEN=$(echo "$RESPONSE" | jq -r '.access_token')
+          echo "Réponse brute : $RESPONSE"
           
-          if [ "$TOKEN" == "null" ] \vert{}\vert{} [ -z "$TOKEN" ]; then
-            echo "❌ Erreur récupération token: $RESPONSE"
+          TOKEN=$(echo "$RESPONSE" | jq -r '.access_token // empty')
+          
+          if [ -z "$TOKEN" ] || [ "$TOKEN" == "null" ]; then
+            echo "❌ Erreur récupération token. Réponse de l'API : $RESPONSE"
             exit 1
           fi
           
@@ -38,3 +42,9 @@ jobs:
           FT_TOKEN: ${{ steps.get_token.outputs.token }}
           FT_USER_LOGIN: bordenoy
         run: node scripts/fetch-42-data.js
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(42): update user_data.json and achievement images"
+          file_pattern: assets/data/42/user_data.json assets/images/42/achievements/*
